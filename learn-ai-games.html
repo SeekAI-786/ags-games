@@ -49,7 +49,7 @@ h1,h2,h3,.disp{font-family:'Space Grotesk',system-ui,sans-serif;}
 .tile .ic{width:56px;height:56px; flex:none;}
 .tile h3{margin:0 0 6px; font-size:1.5rem;}
 .tile p{margin:0; color:var(--muted); font-size:1.02rem; line-height:1.5;}
-.credit{position:fixed; right:16px; bottom:calc(14px + env(safe-area-inset-bottom,0px)); display:flex; align-items:center; gap:8px; font-size:.72rem; color:var(--muted); z-index:5; opacity:.85;}
+.credit{position:fixed; left:0; right:0; bottom:0; display:flex; align-items:center; justify-content:center; gap:8px; padding:10px 20px calc(10px + env(safe-area-inset-bottom,0px)); font-size:.72rem; color:var(--muted); z-index:5; opacity:.85; pointer-events:none;}
 .credit .logo{width:30px;height:auto;flex:none;display:block;}
 
 /* Shared chrome */
@@ -165,7 +165,7 @@ label.fl{display:block; font-size:.9rem; color:var(--muted); margin:14px 0 6px;}
 
 <section id="gate" class="screen">
   <div class="wrap">
-    <div class="topbar"><button class="back" onclick="go('landing')">← Home</button></div>
+    <div class="topbar"><button class="back" onclick="go('landing')">← Main menu</button></div>
     <div class="gatecard" id="gateCard"></div>
   </div>
 </section>
@@ -173,7 +173,7 @@ label.fl{display:block; font-size:.9rem; color:var(--muted); margin:14px 0 6px;}
 <section id="supervised" class="screen" style="--c:var(--sup)">
   <div class="wrap">
     <div class="topbar">
-      <button class="back" onclick="go('landing')">← Home</button>
+      <button class="back" onclick="go('landing')">← Main menu</button>
       <div><h2 class="gtitle">Guess Who<small>Supervised Learning</small></h2></div>
       <span class="pill">2 players</span>
     </div>
@@ -189,7 +189,7 @@ label.fl{display:block; font-size:.9rem; color:var(--muted); margin:14px 0 6px;}
 <section id="unsupervised" class="screen" style="--c:var(--uns)">
   <div class="wrap">
     <div class="topbar">
-      <button class="back" onclick="go('landing')">← Home</button>
+      <button class="back" onclick="go('landing')">← Main menu</button>
       <div><h2 class="gtitle">Sort the Crowd<small>Unsupervised Learning</small></h2></div>
       <span class="timerpill" id="unsTimer">2:00</span>
     </div>
@@ -218,7 +218,7 @@ label.fl{display:block; font-size:.9rem; color:var(--muted); margin:14px 0 6px;}
 <section id="reinforcement" class="screen" style="--c:var(--rl)">
   <div class="wrap">
     <div class="topbar">
-      <button class="back" onclick="go('landing')">← Home</button>
+      <button class="back" onclick="go('landing')">← Main menu</button>
       <div><h2 class="gtitle">Maze Runner<small>Reinforcement Learning</small></h2></div>
       <span class="timerpill" id="rlTimer">1:30</span>
     </div>
