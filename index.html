@@ -12,7 +12,7 @@
     main { width: min(960px, 100%); margin: 0 auto; padding: 12vh 24px 64px; }
     h1 { max-width: 720px; margin: 12px 0 18px; font: 700 clamp(2.8rem, 8vw, 6rem)/.95 Georgia, serif; }
     .intro { max-width: 620px; color: var(--muted); font-size: 1.15rem; }
-    .games { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 48px; }
+    .games { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 48px; }
     a { color: inherit; text-decoration: none; }
     .game { display: block; min-height: 210px; padding: 26px; border: 1px solid #3a4655; border-top: 6px solid var(--accent); border-radius: 18px; background: color-mix(in srgb, var(--panel) 92%, transparent); transition: transform .18s ease, border-color .18s ease; }
     .game:hover, .game:focus-visible { transform: translateY(-5px); border-color: var(--accent); outline: none; }
@@ -39,6 +39,11 @@
         <h2>The Clue Line</h2>
         <p>Follow clues, solve missions, and sharpen your reasoning through a playful detective adventure.</p>
         <span class="launch">Play The Clue Line &rarr;</span>
+      </a>
+      <a class="game" style="--accent: var(--pink)" href="math-science-lab.html">
+        <h2>Math &amp; Science Lab</h2>
+        <p>Pick a lab station, solve six quick challenges in two minutes, and earn a lab report. Made for grades 2 to 6.</p>
+        <span class="launch">Play Math &amp; Science Lab &rarr;</span>
       </a>
     </section>
   </main>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Math &amp; Science Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EAF1FF;--dot:rgba(31,29,43,.09);--card:#fff;--soft:#F4F6FB;--text:#1F1D2B;--muted:#5E5B72;--line:#1F1D2B;--sun:#FFC93C;--main:#2F6BFF;--math:#2F6BFF;--sci:#1E9E5A;--ok:#1E9E5A;--bad:#E23B4A;--okbg:#DDF6E8;--badbg:#FDE2E5}
+*,*::before,*::after{box-sizing:border-box;margin:0}
+html{font-size:18px;height:100%}
+[hidden]{display:none!important}
+body{min-height:100%;background:var(--bg) radial-gradient(var(--dot) 1.6px,transparent 2px) 0 0/22px 22px;color:var(--text);font-family:"Nunito",system-ui,sans-serif;font-weight:700;-webkit-tap-highlight-color:transparent}
+body[data-tier="expert"]{--bg:#070B1F;--card:#10183A;--soft:#18224D;--text:#E6F4FF;--muted:#9AAFDA;--line:#5EE6FF;--sun:#FFE14D;--main:#FF4FD8;--math:#5EA0FF;--sci:#3EE0A0;--okbg:#0F3B33;--badbg:#431530;--dot:rgba(255,255,255,.06)}
+body[data-tier="expert"] h1,body[data-tier="expert"] h2{font-family:"Chakra Petch","Fredoka",sans-serif}
+button,input{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:4px solid var(--sun);outline-offset:3px}
+.f{font-family:"Fredoka","Trebuchet MS",sans-serif}
+.screen{display:none;max-width:1100px;margin:0 auto;padding:18px 20px 92px}
+.screen.on{display:block}
+.chunky{background:var(--card);border:3.5px solid var(--line);border-radius:18px;box-shadow:5px 5px 0 var(--line)}
+.btn{min-height:48px;border:3.5px solid var(--line);border-radius:999px;box-shadow:4px 4px 0 var(--line);padding:.55rem 1.4rem;font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.1rem;background:var(--card)}
+.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--line)}
+.btn.primary{background:var(--main);color:#fff}.btn.sun{background:var(--sun);color:#1F1D2B}.btn.big{font-size:1.35rem;padding:.7rem 2.2rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.nav-button{min-height:48px;background:var(--card);border:3.5px solid var(--line);border-radius:12px;box-shadow:3px 3px 0 var(--line);padding:.55rem 1rem;font-size:1rem;text-decoration:none;display:inline-flex;align-items:center;color:var(--text)}
+.nav-button:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line)}
+h1{font-family:"Fredoka",sans-serif;font-weight:700;font-size:2.6rem;line-height:1.05}
+h2{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.6rem}
+.muted{color:var(--muted)}
+.brand-credit{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;align-items:center;justify-content:center;gap:9px;padding:10px 20px calc(10px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:.82rem;text-align:center;pointer-events:none}
+.brand-credit img{width:34px;height:34px;object-fit:contain;border-radius:7px}.brand-credit strong{color:var(--text);font-weight:800}
+/* welcome */
+.wel{max-width:640px;margin:0 auto}
+.brandmark{display:flex;align-items:center;gap:14px;margin:14px 0 8px}.brandmark .logo{font-size:3.2rem}
+.wel .sub{margin:6px 0 18px}
+.nameRow{display:flex;gap:10px;flex-wrap:wrap}.nameRow input{flex:1;min-width:200px;min-height:52px;padding:.5rem 1rem;border:3.5px solid var(--line);border-radius:14px;background:var(--card);font-size:1.15rem}
+.steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}
+.steps3>div{padding:12px 8px;text-align:center;font-size:.85rem;line-height:1.25}.steps3 b{display:block;font-size:1.6rem}
+.ages{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0}
+.age{min-height:130px;padding:16px;text-align:left;border:3.5px solid var(--line);border-radius:18px;box-shadow:5px 5px 0 var(--line);background:var(--okbg)}
+.age+.age{background:#E7E1FF;color:#1F1D2B}.age .big{font-size:2.2rem;display:block}.age b{font-family:"Fredoka";font-size:1.5rem;display:block}.age span.s{font-size:.9rem;opacity:.8}
+body[data-tier="expert"] .age{color:#1F1D2B}
+.age:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--line)}
+/* topbar */
+.topbar{display:flex;align-items:center;gap:10px;padding:8px 12px;margin-bottom:14px;flex-wrap:wrap}
+.topbar .who{font-family:"Fredoka";font-size:1.1rem}.topbar .sp{flex:1}
+.chip{display:inline-block;padding:2px 10px;border:2.5px solid var(--line);border-radius:999px;font-size:.78rem;font-family:"Fredoka";background:var(--sun);color:#1F1D2B}
+.chip.g{background:var(--okbg);color:var(--text)}
+/* board */
+.sec{margin:18px 0 8px;display:flex;align-items:center;gap:10px}.sec h2{font-size:1.4rem}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.tile{position:relative;min-height:150px;padding:14px 12px;text-align:center;border:3.5px solid var(--line);border-radius:18px;background:var(--card);box-shadow:5px 5px 0 var(--line);border-top:10px solid var(--tc)}
+.tile .ti{font-size:2.8rem;display:block}.tile .tt{font-family:"Fredoka";font-size:1.2rem;display:block;margin:4px 0}.tile .td{font-size:.8rem;color:var(--muted);font-weight:700;display:block}
+.tile:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--line)}
+/* brief */
+.brief{max-width:560px;margin:10px auto;padding:22px;text-align:center}
+.brief .bi{font-size:4rem}.brief h1{font-size:2.1rem;margin:6px 0}.brief .goal{font-size:1.2rem;margin:8px 0 14px}
+.brief .acts{display:flex;flex-direction:column;gap:12px;align-items:center;margin-top:14px}
+.fine{font-size:.9rem;color:var(--muted)}
+/* play */
+.playbar{position:sticky;top:8px;z-index:8;display:flex;align-items:center;gap:10px;padding:8px 12px;margin-bottom:14px;background:var(--card);border:3.5px solid var(--line);border-radius:16px;box-shadow:4px 4px 0 var(--line)}
+.playbar .pt{font-family:"Fredoka";font-size:1.05rem;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.timer{font-family:"Fredoka";font-size:1.25rem;padding:4px 12px;border:3px solid var(--line);border-radius:999px;background:var(--soft)}
+.timer.low{background:var(--bad);color:#fff}
+.dots{display:flex;gap:6px}.dots i{width:16px;height:16px;border-radius:50%;border:3px solid var(--line);background:var(--card)}
+.dots i.now{background:var(--sun)}.dots i.ok{background:var(--ok)}.dots i.no{background:var(--bad)}
+.q{padding:18px}
+.qp{display:flex;gap:12px;align-items:flex-start;font-size:1.3rem;line-height:1.35;border-left:6px solid var(--main);padding-left:12px;margin-bottom:12px}
+.qp .say{margin-left:auto;flex:none;width:48px;height:48px;border-radius:50%;border:3px solid var(--line);background:var(--soft);font-size:1.2rem}
+.vis{display:block;margin:6px auto 12px;max-width:100%;width:320px;height:auto}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.opt{min-height:56px;padding:10px 14px;border:3.5px solid var(--line);border-radius:14px;background:var(--soft);box-shadow:3px 3px 0 var(--line);font-size:1.1rem;font-family:"Fredoka"}
+.opt.sel{background:var(--sun);color:#1F1D2B;transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line)}
+.num{max-width:320px;margin:0 auto}.num .disp{min-height:60px;padding:8px 14px;text-align:right;font-family:"Fredoka";font-size:2rem;border:3.5px solid var(--line);border-radius:14px;background:var(--soft);margin-bottom:10px}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.pad button{min-height:56px;border:3.5px solid var(--line);border-radius:14px;background:var(--card);font-family:"Fredoka";font-size:1.4rem;box-shadow:3px 3px 0 var(--line)}
+.ord{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:8px 0}.ord .opt{position:relative}
+.ord .opt .bd{position:absolute;top:-10px;left:-10px;width:28px;height:28px;border-radius:50%;background:var(--main);color:#fff;border:3px solid var(--line);font-size:.85rem;display:grid;place-items:center}
+.sortrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 0;border-bottom:2px dashed var(--muted)}.sortrow .nm{flex:1;min-width:130px;font-size:1.15rem}
+.sortrow .opt{min-height:48px;padding:6px 12px;font-size:1rem}
+.slide{max-width:420px;margin:0 auto}.slide input[type=range]{width:100%;height:48px;accent-color:var(--main)}
+.actbar{position:sticky;bottom:58px;z-index:7;display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;padding:10px;margin-top:16px;background:color-mix(in srgb,var(--card) 94%,transparent);border:3.5px solid var(--line);border-radius:18px;box-shadow:4px 4px 0 var(--line)}
+.actbar.static{position:static}
+.fb{padding:16px;margin-top:14px;border:3.5px solid var(--line);border-radius:16px}
+.fb.ok{background:var(--okbg)}.fb.no{background:var(--badbg)}.fb h3{font-family:"Fredoka";font-size:1.5rem}.fb p{margin-top:4px;font-size:1.1rem}
+/* report */
+.rep{max-width:620px;margin:14px auto;padding:22px;text-align:center}
+.rep .sc{font-family:"Fredoka";font-size:4.4rem;line-height:1;color:var(--main)}
+.stars{font-size:2.4rem;letter-spacing:4px}
+.rows{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0;text-align:left;font-size:1rem}.rows div{padding:8px 10px;background:var(--soft);border:2.5px solid var(--line);border-radius:12px}
+.ai{margin:14px 0;padding:14px;text-align:left;background:var(--soft);border:3.5px dashed var(--line);border-radius:16px}.ai b{font-family:"Fredoka";display:block;margin-bottom:4px}
+/* overlay */
+.over{position:fixed;inset:0;z-index:30;background:rgba(10,9,20,.6);display:none;align-items:center;justify-content:center;padding:16px}.over.on{display:flex}
+.over .box{max-width:460px;width:100%;max-height:86vh;overflow:auto;padding:18px}
+.lbrow{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:2px dashed var(--muted);font-size:.95rem}.lbrow b{flex:1}
+@media (max-width:640px){h1{font-size:2rem}.ages{grid-template-columns:1fr}.rows{grid-template-columns:1fr}.steps3{gap:6px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<!-- WELCOME -->
+<section class="screen on" id="sWelcome">
+  <a class="nav-button" href="index.html" id="allGames"></a>
+  <div class="wel">
+    <div class="brandmark"><span class="logo">🔬</span><h1 id="wTitle"></h1></div>
+    <p class="sub muted" id="wSub"></p>
+    <div id="wStep1">
+      <label class="f" for="nameIn" id="wAsk"></label>
+      <div class="nameRow" style="margin-top:8px"><input id="nameIn" maxlength="18" autocomplete="off"><button class="btn primary" id="nameNext"></button></div>
+      <div class="steps3" id="steps3"></div>
+      <button class="nav-button" id="lbBtn"></button>
+    </div>
+    <div id="wStep2" hidden>
+      <h2 id="hiName"></h2><p class="muted" id="pickLevel"></p>
+      <div class="ages"><button class="age" data-lv="junior"><span class="big">⭐</span><b id="ageA"></b><span class="s" id="ageAs"></span></button>
+      <button class="age" data-lv="expert"><span class="big">🚀</span><b id="ageB"></b><span class="s" id="ageBs"></span></button></div>
+      <button class="nav-button" id="nameBack"></button>
+    </div>
+  </div>
+</section>
+
+<!-- BOARD -->
+<section class="screen" id="sBoard">
+  <div class="topbar chunky"><button class="nav-button" id="homeBtn"></button><span class="who" id="tbName"></span><span class="chip g" id="tbLevel"></span><span class="sp"></span><button class="nav-button" id="changeAge"></button></div>
+  <h1 id="bTitle"></h1><p class="muted" id="bSub"></p>
+  <div class="sec"><h2 id="secMath"></h2></div><div class="tiles" id="tilesMath"></div>
+  <div class="sec"><h2 id="secSci"></h2></div><div class="tiles" id="tilesSci"></div>
+</section>
+
+<!-- BRIEFING -->
+<section class="screen" id="sBrief">
+  <div class="brief chunky">
+    <div class="bi" id="brIcon"></div><span class="chip" id="brSub"></span>
+    <h1 id="brTitle"></h1><p class="goal" id="brGoal"></p>
+    <div class="acts"><button class="btn" id="brRead"></button><p class="fine" id="brFine"></p><button class="btn primary big" id="goBtn"></button><button class="nav-button" id="brBack"></button></div>
+  </div>
+</section>
+
+<!-- PLAY -->
+<section class="screen" id="sPlay">
+  <div class="playbar"><button class="nav-button" id="quitBtn"></button><span class="pt" id="pTitle"></span><div class="dots" id="dots"></div><span class="timer" id="timer"></span></div>
+  <div class="q chunky" id="qBox"></div>
+  <div id="fbBox"></div>
+  <div class="actbar" id="actbar"><button class="btn primary big" id="checkBtn" disabled></button><button class="btn sun big" id="nextBtn" hidden></button></div>
+</section>
+
+<!-- REPORT -->
+<section class="screen" id="sReport">
+  <div class="rep chunky" id="repBox"></div>
+</section>
+
+<div class="over" id="lbOver" role="dialog" aria-modal="true"><div class="box chunky"><h2 id="lbTitle"></h2><div id="lb"></div><div style="text-align:center;margin-top:12px"><button class="btn" id="lbClose"></button></div></div></div>
+
+<footer class="brand-credit"><img src="AGS%20Logo.png" alt="Align Global Solution logo"><span>Developed by <strong>Align Global Solution</strong></span></footer>
+
+<script>
+"use strict";
+/* ============ ALL TEXT LIVES HERE (translate this object for Urdu) ============ */
+const STR={
+ ui:{allGames:"← All games",title:"Math & Science Lab",sub:"Pick a station. Solve 6 quick challenges. Become a Lab Hero!",ask:"What is your name?",ph:"Type your name",next:"Next →",
+  s1:["🧪","Pick a station"],s2:["🎯","Solve 6 challenges"],s3:["🏅","Get your lab report"],top:"🏆 Top scores",topTitle:"🏆 Top scores",none:"No scores yet. Be the first!",close:"Close",
+  hi:"Hi, {n}! 👋",pickLevel:"Pick your level.",gA:"Grades 2–3",gAs:"Friendly challenges",gB:"Grades 4–6",gBs:"Super lab challenges",changeName:"← Change my name",
+  home:"← Main menu",changeLevel:"Change level",boardTitle:"Pick a station",boardSub:"Tap one station. You play one round of 6 challenges.",math:"🔢 Math stations",sci:"🔬 Science stations",
+  read:"🔊 Read to me",time:"You have 2 minutes. The clock stops while you read the answer.",go:"GO! ▶",back:"← Pick another station",quit:"✕ Quit",
+  check:"✔ Check",nxt:"Next →",seeReport:"📋 See my lab report",undo:"↺ Start again",ok:["Yes! Well done! 🎉","Great work! ⭐","Correct! 🌟","Super! 🚀"],no:["Not quite.","Good try!","Oops, not this time."],whyL:"Why:",theAns:"Answer:",
+  timeUp:"⏰ Time's up!",report:"Lab Report",outOf:"points out of 100",rScore:"Challenges right",rTime:"Time",rSkill:"Skill practised",rStation:"Station",aiT:"🤖 Where is AI?",nextPlayer:"Next player ▶",
+  rank:["Lab Helper","Junior Scientist","Lab Hero"],reading:"Tap 🔊 to hear this",unans:"not answered",sec:"s",
+  sortLbl:"Tap a box for each one",slide:"Slide to set the length",ariaPad:"Number pad"},
+ st:{
+  pat:{n:"Number Patterns",i:"🔢",s:"math",goal:"Find what comes next in each pattern.",skill:"Spotting patterns",ai:"AI is a pattern-finder! Your phone's keyboard guesses your next word by spotting patterns in what people type."},
+  fra:{n:"Fraction Fun & Shapes",i:"🍕",s:"math",goal:"Slice, share and measure shapes.",skill:"Fractions and shapes",ai:"Cameras use AI to recognise shapes like faces, circles and number-plates in pictures."},
+  mea:{n:"Measure It",i:"📏",s:"math",goal:"Measure length, time and money.",skill:"Measuring",ai:"Smart robots measure distance with sensors so they do not bump into things, just like measuring with a ruler."},
+  dat:{n:"Data Detective",i:"📊",s:"math",goal:"Read charts and find the answers.",skill:"Reading data",ai:"AI learns from huge tables of data. Reading charts is the first step to understanding it."},
+  sta:{n:"States of Matter",i:"🧊",s:"sci",goal:"Solids, liquids, gases and the water cycle.",skill:"States of matter",ai:"Weather apps use AI to learn from past clouds and rain to guess tomorrow's weather."},
+  liv:{n:"Living Things",i:"🌱",s:"sci",goal:"Plants, animals and how they live.",skill:"Living things",ai:"AI apps can look at a photo of a leaf or a bird and tell you its name by comparing it with thousands of pictures."},
+  frc:{n:"Forces & Machines",i:"⚙️",s:"sci",goal:"Pushes, pulls and simple machines.",skill:"Forces and machines",ai:"Robots use motors, levers and wheels, and AI tells them which way to push or pull."},
+  ear:{n:"Earth & Space",i:"🌍",s:"sci",goal:"Planets, day, night and seasons.",skill:"Earth and space",ai:"Scientists use AI to scan millions of star pictures and find new planets that people missed."}},
+ fruit:{mango:"Mango",banana:"Banana",apple:"Apple",grape:"Grapes",melon:"Watermelon",orange:"Orange"},
+ q:{
+  skip:"What number comes next? Count in {d}s.",skipW:"The pattern goes up by {d} each time, so {l} + {d} = {a}.",
+  shape:"What comes next in the pattern?",shapeW:"The pattern repeats: {p}. So next is {a}.",
+  down:"Count down. What number comes next?",downW:"It goes down by {d} each time, so {l} − {d} = {a}.",
+  up:"What number comes next?",upW:"It goes up by {d} each time. {l} + {d} = {a}.",
+  dbl:"Each number doubles. What comes next?",dblW:"Each number is double the one before. {l} × 2 = {a}.",
+  sqr:"What number comes next?",sqrW:"These are square numbers: 1×1, 2×2, 3×3 … The next is {k} × {k} = {a}.",
+  alt:"The pattern goes up and down. What comes next?",altW:"It goes +{p}, then −{m}, again and again. {l} + {p} = {a}.",
+  save:"Bilal saves Rs {d} every day. How many rupees will he have after {n} days?",saveW:"{n} days × Rs {d} = Rs {a}.",
+  pie:"What fraction of the pizza is eaten (orange)?",pieW:"The pizza has {d} equal slices and {n} are orange, so the fraction is {n}/{d}.",
+  sides:"How many sides does this shape have?",sidesW:"Count the straight edges. It has {n} sides.",
+  share:"Share {n} mangoes equally between {k} friends. How many mangoes does each friend get?",shareW:"{n} ÷ {k} = {a}.",
+  cmp:"Which fraction is bigger?",cmpW:"{b} is bigger. {x} is about {px}% and {y} is about {py}%.",
+  part:"{n}/{d} of {t} mangoes. How many mangoes is that?",partW:"{t} ÷ {d} = {u}, then {u} × {n} = {a}.",
+  eqv:"{n}/{d} = ?/{e}. What is the missing number?",eqvW:"{d} × {k} = {e}, so multiply the top by {k} too: {n} × {k} = {a}.",
+  per:"A cricket pitch model is {w} cm long and {h} cm wide. What is the perimeter (all the way around) in cm?",perW:"Perimeter = {w} + {h} + {w} + {h} = {a} cm.",
+  ruler:"Slide the pencil so it is {n} cm long.",rulerW:"Line up the tip of the pencil with the {n} on the ruler.",
+  clock:"What time does the clock show?",clockW:"The short hand shows the hour and the long hand shows the minutes. It is {a}.",
+  cash:"You have {a} ten-rupee notes and {b} five-rupee coins. How many rupees do you have?",cashW:"{a} × 10 = {x}, {b} × 5 = {y}, and {x} + {y} = {z}.",
+  cmpLen:"Which is {k}?",
+  conv:"{x} {u1} = ? {u2}",convW:"1 {u1} = {f} {u2}. {x} × {f} = {a}.",
+  price:"Mangoes cost Rs {p} for 1 kg. How much do {k} kg cost?",priceW:"{k} × Rs {p} = Rs {a}.",
+  elapsed:"The cricket match starts at {s} and lasts {h} hours {m} minutes. When does it end?",elapsedW:"{s} + {h} h = {mid}, then + {m} min = {a}.",
+  dMost:"Which fruit got the most votes?",dMostW:"The tallest bar is the winner: {a}.",
+  dHow:"How many children chose {f}?",dHowW:"Look at the {f} bar. It reaches {a}.",
+  tally:"Count the tally marks. How many are there?",tallyW:"Each group of 5 is a bundle. {g} bundles × 5 + {r} more = {a}.",
+  dDiff:"How many more children chose {f1} than {f2}?",dDiffW:"{x} − {y} = {a}.",
+  dSum:"How many children voted in all?",dSumW:"Add all the bars: {s} = {a}.",
+  mean:"The cricket scores of 4 friends are {l}. What is the average (mean)?",meanW:"Add them: {s}. Then divide by 4: {s2} ÷ 4 = {a}.",
+  sortGen:"Sort each one. Tap the right box.",sortW:"Check: {w}",
+  orderGen:"Tap in the right order.",
+  slideLbl:"{v} cm"},
+ /* choice banks: q = question, a = right answer, w = wrong answers, y = why */
+ bank:{
+  sta:{junior:[
+   {q:"Ice melts in the sun. What does it turn into?",a:"Water",w:["Stone","Smoke","Sand"],y:"Heat makes ice melt, so a solid turns into a liquid."},
+   {q:"Water is boiling in a pot. What is the white cloud above it?",a:"Steam (a gas)",w:["Ice","Sand","Milk"],y:"Boiling water turns into steam, which is a gas."},
+   {q:"Which one keeps its own shape?",a:"A stone",w:["Juice","Air","Rain"],y:"Solids keep their shape. Liquids flow and gases spread out."},
+   {q:"Your wet clothes dry on the rope. Where did the water go?",a:"Into the air",w:["Into the sun","Into the rope","Nowhere"],y:"The water turned into vapour and went into the air."},
+   {q:"Water in the freezer turns into…",a:"Ice",w:["Steam","Oil","Smoke"],y:"Cold makes water freeze. A liquid becomes a solid."},
+   {q:"What can you pour?",a:"Milk",w:["A brick","A pencil","A book"],y:"Liquids can be poured because they flow."}],
+   expert:[
+   {q:"Water drops form on the outside of a cold glass. This is called…",a:"Condensation",w:["Evaporation","Melting","Freezing"],y:"Water vapour in the air cools on the cold glass and turns back into liquid."},
+   {q:"Puddles disappear after the rain on a hot day. This is…",a:"Evaporation",w:["Condensation","Freezing","Melting"],y:"Heat turns the liquid water into vapour that rises into the air."},
+   {q:"In which state are the particles packed tightly and cannot move around?",a:"Solid",w:["Liquid","Gas","Plasma"],y:"Solid particles are tightly packed and only wiggle in place."},
+   {q:"What happens to the particles when you heat a liquid?",a:"They move faster",w:["They stop moving","They disappear","They get smaller"],y:"Heat gives particles energy, so they move faster."},
+   {q:"At what temperature does pure water boil?",a:"100 °C",w:["0 °C","50 °C","10 °C"],y:"Water boils at 100 °C and freezes at 0 °C."},
+   {q:"Which change is melting?",a:"Solid → liquid",w:["Liquid → gas","Gas → liquid","Liquid → solid"],y:"Melting turns a solid into a liquid, like ice into water."}]},
+  liv:{junior:[
+   {q:"What do plants need to grow?",a:"Sunlight, water and air",w:["Only sugar","Only toys","Only sand"],y:"Plants make their food using sunlight, water and air."},
+   {q:"Which animal gives us milk?",a:"Buffalo",w:["Crow","Snake","Parrot"],y:"Buffaloes and cows are mammals. They feed their babies with milk."},
+   {q:"Which part of a plant takes water from the soil?",a:"Roots",w:["Flower","Leaf","Fruit"],y:"Roots drink water from the soil."},
+   {q:"Which one can fly?",a:"Parrot",w:["Goat","Fish","Buffalo"],y:"Birds have wings and feathers, so many can fly."},
+   {q:"Where does a fish live?",a:"In water",w:["In a nest","In a tree","In the sand"],y:"Fish breathe underwater using gills."}],
+   expert:[
+   {q:"A goat eats only plants. What is it called?",a:"Herbivore",w:["Carnivore","Omnivore","Producer"],y:"Herbivores eat plants. Carnivores eat meat. Omnivores eat both."},
+   {q:"Which living things make their own food using sunlight?",a:"Plants",w:["Animals","Rocks","Fungus only"],y:"Plants make food by photosynthesis. They are called producers."},
+   {q:"Which gas do plants take in from the air to make food?",a:"Carbon dioxide",w:["Oxygen","Smoke","Helium"],y:"Plants take in carbon dioxide and give out oxygen."},
+   {q:"A tiger eats deer. A tiger is a…",a:"Carnivore",w:["Herbivore","Producer","Plant"],y:"Carnivores eat other animals."},
+   {q:"Which of these is a mammal?",a:"Bat",w:["Eagle","Crocodile","Frog"],y:"A bat has fur and feeds its babies milk, so it is a mammal."}]},
+  frc:{junior:[
+   {q:"What pulls things down to the ground?",a:"Gravity",w:["Wind","Light","Sound"],y:"Gravity is the force that pulls everything towards Earth."},
+   {q:"A ball rolls on grass and stops quickly. Why?",a:"The grass rubs against it",w:["Grass is cold","The ball is tired","It is night"],y:"Rubbing is called friction. It slows things down."},
+   {q:"A magnet will pull which one?",a:"An iron nail",w:["A plastic spoon","A paper cup","A wooden stick"],y:"Magnets pull iron and steel things."},
+   {q:"What is a force?",a:"A push or a pull",w:["A colour","A sound","A smell"],y:"A force is a push or a pull that can move things."},
+   {q:"Which is easier to roll?",a:"A ball",w:["A box","A book","A brick"],y:"Round things roll easily. Flat sides do not."}],
+   expert:[
+   {q:"Which of these is a lever?",a:"A seesaw",w:["A pencil","A cup","A cloud"],y:"A lever is a bar that turns around a point called the pivot. A seesaw is a lever."},
+   {q:"What does a ramp help you do?",a:"Lift something with less effort",w:["Make it heavier","Make it colder","Make it louder"],y:"A ramp spreads the work over a longer distance, so it feels easier."},
+   {q:"Oiling a bicycle chain makes it run smoothly. It reduces…",a:"Friction",w:["Gravity","Magnetism","Light"],y:"Oil lets surfaces slide past each other with less rubbing."},
+   {q:"Which machine is a wheel and axle?",a:"A car wheel",w:["A knife","A nail","A scissors blade"],y:"A wheel turns around an axle in the middle."},
+   {q:"When you push a wall, the wall does not move. Forces can also…",a:"Change shape or stop things",w:["Make things disappear","Make things hot only","Do nothing"],y:"Forces can start, stop, speed up, slow down or change the shape of an object."}]},
+  ear:{junior:[
+   {q:"What gives us light in the daytime?",a:"The Sun",w:["The Moon","A star at night","A cloud"],y:"The Sun is a star. Its light and heat reach us in the day."},
+   {q:"Why do we have day and night?",a:"The Earth spins",w:["The Sun turns off","The Moon is big","Clouds cover us"],y:"The Earth spins like a top. Our side faces the Sun in the day and away at night."},
+   {q:"What shines at night and changes its shape each month?",a:"The Moon",w:["The Sun","A cloud","A rainbow"],y:"We see different parts of the lit Moon as it travels around Earth."},
+   {q:"What planet do we live on?",a:"Earth",w:["Mars","Venus","Jupiter"],y:"We live on Earth, the third planet from the Sun."},
+   {q:"Which one is a star?",a:"The Sun",w:["The Moon","Earth","Mars"],y:"A star makes its own light. The Sun is our nearest star."}],
+   expert:[
+   {q:"Why do we have seasons?",a:"Earth is tilted as it goes round the Sun",w:["The Sun moves closer and further","The Moon blocks light","Clouds change"],y:"The tilt means different parts of Earth get more direct sunlight at different times of the year."},
+   {q:"How long does Earth take to go once around the Sun?",a:"About 365 days",w:["24 hours","30 days","7 days"],y:"One trip around the Sun is one year."},
+   {q:"Which is the biggest planet?",a:"Jupiter",w:["Earth","Mars","Venus"],y:"Jupiter is so big that more than 1,000 Earths could fit inside."},
+   {q:"What is the layer of Earth we live on called?",a:"Crust",w:["Core","Mantle","Cloud"],y:"The crust is the thin outer layer of rock."},
+   {q:"Why does the Moon seem to change shape?",a:"We see different parts of its lit side",w:["Earth's shadow covers it all month","It really shrinks","Clouds cut it"],y:"The Moon travels around Earth, so we see more or less of its sunny side."}]}},
+ sort:{
+  sta:{bins:["Solid","Liquid","Gas"],items:[["Stone",0],["Brick",0],["Ice",0],["Juice",1],["Milk",1],["Oil",1],["Air",2],["Steam",2],["Oxygen",2]],w:"solids keep their shape, liquids flow, gases spread out."},
+  liv:{bins:["Living","Not living"],items:[["Cat",0],["Mango tree",0],["Fish",0],["Grass",0],["Stone",1],["Bicycle",1],["Chair",1],["Water",1]],w:"living things grow, need food and can have babies."},
+  frc:{bins:["Push","Pull"],items:[["Kick a ball",0],["Close a door",0],["Pedal a bike",0],["Open a drawer",1],["Fly a kite",1],["Pull a rope",1],["Pick up a bag",1]],w:"a push moves things away from you, a pull brings them closer."},
+  ear:{bins:["Star","Planet"],items:[["Sun",0],["Polaris",0],["Earth",1],["Mars",1],["Venus",1],["Jupiter",1]],w:"stars make their own light, planets do not."},
+  livB:{bins:["Plant","Animal"],items:[["Rose",0],["Wheat",0],["Mango tree",0],["Sparrow",1],["Goat",1],["Frog",1],["Buffalo",1]],w:"plants make food from sunlight, animals eat food."}},
+ order:{
+  sta:{junior:{p:"Water cycle. Put the steps in order.",it:["The Sun heats the water","Steam rises up","Clouds form","Rain falls"]},expert:{p:"Order the water cycle.",it:["Evaporation","Condensation","Precipitation (rain)","Collection in rivers and seas"]}},
+  liv:{junior:{p:"Put the life of a plant in order.",it:["Seed","Sprout","Small plant","Flower"]},expert:{p:"Order this food chain. Start with the producer.",it:["Wheat","Mouse","Snake","Eagle"]}},
+  frc:{junior:{p:"Put these in order from the easiest to push to the hardest to push.",it:["Football","Cricket bat","Bicycle","Car"]},expert:{p:"Order these from least friction to most friction.",it:["Ice","Polished floor","Grass","Rough sand"]}},
+  ear:{junior:{p:"Put the planets in order starting nearest to the Sun.",it:["Mercury","Venus","Earth","Mars"]},expert:{p:"Put the planets in order, nearest to the Sun first.",it:["Mercury","Earth","Mars","Jupiter","Saturn"]}},
+  pat:{junior:{p:"Put the numbers in order from smallest to biggest.",it:["12","25","38","49"]},expert:{p:"Put the numbers in order from smallest to biggest.",it:["0.5","3/4","1","1.25"]}}},
+ cmpLen:[
+  {k:"longer",a:"Cricket bat",b:"Pencil",y:"A cricket bat is about 85 cm. A pencil is about 18 cm."},
+  {k:"longer",a:"Door",b:"Chair",y:"A door is about 2 m tall. A chair is about 1 m."},
+  {k:"heavier",a:"Watermelon",b:"Apple",y:"A watermelon weighs a few kilograms. An apple weighs about 150 grams."},
+  {k:"heavier",a:"School bag",b:"Pencil",y:"A bag has many books, so it weighs more."},
+  {k:"holds more water",a:"Bucket",b:"Cup",y:"A bucket holds many litres. A cup holds a small amount."},
+  {k:"taller",a:"Tree",b:"Bicycle",y:"Trees are taller than bicycles."}],
+ lb:{key:"mslab-leaderboard"}
+};
+const T=(s,v)=>s.replace(/\{(\w+)\}/g,(_,k)=>v[k]);
+/* ============ helpers ============ */
+const $=id=>document.getElementById(id);
+const R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,P=a=>a[R(0,a.length-1)];
+const SH=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(p=>p[1]);
+function mk(tag,attrs,...kids){const e=document.createElement(tag);for(const k in(attrs||{})){if(k==="class")e.className=attrs[k];else if(k.startsWith("on"))e[k]=attrs[k];else e.setAttribute(k,attrs[k])}kids.flat().forEach(c=>e.append(c))
+  return e}
+const NS=STR.ui,ST=STR.st;
+function numOpts(a){const s=new Set([a]);const d=[1,2,3,5,10,-1,-2,-3,-5,-10];let g=0;while(s.size<4&&g++<60){const v=a+P(d)*(a>40?P([1,2]):1);if(v>=0&&v!==a)s.add(v)}return SH([...s].map(String))}
+const lastOf=a=>a[a.length-1];
+/* ---- svg pictures ---- */
+const SV=(w,h,body)=>`<svg class="vis" viewBox="0 0 ${w} ${h}" role="img" aria-hidden="true">${body}</svg>`;
+function pie(n,d){const r=70,c=80;let s="";for(let i=0;i<d;i++){const a0=i/d*6.2832-1.5708,a1=(i+1)/d*6.2832-1.5708;s+=`<path d="M${c} ${c}L${c+r*Math.cos(a0)} ${c+r*Math.sin(a0)}A${r} ${r} 0 0 1 ${c+r*Math.cos(a1)} ${c+r*Math.sin(a1)}Z" fill="${i<n?"#FF8A3C":"#FFF3D6"}" stroke="#1F1D2B" stroke-width="3"/>`}return SV(160,160,s)}
+function fbar(n,d,label){let s=`<text x="0" y="14" font-size="14" font-weight="800" fill="currentColor">${label}</text>`;const w=300/d;for(let i=0;i<d;i++)s+=`<rect x="${i*w}" y="22" width="${w}" height="34" fill="${i<n?"#FF8A3C":"#FFF3D6"}" stroke="#1F1D2B" stroke-width="3"/>`;return `<g transform="translate(10,${0})">${s}</g>`}
+function fcmp(a,b,c,d){return SV(320,150,`<g>${fbar(a,b,"A").replace('translate(10,0)','translate(10,4)')}</g><g transform="translate(0,70)">${fbar(c,d,"B")}</g>`)}
+function clock(h,m){let s=`<circle cx="80" cy="80" r="72" fill="#fff" stroke="#1F1D2B" stroke-width="4"/>`;for(let i=1;i<=12;i++){const a=i*Math.PI/6;s+=`<text x="${80+56*Math.sin(a)}" y="${85-56*Math.cos(a)}" text-anchor="middle" font-size="15" font-weight="800" fill="#1F1D2B">${i}</text>`}
+ const hand=(deg,L,w)=>`<line x1="80" y1="80" x2="${80+L*Math.sin(deg*Math.PI/180)}" y2="${80-L*Math.cos(deg*Math.PI/180)}" stroke="#1F1D2B" stroke-width="${w}" stroke-linecap="round"/>`;
+ return SV(160,160,s+hand(((h%12)+m/60)*30,34,6)+hand(m*6,52,3)+`<circle cx="80" cy="80" r="5" fill="#E23B4A"/>`)}
+function poly(n){let p=[];for(let i=0;i<n;i++){const a=i/n*6.2832-1.5708;p.push((80+66*Math.cos(a)).toFixed(1)+","+(84+66*Math.sin(a)).toFixed(1))}return SV(160,160,`<polygon points="${p.join(" ")}" fill="#FFC93C" stroke="#1F1D2B" stroke-width="4" stroke-linejoin="round"/>`)}
+function rect(w,h){const W=200,H=Math.max(50,Math.min(110,200*h/w));return SV(260,150,`<rect x="30" y="20" width="${W}" height="${H}" fill="#9AD9FF" stroke="#1F1D2B" stroke-width="4"/><text x="130" y="14" text-anchor="middle" font-size="14" font-weight="800" fill="currentColor">${w} cm</text><text x="236" y="${20+H/2}" font-size="14" font-weight="800" fill="currentColor">${h} cm</text>`)}
+const EM={mango:"🥭",banana:"🍌",apple:"🍎",grape:"🍇",melon:"🍉",orange:"🍊"},COL=["#FF8A3C","#FFC93C","#E23B4A","#8B5CF6","#1E9E5A","#FF8A3C"];
+function barchart(keys,vals,nums){const M=Math.max(10,Math.ceil(Math.max(...vals)/2)*2),H=130,x0=34;let s="";for(let v=0;v<=M;v+=2){const y=150-v*H/M;s+=`<line x1="${x0}" x2="310" y1="${y}" y2="${y}" stroke="#9aa" stroke-width="1" stroke-dasharray="3 3"/><text x="28" y="${y+4}" text-anchor="end" font-size="11" font-weight="800" fill="currentColor">${v}</text>`}
+ keys.forEach((k,i)=>{const bh=vals[i]*H/M,x=x0+14+i*66;s+=`<rect x="${x}" y="${150-bh}" width="48" height="${bh}" fill="${COL[i]}" stroke="#1F1D2B" stroke-width="3"/>${nums?`<text x="${x+24}" y="${144-bh}" text-anchor="middle" font-size="14" font-weight="900" fill="currentColor">${vals[i]}</text>`:""}<text x="${x+24}" y="176" text-anchor="middle" font-size="20">${EM[k]}</text>`});return SV(320,184,s)}
+function tallyPic(n){let s="",x=10,y=8;const g=Math.floor(n/5),r=n%5,grp=(c,full)=>{for(let i=0;i<c;i++)s+=`<line x1="${x+i*9}" x2="${x+i*9}" y1="${y}" y2="${y+40}" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>`;if(full)s+=`<line x1="${x-4}" x2="${x+40}" y1="${y+36}" y2="${y+6}" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>`;x+=58;if(x>260){x=10;y+=52}};
+ for(let i=0;i<g;i++)grp(4,true);if(r)grp(r,false);return SV(300,Math.max(60,y+50),s)}
+/* ============ question generators: each returns a question object ============ */
+function qChoice(prompt,ans,wrong,why,vis){return {type:"choice",prompt,vis:vis||"",opts:SH([String(ans),...new Set(wrong.map(String).filter(w=>w!==String(ans))) ].slice(0,4)),ans:String(ans),why}}
+function qNum(prompt,ans,why,vis){return {type:"number",prompt,vis:vis||"",ans:Number(ans),why}}
+function bankQ(st,tier){return ()=>{const b=P(STR.bank[st][tier].filter(x=>!(bankQ.used||[]).includes(x.q)));(bankQ.used=bankQ.used||[]).push(b.q);return qChoice(b.q,b.a,b.w,b.y)}}
+function sortQ(key){return ()=>{const S=STR.sort[key];const it=SH(S.items).slice(0,Math.min(6,S.items.length));return {type:"sort",prompt:STR.q.sortGen,bins:S.bins,items:it.map(x=>({t:x[0],b:x[1]})),why:T(STR.q.sortW,{w:S.w})}}}
+function orderQ(st,tier){return ()=>{const o=STR.order[st][tier];return {type:"order",prompt:o.p,items:o.it,why:o.it.join(" → ")}}}
+const G={};
+G.pat={
+ junior:[
+  ()=>{const d=P([2,5,10]),s=d*R(1,4),seq=[0,1,2,3].map(i=>s+i*d),a=s+4*d;return qNum(STR.q.skip.replace("{d}",d)+"  "+seq.join(", ")+", ?",a,T(STR.q.skipW,{d,l:lastOf(seq),a}))},
+  ()=>{const A=P(["🔺","🟦","⭐","🍎"]),B=P(["🟢","🍌","🌙","🔶"]);const pat=P([[A,B],[A,A,B]]);const seq=[];for(let i=0;i<pat.length*2+1;i++)seq.push(pat[i%pat.length]);const a=pat[seq.length%pat.length];const wr=[A,B,"🔴","⬛"].filter(x=>x!==a);return qChoice(STR.q.shape+"  "+seq.join(" ")+" ?",a,wr,T(STR.q.shapeW,{p:pat.join(" "),a}))},
+  ()=>{const d=P([2,5]),s=d*R(5,9)+R(0,1)*0,seq=[0,1,2,3].map(i=>s-i*d),a=s-4*d;return qNum(STR.q.down+"  "+seq.join(", ")+", ?",a,T(STR.q.downW,{d,l:lastOf(seq),a}))},
+  ()=>{const d=P([3,4]),s=R(1,10),seq=[0,1,2,3].map(i=>s+i*d),a=s+4*d;return qNum(STR.q.up+"  "+seq.join(", ")+", ?",a,T(STR.q.upW,{d,l:lastOf(seq),a}))},
+  ()=>{const d=P([5,10]),n=R(3,6);return qNum(T(STR.q.save,{d,n}),d*n,T(STR.q.saveW,{d,n,a:d*n}))},
+  orderQ("pat","junior")],
+ expert:[
+  ()=>{const d=P([6,7,9,12]),s=R(3,25),seq=[0,1,2,3].map(i=>s+i*d),a=s+4*d;return qNum(STR.q.up+"  "+seq.join(", ")+", ?",a,T(STR.q.upW,{d,l:lastOf(seq),a}))},
+  ()=>{const s=P([1,2,3,5]),seq=[0,1,2,3].map(i=>s*2**i),a=lastOf(seq)*2;return qNum(STR.q.dbl+"  "+seq.join(", ")+", ?",a,T(STR.q.dblW,{l:lastOf(seq),a}))},
+  ()=>{const k=R(1,4),seq=[0,1,2,3].map(i=>(k+i)**2),a=(k+4)**2;return qNum(STR.q.sqr+"  "+seq.join(", ")+", ?",a,T(STR.q.sqrW,{k:k+4,a}))},
+  ()=>{const p=P([5,6,8]),m=P([2,3]),s=R(1,10),seq=[s,s+p,s+p-m,s+2*p-m,s+2*p-2*m],a=s+3*p-2*m;return qNum(STR.q.alt+"  "+seq.join(", ")+", ?",a,T(STR.q.altW,{p,m,l:lastOf(seq),a}))},
+  ()=>{const d=P([20,25,50]),n=R(4,9);return qNum(T(STR.q.save,{d,n}),d*n,T(STR.q.saveW,{d,n,a:d*n}))},
+  orderQ("pat","expert")]};
+G.fra={
+ junior:[
+  ()=>{const d=P([2,3,4]),n=R(1,d-1),a=n+"/"+d;const wr=[];for(let i=1;i<d;i++)if(i!==n)wr.push(i+"/"+d);wr.push("1/"+(d+1),n+"/"+(d+2));return qChoice(STR.q.pie,a,wr,T(STR.q.pieW,{n,d}),pie(n,d))},
+  ()=>{const n=P([3,4,5,6]);return qChoice(STR.q.sides,String(n),numOpts(n).filter(x=>x!==String(n)),T(STR.q.sidesW,{n}),poly(n))},
+  ()=>{const k=P([2,4]),a=R(2,5),n=a*k;return qNum(T(STR.q.share,{n,k}),a,T(STR.q.shareW,{n,k,a}))},
+  ()=>{const d=P([2,4]),n=R(1,d-1),a=n+"/"+d;return qChoice(STR.q.pie,a,["1/"+(d+1),(d-n)+"/"+(d+1),"2/3"].filter(x=>x!==a),T(STR.q.pieW,{n,d}),pie(n,d))},
+  ()=>{const n=P([3,4,5,6]);return qChoice(STR.q.sides,String(n),numOpts(n).filter(x=>x!==String(n)),T(STR.q.sidesW,{n}),poly(n))},
+  ()=>{const n=P([3,4,5,6]);return qChoice(STR.q.sides,String(n),numOpts(n).filter(x=>x!==String(n)),T(STR.q.sidesW,{n}),poly(n))}],
+ expert:[
+  ()=>{const pairs=[[3,4,2,3],[1,2,3,8],[2,5,1,3],[5,6,3,4],[3,5,1,2],[4,5,7,10]];const [a,b,c,d]=P(pairs);const swap=Math.random()<.5;const [n1,d1,n2,d2]=swap?[c,d,a,b]:[a,b,c,d];const v1=n1/d1,v2=n2/d2;const win=v1>v2?"A":"B";return {type:"choice",prompt:STR.q.cmp,vis:fcmp(n1,d1,n2,d2),opts:[`A: ${n1}/${d1}`,`B: ${n2}/${d2}`],ans:`${win}: ${v1>v2?n1+"/"+d1:n2+"/"+d2}`,why:T(STR.q.cmpW,{b:v1>v2?n1+"/"+d1:n2+"/"+d2,x:n1+"/"+d1,y:n2+"/"+d2,px:Math.round(v1*100),py:Math.round(v2*100)})}},
+  ()=>{const d=P([2,4,5,10]),n=R(1,d-1),u=R(2,6),t=d*u;return qNum(T(STR.q.part,{n,d,t}),n*u,T(STR.q.partW,{t,d,u,n,a:n*u}))},
+  ()=>{const d=P([2,3,4,5]),n=R(1,d-1),k=R(2,5),e=d*k;return qNum(T(STR.q.eqv,{n,d,e}),n*k,T(STR.q.eqvW,{n,d,e,k,a:n*k}))},
+  ()=>{const w=R(6,14),h=R(3,w-1);return qNum(T(STR.q.per,{w,h}),2*(w+h),T(STR.q.perW,{w,h,a:2*(w+h)}),rect(w,h))},
+  ()=>{const n=P([5,6,7,8]);return qChoice(STR.q.sides,String(n),numOpts(n).filter(x=>x!==String(n)),T(STR.q.sidesW,{n}),poly(n))},
+  ()=>{const d=P([2,5,10]),n=R(1,d-1),u=R(2,5);return qNum(T(STR.q.part,{n,d,t:d*u}),n*u,T(STR.q.partW,{t:d*u,d,u,n,a:n*u}))}]};
+function fmtT(h,m){h=((h-1)%12)+1;return h+":"+String(m).padStart(2,"0")}
+G.mea={
+ junior:[
+  ()=>{const n=R(3,12);return {type:"slider",prompt:T(STR.q.ruler,{n}),min:0,max:15,ans:n,why:T(STR.q.rulerW,{n})}},
+  ()=>{const h=R(1,12),m=P([0,30]),a=fmtT(h,m);const wr=new Set();while(wr.size<3){wr.add(fmtT(P([h,h%12+1,R(1,12)]),P([0,30])))}wr.delete(a);const arr=[...wr];while(arr.length<3)arr.push(fmtT(R(1,12),P([0,30])+0)+" ");return qChoice(STR.q.clock,a,arr.map(x=>x.trim()),T(STR.q.clockW,{a}),clock(h,m))},
+  ()=>{const a=R(1,5),b=R(1,4);return qNum(T(STR.q.cash,{a,b}),a*10+b*5,T(STR.q.cashW,{a,b,x:a*10,y:b*5,z:a*10+b*5}))},
+  ()=>{const c=P(STR.cmpLen);return qChoice(T(STR.q.cmpLen,{k:c.k}),c.a,[c.b],c.y)},
+  ()=>{const n=R(3,12);return {type:"slider",prompt:T(STR.q.ruler,{n}),min:0,max:15,ans:n,why:T(STR.q.rulerW,{n})}},
+  ()=>{const h=R(1,12),m=P([0,30]),a=fmtT(h,m);return qChoice(STR.q.clock,a,[fmtT(h%12+1,m),fmtT(h,m?0:30),fmtT((h+10)%12+1,m)].filter(x=>x!==a),T(STR.q.clockW,{a}),clock(h,m))}],
+ expert:[
+  ()=>{const x=P([1.5,2,2.5,3,4]);return qNum(T(STR.q.conv,{x,u1:"m",u2:"cm"}),x*100,T(STR.q.convW,{x,u1:"m",u2:"cm",f:100,a:x*100}))},
+  ()=>{const x=P([1.5,2,2.5,3,4]);return qNum(T(STR.q.conv,{x,u1:"kg",u2:"g"}),x*1000,T(STR.q.convW,{x,u1:"kg",u2:"g",f:1000,a:x*1000}))},
+  ()=>{const p=P([60,80,120,150]),k=R(2,6);return qNum(T(STR.q.price,{p,k}),p*k,T(STR.q.priceW,{p,k,a:p*k}))},
+  ()=>{const sh=R(1,8),sm=P([0,30]),h=R(1,3),m=P([15,30,45]);const tot=sh*60+sm+h*60+m;const eh=Math.floor(tot/60),em=tot%60;const a=fmtT(eh,em);const mid=fmtT(sh+h,sm);const wr=new Set([fmtT(eh,(em+30)%60),fmtT(eh+1,em),fmtT(eh-1<1?12:eh-1,em),fmtT(eh,(em+15)%60)]);wr.delete(a);return qChoice(T(STR.q.elapsed,{s:fmtT(sh,sm),h,m}),a,[...wr],T(STR.q.elapsedW,{s:fmtT(sh,sm),h,m,mid,a}))},
+  ()=>{const x=P([2,3,5,7]);return qNum(T(STR.q.conv,{x,u1:"km",u2:"m"}),x*1000,T(STR.q.convW,{x,u1:"km",u2:"m",f:1000,a:x*1000}))},
+  ()=>{const c=P(STR.cmpLen);return qChoice(T(STR.q.cmpLen,{k:c.k}),c.a,[c.b],c.y)}]};
+function dataSet(n){const keys=SH(Object.keys(STR.fruit)).slice(0,n);let vals;do{vals=keys.map(()=>R(2,13))}while(new Set(vals).size<n);return{keys,vals}}
+G.dat={
+ junior:[
+  ()=>{const {keys,vals}=dataSet(4),i=vals.indexOf(Math.max(...vals)),a=STR.fruit[keys[i]];return qChoice(STR.q.dMost,a,keys.map(k=>STR.fruit[k]),T(STR.q.dMostW,{a}),barchart(keys,vals,true))},
+  ()=>{const {keys,vals}=dataSet(4),i=R(0,3),a=vals[i];return qChoice(T(STR.q.dHow,{f:STR.fruit[keys[i]]}),String(a),numOpts(a).filter(x=>x!==String(a)),T(STR.q.dHowW,{f:STR.fruit[keys[i]],a}),barchart(keys,vals,true))},
+  ()=>{const n=R(3,14);return qNum(STR.q.tally,n,T(STR.q.tallyW,{g:Math.floor(n/5),r:n%5,a:n}),tallyPic(n))},
+  ()=>{const {keys,vals}=dataSet(4),i=vals.indexOf(Math.min(...vals));return qChoice(STR.q.dMost.replace("most","fewest"),STR.fruit[keys[i]],keys.map(k=>STR.fruit[k]),T(STR.q.dMostW,{a:STR.fruit[keys[i]]}).replace("tallest","shortest"),barchart(keys,vals,true))},
+  ()=>{const n=R(6,19);return qNum(STR.q.tally,n,T(STR.q.tallyW,{g:Math.floor(n/5),r:n%5,a:n}),tallyPic(n))},
+  orderQ("pat","junior")],
+ expert:[
+  ()=>{const {keys,vals}=dataSet(4),[i,j]=SH([0,1,2,3]).slice(0,2),hi=Math.max(vals[i],vals[j]),lo=Math.min(vals[i],vals[j]),fh=vals[i]>vals[j]?i:j,fl=vals[i]>vals[j]?j:i;return qNum(T(STR.q.dDiff,{f1:STR.fruit[keys[fh]],f2:STR.fruit[keys[fl]]}),hi-lo,T(STR.q.dDiffW,{x:hi,y:lo,a:hi-lo}),barchart(keys,vals,false))},
+  ()=>{const {keys,vals}=dataSet(4),a=vals.reduce((p,c)=>p+c,0);return qNum(STR.q.dSum,a,T(STR.q.dSumW,{s:vals.join(" + "),a}),barchart(keys,vals,false))},
+  ()=>{const m=R(4,12),nums=SH([m-2,m+2,m-1,m+1]),a=m;return qNum(T(STR.q.mean,{l:nums.join(", ")}),a,T(STR.q.meanW,{s:nums.join(" + "),s2:m*4,a}))},
+  ()=>{const {keys,vals}=dataSet(5),i=R(0,4),a=vals[i];return qNum(T(STR.q.dHow,{f:STR.fruit[keys[i]]}),a,T(STR.q.dHowW,{f:STR.fruit[keys[i]],a}),barchart(keys,vals,false))},
+  ()=>{const {keys,vals}=dataSet(5),a=vals.reduce((p,c)=>p+c,0);return qNum(STR.q.dSum,a,T(STR.q.dSumW,{s:vals.join(" + "),a}),barchart(keys,vals,false))},
+  ()=>{const m=R(5,15),nums=SH([m-3,m+3,m-1,m+1]);return qNum(T(STR.q.mean,{l:nums.join(", ")}),m,T(STR.q.meanW,{s:nums.join(" + "),s2:m*4,a:m}))}]};
+G.sta={junior:[bankQ("sta","junior"),sortQ("sta"),bankQ("sta","junior"),orderQ("sta","junior"),bankQ("sta","junior"),bankQ("sta","junior")],
+ expert:[bankQ("sta","expert"),orderQ("sta","expert"),bankQ("sta","expert"),sortQ("sta"),bankQ("sta","expert"),bankQ("sta","expert")]};
+G.liv={junior:[bankQ("liv","junior"),sortQ("liv"),sortQ("livB"),orderQ("liv","junior"),bankQ("liv","junior"),bankQ("liv","junior")],
+ expert:[bankQ("liv","expert"),orderQ("liv","expert"),bankQ("liv","expert"),sortQ("livB"),bankQ("liv","expert"),bankQ("liv","expert")]};
+function seesaw(){const m1=P([20,30,40,50]),d1=P([2,3,4]);const opts=[];for(const m2 of [10,20,25,30,40,50,60])for(let d2=1;d2<=6;d2++)if(m1*d1===m2*d2&&m2!==m1)opts.push([m2,d2]);if(!opts.length)return seesaw();const [m2,d2]=P(opts);return qNum(`Left: ${m1} kg sits ${d1} m from the middle. Right: ${m2} kg sits ? m from the middle. How many metres balance the seesaw?`,d2,`Balance when weight × distance is the same. ${m1} × ${d1} = ${m1*d1}, and ${m2} × ${d2} = ${m1*d1}.`)}
+G.frc={junior:[bankQ("frc","junior"),sortQ("frc"),bankQ("frc","junior"),orderQ("frc","junior"),bankQ("frc","junior"),bankQ("frc","junior")],
+ expert:[bankQ("frc","expert"),seesaw,orderQ("frc","expert"),bankQ("frc","expert"),seesaw,bankQ("frc","expert")]};
+G.ear={junior:[bankQ("ear","junior"),orderQ("ear","junior"),bankQ("ear","junior"),sortQ("ear"),bankQ("ear","junior"),bankQ("ear","junior")],
+ expert:[bankQ("ear","expert"),orderQ("ear","expert"),bankQ("ear","expert"),()=>{const y=P([2,3,4]);return qNum(`Earth takes 365 days to go round the Sun once. How many days are there in ${y} years (ignore leap years)?`,365*y,`${y} × 365 = ${365*y}.`)},bankQ("ear","expert"),bankQ("ear","expert")]};
+const ROUND=6,LIMIT=120;
+function buildRound(st,tier){bankQ.used=[];const gens=SH(G[st][tier]);const out=[],seen=new Set();for(let i=0;i<ROUND;i++){let q,tries=0;do{q=gens[i%gens.length]();tries++}while(seen.has(q.prompt+(q.opts||[]).join())&&tries<12);seen.add(q.prompt+(q.opts||[]).join());out.push(q)}return out}
+/* ============ app state ============ */
+let S={name:"",level:null},cur=null,Q=[],qi=0,res=[],tStart=0,tInt=null,usedMs=0,pausedAt=0,locked=false,answer=null;
+const tier=()=>S.level||"junior";
+const LV={junior:NS.gA,expert:NS.gB};
+const screens=["sWelcome","sBoard","sBrief","sPlay","sReport"];
+function show(id){screens.forEach(s=>$(s).classList.toggle("on",s===id));window.scrollTo(0,0)}
+function speak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=.9;speechSynthesis.speak(u)}catch(e){}}
+function stopSpeak(){try{speechSynthesis.cancel()}catch(e){}}
+/* ---- static text ---- */
+function paintStatic(){
+ $("allGames").textContent=NS.allGames;$("wTitle").textContent=NS.title;$("wSub").textContent=NS.sub;$("wAsk").textContent=NS.ask;$("nameIn").placeholder=NS.ph;$("nameNext").textContent=NS.next;
+ $("steps3").replaceChildren(...[NS.s1,NS.s2,NS.s3].map(s=>mk("div",{class:"chunky"},mk("b",{},s[0]),s[1])));
+ $("lbBtn").textContent=NS.top;$("pickLevel").textContent=NS.pickLevel;$("ageA").textContent=NS.gA;$("ageAs").textContent=NS.gAs;$("ageB").textContent=NS.gB;$("ageBs").textContent=NS.gBs;$("nameBack").textContent=NS.changeName;
+ $("homeBtn").textContent=NS.home;$("changeAge").textContent=NS.changeLevel;$("bTitle").textContent=NS.boardTitle;$("bSub").textContent=NS.boardSub;$("secMath").textContent=NS.math;$("secSci").textContent=NS.sci;
+ $("brRead").textContent=NS.read;$("brFine").textContent=NS.time;$("goBtn").textContent=NS.go;$("brBack").textContent=NS.back;$("quitBtn").textContent=NS.quit;$("checkBtn").textContent=NS.check;$("nextBtn").textContent=NS.nxt;
+ $("lbTitle").textContent=NS.topTitle;$("lbClose").textContent=NS.close}
+function showStep(n){$("wStep1").hidden=n!==1;$("wStep2").hidden=n!==2}
+$("nameNext").onclick=()=>{const v=$("nameIn").value.trim();if(!v){$("nameIn").focus();return}S.name=v;$("hiName").textContent=T(NS.hi,{n:v});showStep(2)};
+$("nameIn").addEventListener("keydown",e=>{if(e.key==="Enter")$("nameNext").click()});
+$("nameBack").onclick=()=>{showStep(1);$("nameIn").focus()};
+document.querySelectorAll(".age").forEach(b=>b.onclick=()=>{S.level=b.dataset.lv;enterBoard()});
+function goHome(){stopSpeak();stopTimer();delete document.body.dataset.tier;S={name:"",level:null};$("nameIn").value="";showStep(1);closeLB();show("sWelcome");$("nameIn").focus()}
+$("homeBtn").onclick=goHome;
+$("changeAge").onclick=()=>{delete document.body.dataset.tier;$("hiName").textContent=T(NS.hi,{n:S.name});showStep(2);show("sWelcome")};
+function enterBoard(){document.body.dataset.tier=S.level==="expert"?"expert":"";$("tbName").textContent="🧑‍🔬 "+S.name;$("tbLevel").textContent=LV[S.level];paintBoard();show("sBoard")}
+function paintBoard(){for(const [box,sub] of [["tilesMath","math"],["tilesSci","sci"]]){$(box).replaceChildren(...Object.keys(ST).filter(k=>ST[k].s===sub).map(k=>{const t=ST[k];const b=mk("button",{class:"tile","aria-label":t.n},mk("span",{class:"ti"},t.i),mk("span",{class:"tt"},t.n),mk("span",{class:"td"},t.goal));b.style.setProperty("--tc",sub==="math"?"var(--math)":"var(--sci)");b.onclick=()=>openBrief(k);return b}))}}
+function openBrief(k){cur=k;const t=ST[k];$("brIcon").textContent=t.i;$("brSub").textContent=t.s==="math"?NS.math:NS.sci;$("brTitle").textContent=t.n;$("brGoal").textContent=t.goal;show("sBrief")}
+$("brBack").onclick=()=>{stopSpeak();show("sBoard")};
+$("brRead").onclick=()=>speak(ST[cur].n+". "+ST[cur].goal+" "+NS.time);
+$("goBtn").onclick=()=>startRound();
+/* ---- timer (runs only while a question is open) ---- */
+const fmt=s=>Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0");
+const elapsedMs=()=>usedMs+(tStart?Date.now()-tStart:0);
+function paintTimer(){const left=Math.max(0,LIMIT-elapsedMs()/1000);$("timer").textContent="⏱ "+fmt(Math.ceil(left));$("timer").classList.toggle("low",left<=15);if(left<=0)timeUp()}
+function startTimer(){if(tStart)return;tStart=Date.now();clearInterval(tInt);tInt=setInterval(paintTimer,250);paintTimer()}
+function pauseTimer(){if(!tStart)return;usedMs+=Date.now()-tStart;tStart=0;clearInterval(tInt)}
+function stopTimer(){pauseTimer();clearInterval(tInt)}
+/* ---- round ---- */
+function startRound(){timeIsUp=false;stopSpeak();Q=buildRound(cur,tier());qi=0;res=[];usedMs=0;tStart=0;locked=false;$("pTitle").textContent=ST[cur].i+" "+ST[cur].n;show("sPlay");paintTimer();showQ()}
+function paintDots(){$("dots").replaceChildren(...Q.map((_,i)=>mk("i",{class:res[i]===true?"ok":res[i]===false?"no":i===qi?"now":""})))}
+function showQ(){const q=Q[qi];$("actbar").classList.remove("static");answer=null;locked=false;$("fbBox").replaceChildren();$("nextBtn").hidden=true;$("checkBtn").hidden=false;$("checkBtn").disabled=true;paintDots();
+ const box=$("qBox");box.replaceChildren();
+ const say=mk("button",{class:"say","aria-label":NS.read,onclick:()=>speak(q.prompt.replace(/\s+/g," ")+(q.type==="choice"?". "+q.opts.join(". "):""))},"🔊");
+ box.append(mk("div",{class:"qp"},mk("span",{},q.prompt),say));
+ if(q.vis){const d=mk("div");d.innerHTML=q.vis;box.append(d)}
+ RENDER[q.type](q,box);startTimer();paintTimer()}
+function setAns(v,ok){answer=v;$("checkBtn").disabled=!ok}
+const RENDER={
+ choice(q,box){const w=mk("div",{class:"opts"});q.opts.forEach(o=>{const b=mk("button",{class:"opt"},o);b.onclick=()=>{if(locked)return;w.querySelectorAll(".opt").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");setAns(o,true)};w.append(b)});box.append(w)},
+ number(q,box){let v="";const disp=mk("div",{class:"disp","aria-live":"polite"}," ");const upd=()=>{disp.textContent=v||" ";setAns(v===""?null:Number(v),v!=="")};
+  const pad=mk("div",{class:"pad","aria-label":NS.ariaPad});["1","2","3","4","5","6","7","8","9","⌫","0","C"].forEach(k=>{pad.append(mk("button",{type:"button",onclick:()=>{if(locked)return;if(k==="⌫")v=v.slice(0,-1);else if(k==="C")v="";else if(v.length<6)v+=k;upd()}},k))});box.append(mk("div",{class:"num"},disp,pad))},
+ slider(q,box){const vis=mk("div");const draw=v=>{const x=12+v*20;vis.innerHTML=SV(330,90,`<rect x="6" y="46" width="318" height="34" fill="#FFE9A8" stroke="#1F1D2B" stroke-width="3"/>`+Array.from({length:16},(_,i)=>`<line x1="${12+i*20}" x2="${12+i*20}" y1="46" y2="${i%5===0?66:58}" stroke="#1F1D2B" stroke-width="2"/><text x="${12+i*20}" y="78" text-anchor="middle" font-size="10" font-weight="800" fill="#1F1D2B">${i}</text>`).join("")+`<rect x="12" y="12" width="${Math.max(0,v*20)}" height="22" fill="#FFC93C" stroke="#1F1D2B" stroke-width="3"/><polygon points="${x},12 ${x+14},23 ${x},34" fill="#F4C99B" stroke="#1F1D2B" stroke-width="3"/>`)};
+  const lab=mk("p",{class:"f",style:"text-align:center;font-size:1.4rem"},T(STR.q.slideLbl,{v:0}));const inp=mk("input",{type:"range",min:q.min,max:q.max,step:1,value:0,"aria-label":NS.slide});draw(0);
+  inp.oninput=()=>{if(locked)return;const v=+inp.value;draw(v);lab.textContent=T(STR.q.slideLbl,{v});setAns(v,true)};box.append(mk("div",{class:"slide"},vis,lab,inp))},
+ order(q,box){let pick=[];const items=(()=>{let s;do{s=SH(q.items)}while(s.join()===q.items.join()&&q.items.length>1);return s})();const w=mk("div",{class:"ord"});
+  const upd=()=>{w.querySelectorAll(".opt").forEach(b=>{const i=pick.indexOf(b.dataset.t);b.classList.toggle("sel",i>=0);b.querySelector(".bd")?.remove();if(i>=0)b.append(mk("span",{class:"bd"},String(i+1)))});setAns(pick.slice(),pick.length===items.length)};
+  items.forEach(t=>{const b=mk("button",{class:"opt","data-t":t},t);b.onclick=()=>{if(locked)return;const i=pick.indexOf(t);if(i>=0)pick.splice(i,1);else pick.push(t);upd()};w.append(b)});
+  box.append(w,mk("div",{style:"text-align:center"},mk("button",{class:"nav-button",onclick:()=>{if(locked)return;pick=[];upd()}},NS.undo)))},
+ sort(q,box){const pick={};box.append(mk("p",{class:"fine"},NS.sortLbl));q.items.forEach((it,i)=>{const row=mk("div",{class:"sortrow"},mk("span",{class:"nm"},it.t));q.bins.forEach((bn,bi)=>{const b=mk("button",{class:"opt"},bn);b.onclick=()=>{if(locked)return;pick[i]=bi;row.querySelectorAll(".opt").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");setAns({...pick},Object.keys(pick).length===q.items.length)};row.append(b)});box.append(row)})}};
+function isRight(q,a){if(a==null)return false;if(q.type==="choice")return a===q.ans;if(q.type==="number"||q.type==="slider")return Number(a)===Number(q.ans);if(q.type==="order")return a.join("|")===q.items.join("|");if(q.type==="sort")return q.items.every((it,i)=>a[i]===it.b);return false}
+function ansText(q){return q.type==="choice"?q.ans:q.type==="number"||q.type==="slider"?String(q.ans):q.type==="order"?q.items.join(" → "):q.items.map(i=>i.t+" = "+q.bins[i.b]).join(", ")}
+function mark(q,a){document.querySelectorAll("#qBox .opt").forEach(b=>{if(q.type==="choice"){if(b.textContent===q.ans)b.style.background="var(--okbg)";else if(b.classList.contains("sel"))b.style.background="var(--badbg)"}})}
+function submit(auto){const q=Q[qi];if(locked)return;locked=true;pauseTimer();const ok=!auto&&isRight(q,answer);res[qi]=ok;paintDots();mark(q,answer);
+ const fb=mk("div",{class:"fb "+(ok?"ok":"no"),role:"status"},mk("h3",{},ok?P(NS.ok):(auto?NS.timeUp:P(NS.no))),mk("p",{},(ok?"":NS.theAns+" "+ansText(q)+". ")),mk("p",{},mk("b",{},NS.whyL+" "),q.why));
+ $("fbBox").replaceChildren(fb);$("checkBtn").hidden=true;const last=qi===Q.length-1||auto;$("nextBtn").textContent=last?NS.seeReport:NS.nxt;$("nextBtn").hidden=false;$("actbar").classList.add("static");$("nextBtn").focus({preventScroll:true});fb.scrollIntoView({behavior:"smooth",block:"center"})}
+$("checkBtn").onclick=()=>submit(false);
+$("nextBtn").onclick=()=>{stopSpeak();if(qi===Q.length-1||timeIsUp){finishRound()}else{qi++;showQ()}};
+let timeIsUp=false;
+function timeUp(){if(timeIsUp||!$("sPlay").classList.contains("on"))return;timeIsUp=true;if(!locked)submit(true);stopTimer()}
+/* ---- report ---- */
+function lbLoad(){try{return JSON.parse(localStorage.getItem(STR.lb.key)||"[]")}catch(e){return[]}}
+function lbSave(r){try{const l=lbLoad();l.push(r);l.sort((a,b)=>b.score-a.score||a.time-b.time);localStorage.setItem(STR.lb.key,JSON.stringify(l.slice(0,30)))}catch(e){}}
+function finishRound(){stopTimer();const right=res.filter(r=>r===true).length,score=Math.round(right/ROUND*100),secs=Math.min(LIMIT,Math.round(elapsedMs()/1000));const stars=score>=90?3:score>=60?2:score>=30?1:0;const t=ST[cur];
+ lbSave({name:S.name,level:S.level,st:cur,score,time:secs});
+ const dots=Q.map((_,i)=>res[i]===true?"✅":res[i]===false?"❌":"⬜").join(" ");
+ $("repBox").replaceChildren(mk("h1",{},"🔬 "+NS.report),mk("h2",{},S.name),mk("div",{class:"sc"},String(score)),mk("p",{class:"muted"},NS.outOf),mk("div",{class:"stars","aria-label":stars+" stars"},"⭐".repeat(stars)+"☆".repeat(3-stars)),mk("p",{class:"f",style:"font-size:1.3rem"},NS.rank[stars>=3?2:stars>=1?1:0]),
+  mk("div",{class:"rows"},mk("div",{},NS.rStation+": "+t.i+" "+t.n),mk("div",{},NS.rScore+": "+right+"/"+ROUND),mk("div",{},NS.rTime+": "+fmt(secs)),mk("div",{},NS.rSkill+": "+t.skill)),
+  mk("p",{style:"font-size:1.4rem;letter-spacing:2px"},dots),
+  mk("div",{class:"ai"},mk("b",{},NS.aiT),t.ai),mk("button",{class:"btn primary big",onclick:goHome},NS.nextPlayer),
+  mk("div",{style:"margin-top:12px"},mk("button",{class:"nav-button",onclick:()=>{show("sBoard")}},NS.back)));
+ show("sReport");if(score>=60)try{confetti()}catch(e){}}
+function confetti(){const c=["#FF8A3C","#FFC93C","#2F6BFF","#1E9E5A","#E23B4A"];for(let i=0;i<40;i++){const d=mk("i");d.style.cssText=`position:fixed;top:-10px;left:${R(0,100)}vw;width:9px;height:14px;background:${P(c)};z-index:40;pointer-events:none;border-radius:2px`;document.body.append(d);d.animate([{transform:"translateY(0) rotate(0)"},{transform:`translateY(${innerHeight+30}px) rotate(${R(180,720)}deg)`}],{duration:R(1400,2600),easing:"ease-in"}).onfinish=()=>d.remove()}}
+/* ---- leaderboard ---- */
+function paintLB(){const l=lbLoad().slice(0,10);$("lb").replaceChildren(...(l.length?l.map((r,i)=>mk("div",{class:"lbrow"},mk("span",{},(i+1)+"."),mk("b",{},r.name),mk("span",{},(ST[r.st]?.i||"")+" "+(LV[r.level]||"")),mk("span",{},r.score+" · "+fmt(r.time)))):[mk("p",{class:"muted"},NS.none)]))}
+function openLB(){paintLB();$("lbOver").classList.add("on")}function closeLB(){$("lbOver").classList.remove("on")}
+$("lbBtn").onclick=openLB;$("lbClose").onclick=closeLB;
+$("quitBtn").onclick=()=>{stopTimer();stopSpeak();show("sBoard")};
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeLB()});
+paintStatic();showStep(1);
+window.__lab={G,buildRound,STR};
+</script>
+</body>
+</html>
