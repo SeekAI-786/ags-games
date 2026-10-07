@@ -3,8 +3,8 @@
 Three browser games built as lightweight, self-contained HTML apps by Align Global Solution:
 
 - **AI Arcade** (`learn-ai-games.html`): interactive games for learning supervised, unsupervised, and reinforcement learning.
-- **The Clue Line** (`clue-line-app.html`): a puzzle-based detective adventure for grades 2–6. Pick one mission, solve it, use the optional clue call, and get a score.
-- **Math & Science Lab** (`math-science-lab.html`): eight stations (4 math, 4 science) with six quick challenges each, a 2-minute round, a lab report and a "Where is AI?" card. Grades 2–3 and 4–6.
+- **The Clue Line** (`clue-line-app.html`): a puzzle-based detective adventure for ages 5–10 and 10–15. Pick one mission, solve it (tap Hint and answer a quick sum if you get stuck), and get a score.
+- **Math & Science Lab** (`math-science-lab.html`): eight stations (4 math, 4 science) with six quick challenges each, a 2-minute round, a lab report and a "Where is AI?" card. Ages 5–10 and 10–15.
 
 Scores for The Clue Line and the Math & Science Lab are kept in the browser's localStorage on the device (separate leaderboards).
 

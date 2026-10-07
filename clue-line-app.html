@@ -34,7 +34,7 @@ button{cursor:pointer}
 .f{font-family:"Fredoka","Trebuchet MS",sans-serif}
 .screen{display:none;max-width:1240px;margin:0 auto;padding:18px 20px 40px}
 .screen.on{display:block}
-#sWelcome.screen.on{min-height:100svh;padding-bottom:74px}
+
 .chunky{background:var(--card);border:3.5px solid var(--line);border-radius:18px;box-shadow:5px 5px 0 var(--line)}
 .btn{border:3.5px solid var(--line);border-radius:999px;box-shadow:4px 4px 0 var(--line);padding:.6rem 1.4rem;font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.15rem;background:var(--card)}
 .btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--line)}
@@ -49,14 +49,14 @@ button{cursor:pointer}
 .brandmark{display:flex;align-items:center;gap:16px}
 .base-link{display:inline-flex;align-items:center;margin-bottom:18px;padding:12px 18px;border:3.5px solid var(--line);border-radius:12px;background:var(--soft);color:var(--text);font-family:"Fredoka",sans-serif;font-size:1rem;text-decoration:none;box-shadow:3px 3px 0 var(--line)}
 .base-link:hover{background:var(--card)}
-.bigphone{width:92px;height:92px;border-radius:26px;background:var(--phone);border:4px solid var(--line);box-shadow:5px 5px 0 var(--line);display:grid;place-items:center;font-size:48px;transform:rotate(-8deg)}
+.bigphone{width:76px;height:76px;border-radius:22px;background:var(--phone);border:4px solid var(--line);box-shadow:5px 5px 0 var(--line);display:grid;place-items:center;font-size:40px;transform:rotate(-8deg)}
 .title{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(2.6rem,6vw,4.4rem);line-height:.95}
 .lede{font-size:1.3rem;color:var(--muted);margin:16px 0 26px;max-width:36ch}
 .namebox label{display:block;font-size:1.05rem;margin-bottom:8px}
 .namebox input{width:100%;max-width:420px;padding:.8rem 1rem;border:3.5px solid var(--line);border-radius:14px;background:var(--card);font-size:1.3rem;font-weight:800}
 .agepick{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
 .age{padding:26px 22px;text-align:left;display:flex;flex-direction:column;gap:6px}
-.age .ai{font-size:2.4rem}
+.age .ai{font-size:2.2rem;line-height:1}
 .age .an{font-family:"Fredoka",sans-serif;font-weight:700;font-size:2rem}
 .age .as{color:var(--muted);font-size:1rem}
 .age.jr{background:#DDF3E6}.age.ex{background:#E9E0FF}
@@ -79,7 +79,7 @@ button{cursor:pointer}
 .topbar{display:flex;align-items:center;gap:14px;padding:10px 14px;margin-bottom:18px}
 .topbar .who{font-family:"Fredoka";font-size:1.3rem;font-weight:600}
 .pill{padding:.25rem .8rem;border-radius:999px;border:2.5px solid var(--line);font-size:.9rem;background:var(--soft)}
-.pill.jr{background:#2E8B57;color:#fff}.pill.ex{background:#5B21B6;color:#fff}
+.pill.jr{background:#2E8B57;color:#fff}.pill.ex{background:#6D4AE0;color:#fff}
 .scorebox{margin-left:auto;display:flex;align-items:center;gap:8px;font-family:"Fredoka";font-size:1.3rem}
 .scorebox .sv{background:var(--sun);color:#1F1D2B;border:3px solid var(--line);border-radius:12px;padding:.1rem .7rem;min-width:70px;text-align:center}
 
@@ -203,8 +203,8 @@ button{cursor:pointer}
 .cg .cell{width:52px;height:48px;font-family:"Fredoka";font-size:1.35rem;font-weight:600;border-radius:6px}
 .cg .hd{background:var(--acc);color:#fff}
 .hint{color:var(--muted);font-size:.95rem;margin-top:8px}
-.brand-credit{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;align-items:center;justify-content:center;gap:9px;padding:10px 20px calc(10px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:.82rem;text-align:center;pointer-events:none}
-.brand-credit img{width:34px;height:34px;object-fit:contain;border-radius:7px}
+.brand-credit{position:static;margin-top:auto;display:flex;align-items:center;justify-content:center;gap:9px;padding:10px 20px calc(10px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:.82rem;text-align:center;pointer-events:none}
+.brand-credit img{width:28px;height:28px;object-fit:contain;border-radius:7px}
 .brand-credit strong{color:var(--text);font-weight:800}
 
 /* ---------- AI companion ---------- */
@@ -233,18 +233,7 @@ button{cursor:pointer}
 @keyframes fillbar{to{width:100%}}
 @media (prefers-reduced-motion:reduce){.blink,.bob,.spin,.spin2,.ai-tx.typing::after{animation:none}}
 
-/* ---------- expert tier: AI mission control ---------- */
-body[data-tier="expert"]{--bg:#070B1F;--card:#10183A;--soft:#18224D;--text:#E6F4FF;--muted:#9AAFDA;--line:#5EE6FF;--phone:#FF4FD8;--sun:#FFE14D;--okbg:#0F3B33;--badbg:#431530;--aiacc:#5EE6FF;
-  background:var(--bg) linear-gradient(rgba(94,230,255,.07) 1px,transparent 1px) 0 0/30px 30px;background-image:linear-gradient(rgba(94,230,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(94,230,255,.07) 1px,transparent 1px);background-size:30px 30px}
-body[data-tier="expert"] .chunky{box-shadow:4px 4px 0 rgba(94,230,255,.5),0 0 24px rgba(94,230,255,.16)}
-body[data-tier="expert"] .btn{box-shadow:3px 3px 0 rgba(94,230,255,.55)}
-body[data-tier="expert"] .ai-bub{box-shadow:0 0 22px rgba(94,230,255,.25)}
-body[data-tier="expert"] .tile .tn,body[data-tier="expert"] .mhead .tn{text-shadow:none;border-color:#5EE6FF;box-shadow:0 0 14px rgba(94,230,255,.4)}
-body[data-tier="expert"] .as-t,body[data-tier="expert"] .boardhead h1,body[data-tier="expert"] .mhead h1,body[data-tier="expert"] .tile .tt,body[data-tier="expert"] .topbar .who,body[data-tier="expert"] .final .ft,body[data-tier="expert"] .ai-nm,body[data-tier="expert"] .scan .st2{font-family:"Chakra Petch","Fredoka",sans-serif;letter-spacing:.02em}
-body[data-tier="expert"] .scales>div{background:#fff;color:#1F1D2B}
-body[data-tier="expert"] .final .fs{color:#5EE6FF;text-shadow:0 0 18px rgba(94,230,255,.6)}
-body[data-tier="expert"] .ai-av svg{filter:drop-shadow(0 0 10px rgba(94,230,255,.7))}
-
+body[data-tier="expert"]{--aiacc:#7B4DFF}
 .hintbox{display:flex;gap:10px;align-items:flex-start;background:color-mix(in srgb,var(--sun) 22%,var(--card));border:3px dashed var(--line);border-radius:14px;padding:10px 14px;margin-bottom:16px;font-size:1.08rem;line-height:1.4}
 .hintbox .hi{font-size:1.5rem;line-height:1}
 .facts{margin:0 0 14px;padding-left:1.6rem;display:flex;flex-direction:column;gap:4px;font-size:1.12rem}
@@ -312,17 +301,18 @@ body[data-tier="expert"] .ai-av svg{filter:drop-shadow(0 0 10px rgba(94,230,255,
   .mz .cell{width:62px;height:62px}.mz .cell .me{font-size:26px}
   .scales{grid-template-columns:1fr}
   .alpha{grid-template-columns:repeat(7,1fr)}
-  #sWelcome.screen.on{padding-bottom:70px}
+  
   .hero{gap:22px}
   .age{padding:20px 18px}
 }
 
 /* ===== v3: simple flow for grades 2-6 ===== */
-html{font-size:18px}
+html{font-size:16px}
 [hidden]{display:none!important}
 .btn,.nav-button{min-height:48px}
 .btn.big{font-size:1.4rem;padding:.7rem 2rem;min-height:60px}
-.screen{padding-bottom:92px}
+.screen{padding-bottom:24px;width:100%;max-width:1040px;flex:1}
+body{display:flex;flex-direction:column;min-height:100vh}
 .welcome{max-width:780px;margin:0 auto;padding-top:6px}
 .welcome .brandmark{margin:6px 0 14px}
 .namebox label{font-size:1.25rem;font-weight:800}
@@ -330,33 +320,36 @@ html{font-size:18px}
 .namerow input{flex:1 1 260px;max-width:none;font-size:1.5rem;min-height:60px}
 .steps3{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0 22px}
 .steps3 li{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:16px 10px;background:var(--card);border:3.5px solid var(--line);border-radius:18px;box-shadow:4px 4px 0 var(--line)}
-.steps3 .s3i{font-size:2.6rem;line-height:1}
+.steps3 .s3i{font-size:2.2rem;line-height:1}
 .steps3 b{font-family:"Fredoka",sans-serif;font-size:1.25rem}
 .steps3 li span:last-child{color:var(--muted);font-size:.95rem}
-.hiname{font-family:"Fredoka",sans-serif;font-size:2.4rem;margin-top:10px}
-.age{min-height:150px}
+.hiname{font-family:"Fredoka",sans-serif;font-size:2rem;margin-top:10px}
+.age{min-height:130px}
+#nameBack{margin-top:24px}
+#topWrap.screen{flex:none}
 .lbbox{width:min(520px,100%);padding:22px}
 .lbbox .btn{margin-top:14px}
-.tiles{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:20px}
-.tile{flex-direction:column;justify-content:center;text-align:center;gap:8px;min-height:190px;padding:22px 12px 16px}
-.tile .tile-i{font-size:3.6rem;line-height:1}
-.tile .tt{font-size:1.4rem}
+.tiles{grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:16px}
+.tile{flex-direction:column;justify-content:center;text-align:center;gap:8px;min-height:160px;padding:20px 12px 14px}
+.tile .tile-i{font-size:2.8rem;line-height:1}
+.tile .tt{font-size:1.25rem}
 .tile .tn{position:absolute;top:10px;left:10px;width:38px;height:38px;font-size:1.15rem;border-width:3px;text-shadow:none}
 .diff{display:inline-block;padding:.1rem .8rem;border-radius:999px;border:2.5px solid var(--line);font-family:"Fredoka",sans-serif;font-weight:600;font-size:.95rem;color:#1F1D2B}
 .diff.easy{background:#BFEBCB}.diff.medium{background:#FFE08A}.diff.tricky{background:#FFB4A8}
 .brief{max-width:640px;margin:10px auto 0;padding:26px 24px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
-.br-icon{width:120px;height:120px;border-radius:50%;background:var(--acc);border:4px solid var(--line);display:grid;place-items:center;font-size:4.2rem;box-shadow:4px 4px 0 var(--line)}
+.br-icon{width:96px;height:96px;border-radius:50%;background:var(--acc);border:4px solid var(--line);display:grid;place-items:center;font-size:3.2rem;box-shadow:4px 4px 0 var(--line)}
 .br-meta{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center}
-.brief h1{font-family:"Fredoka",sans-serif;font-size:2.4rem;line-height:1.05}
+.brief h1{font-family:"Fredoka",sans-serif;font-size:2.1rem;line-height:1.05}
 .br-goal{font-size:1.4rem;line-height:1.35;max-width:30ch}
 .br-rules{color:var(--muted);line-height:1.7}
-.go{font-size:1.9rem;padding:.7rem 3.4rem;min-height:68px;background:var(--ok);color:#fff}
+.go{font-size:1.6rem;padding:.6rem 3rem;min-height:60px;background:var(--ok);color:#fff}
 .playbar{display:flex;align-items:center;gap:10px;padding:8px 12px;margin-bottom:14px;position:sticky;top:8px;z-index:6;flex-wrap:wrap}
 .playbar .pb-title{flex:1;font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.3rem;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .playbar.done{position:static;opacity:.6}
 .hintpop{display:flex;gap:12px;align-items:center;padding:12px 16px;margin-bottom:14px;background:color-mix(in srgb,var(--sun) 28%,var(--card));font-size:1.2rem;line-height:1.4}
 .hintpop .hi{font-size:1.8rem}
 .hintpop .say{margin-left:auto}
+.hq{display:flex;flex-wrap:wrap;align-items:center;gap:12px;flex:1}.hq .qt{font-family:"Fredoka",sans-serif;font-size:1.5rem}.hq input{width:96px;height:48px;text-align:center;border:3px solid var(--line);border-radius:10px;background:var(--card);font-family:"Fredoka";font-size:1.4rem}.hq .msg{color:var(--bad)}.hl{flex:1;line-height:1.45}
 .mynote{display:flex;align-items:center;gap:12px;padding:12px 16px;margin-bottom:14px;background:var(--card);border:3.5px dashed var(--line);border-radius:16px;font-size:1.1rem;line-height:1.4}
 .mynote .mn-l{font-family:"Fredoka",sans-serif;font-weight:600;white-space:nowrap}
 .mynote .mn-t{flex:1}
@@ -364,7 +357,7 @@ html{font-size:18px}
 .say:active{transform:translate(2px,2px)}
 .task{display:flex;align-items:center;gap:12px;font-size:1.3rem}
 .task .say{margin-left:auto}
-.checkbar{position:sticky;bottom:66px;z-index:5;display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;padding:10px 14px;margin-top:20px;background:color-mix(in srgb,var(--card) 94%,transparent);border:3.5px solid var(--line);border-radius:18px;box-shadow:4px 4px 0 var(--line)}
+.checkbar{position:sticky;bottom:12px;z-index:5;display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;padding:10px 14px;margin-top:20px;background:color-mix(in srgb,var(--card) 94%,transparent);border:3.5px solid var(--line);border-radius:18px;box-shadow:4px 4px 0 var(--line)}
 @media (max-width:700px){.steps3{grid-template-columns:1fr}.playbar .pb-title{flex-basis:100%;order:-1}}
 #doneRow{position:static;margin-bottom:12px}
 #result{scroll-margin-top:80px}
@@ -379,7 +372,7 @@ html{font-size:18px}
     <a class="base-link" href="index.html">← All games</a>
     <div class="brandmark"><div class="bigphone">☎️</div><div class="title">The Clue Line</div></div>
     <div id="wStep1">
-      <p class="lede">Solve a puzzle mission. Stuck? Call the Clue Line for help!</p>
+      <p class="lede">Solve a puzzle mission. Stuck? Tap Hint and solve a quick sum to get help!</p>
       <div class="namebox">
         <label for="nameIn">What is your name?</label>
         <div class="namerow"><input id="nameIn" maxlength="18" placeholder="Type your name" autocomplete="off"><button class="btn primary big" id="nameNext">Next ➜</button></div>
@@ -387,7 +380,7 @@ html{font-size:18px}
       </div>
       <ol class="steps3" aria-label="How to play">
         <li><span class="s3i">🧩</span><b>1. Solve</b><span>Do the puzzle.</span></li>
-        <li><span class="s3i">💡</span><b>2. Stuck?</b><span>Tap Hint or call for a clue.</span></li>
+        <li><span class="s3i">💡</span><b>2. Stuck?</b><span>Tap Hint and answer a quick sum.</span></li>
         <li><span class="s3i">✅</span><b>3. Check</b><span>Press Check to get your score.</span></li>
       </ol>
       <button class="nav-button" id="lbBtn">🏆 Top scores</button>
@@ -396,8 +389,8 @@ html{font-size:18px}
       <h2 class="hiname" id="hiName"></h2>
       <p class="lede">Pick your level.</p>
       <div class="agepick">
-        <button class="chunky age jr" data-level="junior"><span class="ai">⭐</span><span class="an">Grades 2–3</span><span class="as">Friendly puzzles</span></button>
-        <button class="chunky age ex" data-level="expert"><span class="ai">🚀</span><span class="an">Grades 4–6</span><span class="as">Super agent puzzles</span></button>
+        <button class="chunky age jr" data-level="junior"><span class="ai">⭐</span><span class="an">Ages 5–10</span><span class="as">Friendly puzzles</span></button>
+        <button class="chunky age ex" data-level="expert"><span class="ai">🚀</span><span class="an">Ages 10–15</span><span class="as">Super agent puzzles</span></button>
       </div>
       <button class="nav-button" id="nameBack">← Change my name</button>
     </div>
@@ -435,7 +428,7 @@ html{font-size:18px}
     <h1 id="brTitle"></h1>
     <p class="br-goal" id="brGoal"></p>
     <button class="btn" id="brRead">🔊 Read to me</button>
-    <p class="br-rules">⏱ You have <b>2 minutes</b>.<br>📞 Solve it without a clue call and get <b>+20 bonus points</b>!</p>
+    <p class="br-rules">⏱ You have <b>2 minutes</b>.<br>💡 Solve it without a hint and get <b>+20 bonus points</b>!</p>
     <button class="btn go" id="goBtn">GO! ▶</button>
     <button class="nav-button" id="brBack">← Pick another mission</button>
   </div>
@@ -447,11 +440,9 @@ html{font-size:18px}
     <button class="nav-button" id="backBtn">← Back</button>
     <div class="pb-title" id="mTitle"></div>
     <span class="timer" id="timer" role="timer" aria-live="off">⏱ 2:00</span>
-    <button class="btn" id="hintBtn">💡 Hint</button>
-    <button class="btn sun" id="callBtn">📞 Clue</button>
+    <button class="btn sun" id="hintBtn">💡 Hint</button>
   </div>
   <div class="chunky hintpop" id="hintBox" hidden></div>
-  <div class="mynote" id="myNote" hidden><span class="mn-l">📝 My clue:</span><span class="mn-t" id="noteText"></span><button class="say" id="noteReplay" type="button" aria-label="Hear the clue again">🔊</button></div>
   <div class="chunky puzzlecard" id="pCard">
     <div class="scan" id="scan"><div><div class="st2" id="scanT"></div><div class="sb" id="scanBar"><i></i></div></div></div>
     <div class="pz" id="pz"></div>
@@ -461,18 +452,6 @@ html{font-size:18px}
     <div class="checkbar" id="doneRow" hidden><button class="btn primary big" id="doneBtn">🏁 See my final score</button></div>
   </div>
 </section>
-
-<!-- CALL OVERLAY -->
-<div class="callover" id="callOver" role="dialog" aria-modal="true" aria-label="Clue call">
-  <div class="chunky callbox phonecard" id="phone">
-    <div class="pc-top">The Clue Line</div>
-    <div class="handset">📞</div>
-    <div class="pstatus" id="pStatus">Ringing…</div>
-    <div class="cluetext hidden" id="clueText"></div>
-    <div class="ttsnote">🤖 This voice isn't a person. It's <b>text-to-speech</b>, a kind of AI that turns written words into a speaking voice.</div>
-    <button class="btn" id="hangBtn">Back to my puzzle</button>
-  </div>
-</div>
 
 <!-- FINAL -->
 <section class="screen" id="sFinal">
@@ -669,11 +648,11 @@ const MISSIONS=[
    check(){const v=+x.value;const s=v===6?1:Math.abs(v-6)===1?.5:0;mark(x,s===1);return s}};
  }},
 /* ---------- EXPERT ---------- */
-{n:10,hint:"Every letter was shifted by the same number of steps.",level:"expert",title:"Caesar Cipher",icon:"🏛️",acc:"#C2410C",
- clue:"Every letter in this message was moved 3 steps forward in the alphabet. To decode it, move each letter 3 steps back. So D becomes A, E becomes B, and B wraps around to become Y.",
- answer:"YOU ARE SMART",
+{n:10,hint:"Every letter was shifted by just one step. H is one step after G.",level:"expert",title:"Caesar Cipher",icon:"🏛️",acc:"#C2410C",
+ clue:"Every letter in this message was moved 1 step forward in the alphabet. To decode it, move each letter 1 step back. So B becomes A, C becomes B, and A wraps around to become Z.",
+ answer:"GO TEAM",
  build(){
-  const plain="YOU ARE SMART",enc=plain.replace(/[A-Z]/g,c=>String.fromCharCode((c.charCodeAt(0)-62)%26+65));
+  const plain="GO TEAM",enc=plain.replace(/[A-Z]/g,c=>String.fromCharCode((c.charCodeAt(0)-64)%26+65));
   const ins=[];const wrap=h("div",{class:"code-words"});let row=h("div",{class:"row",style:"gap:22px;align-items:flex-start"});
   enc.split(" ").forEach((w,wi)=>{const g=h("div",{class:"code-word"});for(const c of w){const x=letterRow(1)[0];ins.push(x);g.append(h("div",{class:"cc"},h("div",{class:"cn"},c),x))}row.append(g)});wrap.append(row);
   wireAdvance(ins);const ans=plain.replace(/ /g,"");
@@ -683,15 +662,15 @@ const MISSIONS=[
  }},
 {n:11,hint:"Each column is worth double the column on its right.",level:"expert",title:"Binary Code",icon:"💻",acc:"#0E7C66",
  clue:"From left to right, the four columns are worth 8, 4, 2 and 1. In each row, add up the columns that have a 1. Then turn that number into a letter, where 1 is A, 2 is B, and so on.",
- answer:"Columns 8, 4, 2, 1 · totals 3, 15, 4, 5 · CODE",
+ answer:"Totals 6, 1, 3, 5 · FACE",
  build(){
-  const word="CODE",cols=[8,4,2,1],colIn=cols.map((_,i)=>numIn("Column value "+(i+1))),tot=[];
+  const word="FACE",cols=[8,4,2,1],colIn=cols.map(c=>h("div",{class:"bit",style:"display:grid;place-items:center;background:var(--soft);color:var(--text)"},String(c))),tot=[];
   const tb=h("table",{class:"btab"},h("tr",{},h("th",{},""),...colIn.map(x=>h("th",{},x)),h("th",{},""),h("th",{},"Total")));
   [...word].forEach((c,i)=>{const b=(c.charCodeAt(0)-64).toString(2).padStart(4,"0");const t=numIn("Total row "+(i+1));tot.push(t);
     tb.append(h("tr",{},h("th",{},String(i+1)),...[...b].map(x=>h("td",{},h("div",{class:"bit",style:"display:grid;place-items:center"},x))),h("td",{style:"font-family:Fredoka;font-size:1.4rem"},"="),h("td",{},t)))});
   const w=h("input",{class:"wi",maxlength:"4",placeholder:"????","aria-label":"Secret word"});
-  return{el:h("div",{},h("div",{class:"task"},"Type the value of each column in the top boxes, then work out each row."),h("div",{style:"overflow-x:auto"},tb),h("div",{class:"qrow"},"Secret word:",w)),
-   check(){let c=0;colIn.forEach((x,i)=>{const ok=+x.value===cols[i];mark(x,ok);c+=ok});tot.forEach((x,i)=>{const ok=+x.value===word.charCodeAt(i)-64;mark(x,ok);c+=ok});const ok=norm(w.value)===word;mark(w,ok);c+=ok;return c/9}};
+  return{el:h("div",{},h("div",{class:"task"},"Add up the columns that have a 1. Then turn each total into a letter."),h("div",{style:"overflow-x:auto"},tb),h("div",{class:"qrow"},"Secret word:",w)),
+   check(){let c=0;tot.forEach((x,i)=>{const ok=+x.value===word.charCodeAt(i)-64;mark(x,ok);c+=ok});const ok=norm(w.value)===word;mark(w,ok);c+=ok;return c/5}};
  }},
 {n:12,hint:"Each person has exactly one pet and one favourite colour.",level:"expert",title:"Logic Grid",icon:"🧩",acc:"#6D28D9",
  clue:"Here is a head start: Ayaan owns the parrot! Use that with the facts on your screen, and the rest of the grid will fall into place.",
@@ -708,15 +687,15 @@ const MISSIONS=[
    check(){const r=[[q1,"Bina"],[q2,"Green"],[q3,"Parrot"]];let c=0;r.forEach(([s,a])=>{const ok=s.value===a;mark(s,ok);c+=ok});return c/3}};
  }},
 {n:13,hint:"Every scale is balanced, so both sides weigh the same.",level:"expert",title:"Balance Scales",icon:"⚖️",acc:"#B45309",
- clue:"Here is your starting fact: one triangle weighs 3 kilograms. All the scales are perfectly balanced. Use them to find the weight of every shape!",
- answer:"▲ 3 kg · ● 6 kg · ■ 9 kg · ★ 6 kg · total 21 kg",
+ clue:"Here is your starting fact: one triangle weighs 2 kilograms. All the scales are perfectly balanced. Use them to find the weight of every shape!",
+ answer:"▲ 2 kg · ● 4 kg · ■ 6 kg · ★ 4 kg · total 14 kg",
  build(){
   const sc=h("div",{class:"scales"});[["Scale A",["cir"],["tri","tri"]],["Scale B",["sq"],["cir","tri"]],["Scale C",["star","tri"],["sq"]]].forEach(([l,a,b])=>{const d=h("div",{},l);d.insertAdjacentHTML("beforeend",scaleSVG(a,b));sc.append(d)});
-  const want={tri:3,cir:6,sq:9,star:6},ins={};const wr=h("div",{class:"wrow"});
-  for(const k of Object.keys(want)){ins[k]=numIn(k);const d=h("div",{});d.innerHTML=iconSVG(k);d.append("=",ins[k],"kg");wr.append(d)}
+  const want={tri:2,cir:4,sq:6,star:4},ins={};const wr=h("div",{class:"wrow"});
+  for(const k of Object.keys(want)){ins[k]=numIn(k);if(k==="tri"){ins[k].value="2";ins[k].readOnly=true}const d=h("div",{});d.innerHTML=iconSVG(k);d.append("=",ins[k],"kg");wr.append(d)}
   const tot=numIn("total");const tr=h("div",{class:"qrow",style:"font-family:Fredoka;font-size:1.4rem"});tr.innerHTML=`<span style="width:34px;display:inline-block">${iconSVG("cir")}</span> + <span style="width:34px;display:inline-block">${iconSVG("sq")}</span> + <span style="width:34px;display:inline-block">${iconSVG("star")}</span> =`;tr.append(tot,"kg");
   return{el:h("div",{},h("div",{class:"task"},"Every scale is balanced. Find the weight of each shape."),sc,wr,tr),
-   check(){let c=0;for(const k in want){const ok=+ins[k].value===want[k];mark(ins[k],ok);c+=ok}const ok=+tot.value===21;mark(tot,ok);c+=ok;return c/5}};
+   check(){let c=0;for(const k in want){if(k==="tri")continue;const ok=+ins[k].value===want[k];mark(ins[k],ok);c+=ok}const ok=+tot.value===14;mark(tot,ok);c+=ok;return c/4}};
  }},
 {n:14,hint:"Use the column letter first, then the row number.",level:"expert",title:"Grid Coordinates",icon:"📍",acc:"#1D4ED8",
  clue:"Find these five squares on your grid: C 4, F 2, A 7, H 5, and D 1. The letter tells you the column and the number tells you the row. Read the letters in that order to find the secret word.",
@@ -747,13 +726,11 @@ const AI={
 const MSG={
  board:{junior:n=>`Hi ${n}! I'm Beep, your AI robot buddy. You get to play ONE mission today, so pick the one that looks the most fun!`,
         expert:n=>`Welcome, Agent ${n}. I'm NOVA, your AI mission control. You get ONE mission. Choose carefully, then crack it.`},
- start:{junior:()=>`Try it all by yourself first! If you get stuck, press the yellow phone button and I'll connect you to the Clue Line.`,
-        expert:()=>`Mission loaded. Solve it without the Clue Line for a +20 bonus. Call for intel only if you need it.`},
- call:{junior:()=>`Connecting you to the Clue Line… listen carefully!`,expert:()=>`Opening a secure line to the Clue Line…`},
- back:{junior:()=>`Got the clue? Now use it to solve your mission. You can do it!`,expert:()=>`Intel received. Back to the mission, Agent.`},
+ start:{junior:()=>`Try it all by yourself first! If you get stuck, press the yellow Hint button and answer a quick sum.`,
+        expert:()=>`Mission loaded. Solve it without a hint for a +20 bonus. Use a hint only if you need it.`},
  scan:{junior:()=>`Checking your answers…`,expert:()=>`Analysing your answers…`},
- result:{junior:(p,c)=>p>=.999?`WOW! My circuits are sparkling! Every single answer is right!${c?"":" And you didn't even need a clue!"}`:p>=.5?`Great thinking! You got most of it right. The green answers are correct!`:`Good try! Every mistake helps your brain grow. Look at the answer to see how it works.`,
-         expert:(p,c)=>p>=.999?`Analysis complete: 100% accuracy.${c?"":" Zero intel used. That's elite."} Impressive, Agent.`:p>=.5?`Analysis complete: ${Math.round(p*100)}% accuracy. Strong work. Check the red items to see what slipped.`:`Analysis complete. This one was tough. Study the answer below and you'll crack the next one.`},
+ result:{junior:(p,c)=>p>=.999?`WOW! My circuits are sparkling! Every single answer is right!${c?"":" And you didn't even need a hint!"}`:p>=.5?`Great thinking! You got most of it right. The green answers are correct!`:`Good try! Every mistake helps your brain grow. Look at the answer to see how it works.`,
+         expert:(p,c)=>p>=.999?`Analysis complete: 100% accuracy.${c?"":" Zero hints used. That's elite."} Impressive, Agent.`:p>=.5?`Analysis complete: ${Math.round(p*100)}% accuracy. Strong work. Check the red items to see what slipped.`:`Analysis complete. This one was tough. Study the answer below and you'll crack the next one.`},
 };
 const aiTok={};
 function tier(){return S.level||"junior"}
@@ -776,13 +753,13 @@ const AILAB={
  8:{icon:"🗺️",concept:"Pathfinding",jr:"Map apps and game characters use AI to find a safe path, just like you found the flying path!",ex:"Pathfinding algorithms like A* explore a grid, skip blocked squares, and find a route to the goal."},
  9:{icon:"🎯",concept:"Object detection",jr:"Some AIs can spot and count things in a picture, like cars or people. They draw a box around everything they find!",ex:"Object detectors like YOLO draw a box around each object, label it, and give a confidence score. Counting is just detecting, then adding up the boxes."},
  10:{icon:"🔒",concept:"Encryption: keeping data safe",jr:"",ex:"Your messages online are scrambled with encryption, like a super-powered Caesar cipher. AI systems need their data protected too, so nobody can peek.",
-    steps:["🤖 Encrypt: Y +3 → B","🤖 Encrypt: O +3 → R","🤖 Encrypt: U +3 → X","✅ “YOU” becomes “BRX”. Only someone with the key (3) can read it!"]},
+    steps:["🤖 Encrypt: G +1 → H","🤖 Encrypt: O +1 → P","🤖 Encrypt: T +1 → U","✅ “GOT” becomes “HPU”. Only someone with the key (1) can read it!"]},
  11:{icon:"💾",concept:"Everything is 0s and 1s",jr:"",ex:"Every photo, song and AI model is stored as 0s and 1s. A big AI model is billions of numbers, and each one is made from bits like these.",
-    steps:["🤖 C = 3 = 0011","🤖 O = 15 = 1111","🤖 D = 4 = 0100","🤖 E = 5 = 0101","✅ 16 bits spell CODE. A photo on your phone uses millions of bits!"]},
+    steps:["🤖 F = 6 = 0110","🤖 A = 1 = 0001","🤖 C = 3 = 0011","🤖 E = 5 = 0101","✅ 16 bits spell FACE. A photo on your phone uses millions of bits!"]},
  12:{icon:"🧠",concept:"Reasoning step by step",jr:"",ex:"Reasoning AIs solve problems by writing out their steps: use a fact, rule things out, repeat. That's exactly what you did with the grid.",
     steps:["🤖 Fact 1: Chen → dog","🤖 Fact 2: Ayaan ≠ cat, and the dog is taken → Ayaan → parrot","🤖 So Bina → cat","🤖 Fact 3: parrot owner loves blue → Ayaan → blue","🤖 Fact 4: Bina → red, so Chen → green","✅ Solved in 5 small steps!"]},
  13:{icon:"⚖️",concept:"Weights in a neural network",jr:"",ex:"Neural networks learn “weights”: numbers that decide how much each input matters. Training nudges the weights until the answers come out right, like balancing your scales.",
-    steps:["🤖 Start: ▲ = 3","🤖 Scale A: ● = ▲ + ▲ = 6","🤖 Scale B: ■ = ● + ▲ = 9","🤖 Scale C: ★ = ■ − ▲ = 6","✅ Every weight found by balancing. Neural networks adjust millions of weights like this!"]},
+    steps:["🤖 Start: ▲ = 2","🤖 Scale A: ● = ▲ + ▲ = 4","🤖 Scale B: ■ = ● + ▲ = 6","🤖 Scale C: ★ = ■ − ▲ = 4","✅ Every weight found by balancing. Neural networks adjust millions of weights like this!"]},
  14:{icon:"📍",concept:"Embeddings: words on a map",jr:"",ex:"AI places words on a giant map using coordinates. Words with similar meanings sit close together, so “orbit” lands near “planet” and “moon”.",map:true},
 };
 const USES={"1": ["Chatbots like ChatGPT and Claude", "Google Translate", "Voice assistants"], "2": ["Robot vacuums", "Delivery robots", "Traffic lights"], "3": ["Plant ID apps", "Photo apps sorting pets", "Spam filters"], "4": ["Weather forecasts", "Video recommendations", "Price predictions"], "5": ["Face unlock", "Medical scans", "Self-driving cars"], "6": ["Chatbots", "Phone keyboard suggestions", "Search autocomplete"], "7": ["Spam filters", "Bank fraud checks", "Game AI choices"], "8": ["Google Maps", "Game characters", "Delivery drones"], "9": ["Self-driving cars", "Security cameras", "Counting crowds"], "10": ["WhatsApp messages", "Online banking", "Passwords"], "11": ["Every phone and computer", "Storing AI models", "Digital photos"], "12": ["AI tutors", "Maths solvers", "Planning assistants"], "13": ["Every neural network", "Face recognition", "Voice assistants"], "14": ["Search engines", "Recommendation apps", "Translation"]};
@@ -833,7 +810,7 @@ function paintLB(){const l=lbGet().slice(0,5),ul=$("lb");ul.innerHTML="";if(!l.l
   l.forEach((e,i)=>ul.append(h("li",{},h("span",{class:"rk"},String(i+1)),h("span",{class:"nm"},e.name,h("div",{class:"lv"},LEVEL_LABEL[e.level]||"")),h("span",{class:"pt"},e.pts+" / "+e.max,e.time!=null?h("div",{class:"lv"},"⏱ "+fmt(e.time)):""))))}
 
 /* ================= welcome ================= */
-const LEVEL_LABEL={junior:"Grades 2–3",expert:"Grades 4–6"};
+const LEVEL_LABEL={junior:"Ages 5–10",expert:"Ages 10–15"};
 function showStep(n){$("wStep1").hidden=n!==1;$("wStep2").hidden=n!==2}
 function nameNext(){const n=$("nameIn").value.trim();if(!n){$("nameErr").style.display="block";$("nameIn").focus();return}
   $("hiName").textContent="Hi, "+n+"! 👋";showStep(2)}
@@ -848,11 +825,11 @@ $("lbBtn").onclick=()=>{paintLB();$("lbOver").classList.add("on")};
 $("lbClose").onclick=()=>$("lbOver").classList.remove("on");
 
 /* ================= board ================= */
-const DIFF={1:"medium",2:"easy",3:"easy",4:"medium",5:"medium",6:"easy",7:"easy",8:"medium",9:"tricky",10:"medium",11:"tricky",12:"tricky",13:"tricky",14:"easy"};
+const DIFF={1:"medium",2:"easy",3:"easy",4:"medium",5:"medium",6:"easy",7:"easy",8:"medium",9:"tricky",10:"easy",11:"medium",12:"medium",13:"medium",14:"easy"};
 const DIFF_LABEL={easy:"Easy",medium:"Medium",tricky:"Tricky"};
 const GOAL={1:"Use the number code to find the secret message.",2:"Follow the clue from the star to find 2 treasures.",3:"Find the mystery sea animal.",4:"Find the magic number and spell the secret word.",
  5:"Colour the even numbers to see a hidden picture.",6:"Put Zara's day at the park in order.",7:"Find the cookie thief.",8:"Find the path that only uses animals that can fly.",9:"Count the triangles that have a dot inside.",
- 10:"Decode a secret message by moving each letter back.",11:"Turn 0s and 1s into the letters of a secret word.",12:"Use the facts to find out who owns which pet.",13:"Use the balance scales to find the weight of each shape.",14:"Find the squares on the grid to spell a secret word."};
+ 10:"Decode a secret message by moving each letter back one step.",11:"Turn rows of 0s and 1s into the letters of a secret word.",12:"Use the facts to find out who owns which pet.",13:"Use the balance scales to find the weight of each shape.",14:"Find the squares on the grid to spell a secret word."};
 function diffChip(n){return h("span",{class:"diff "+DIFF[n]},DIFF_LABEL[DIFF[n]])}
 function enterBoard(){document.body.dataset.tier=S.level;paintBoard();show("sBoard")}
 function paintBoard(){
@@ -875,22 +852,30 @@ $("brRead").onclick=()=>readAloud(cur.title+". "+GOAL[cur.n]+" You have 2 minute
 $("brBack").onclick=()=>{stopAll();paintBoard();show("sBoard")};
 function addReadButtons(){const t=$("pz").querySelector(".task");if(!t)return;const txt=t.textContent;t.textContent="";t.append(h("span",{},txt),h("button",{class:"say",type:"button","aria-label":"Read the task to me",onclick:()=>readAloud(txt)},"🔊"))}
 function startPlay(){
-  const m=cur;stopAll();S.scores[m.n]={pts:0,done:false,clues:0,heard:false,hints:0};
+  const m=cur;stopAll();S.scores[m.n]={pts:0,done:false,hints:0,unlocked:false};
   $("mTitle").textContent=m.icon+" "+m.title;
   curBuild=m.build();$("pz").innerHTML="";$("pz").append(curBuild.el);addReadButtons();
   labId++;$("aiLab").className="ailab";$("aiLab").innerHTML="";$("result").className="result";$("result").innerHTML="";
   $("playbar").classList.remove("done");$("pCard").classList.remove("locked");
-  $("hintBox").hidden=true;$("myNote").hidden=true;$("checkRow").hidden=false;$("doneRow").hidden=true;
-  $("callBtn").disabled=false;$("hintBtn").disabled=false;$("backBtn").style.display="";
+  $("hintBox").hidden=true;$("checkRow").hidden=false;$("doneRow").hidden=true;
+  $("hintBtn").disabled=false;$("backBtn").style.display="";
   show("sMission");startTimer();
 }
 $("goBtn").onclick=startPlay;
 $("backBtn").onclick=()=>{stopAll();stopTimer();delete S.scores[cur.n];paintBoard();show("sBoard")};
+function mathQ(){const r=n=>Math.floor(Math.random()*n);let a,b,op,ans;
+  if(S.level==="expert"){const k=r(3);if(k===0){a=2+r(8);b=2+r(8);op="×";ans=a*b}else if(k===1){a=20+r(60);b=5+r(30);op="+";ans=a+b}else{a=40+r(50);b=5+r(30);op="−";ans=a-b}}
+  else{if(r(2)){a=2+r(14);b=2+r(14);op="+";ans=a+b}else{a=10+r(11);b=1+r(a-2);op="−";ans=a-b}}
+  return{text:`${a} ${op} ${b} = ?`,ans}}
+function showHintText(){const b=$("hintBox"),t=cur.clue+" "+cur.hint;b.innerHTML="";
+  b.append(h("span",{class:"hi"},"💡"),h("div",{class:"hl"},t),h("button",{class:"say",type:"button","aria-label":"Read the hint to me",onclick:()=>readAloud(t)},"🔊"));b.hidden=false}
+function askMath(){const b=$("hintBox"),q=mathQ();b.innerHTML="";
+  const inp=h("input",{inputmode:"numeric",maxlength:"3",autocomplete:"off","aria-label":"Your answer"}),msg=h("span",{class:"msg"},"");
+  const go=()=>{if(inp.value.trim()!==""&&+inp.value===q.ans){const s=S.scores[cur.n];s.unlocked=true;s.hints=(s.hints||0)+1;chime();showHintText()}else{msg.textContent="Not quite. Try again!";buzz();inp.select()}};
+  inp.addEventListener("keydown",e=>{if(e.key==="Enter")go()});
+  b.append(h("span",{class:"hi"},"🧠"),h("div",{class:"hq"},h("span",{},"Solve this to unlock your hint:"),h("span",{class:"qt"},q.text),inp,h("button",{class:"btn primary",type:"button",onclick:go},"Check"),msg));b.hidden=false;inp.focus()}
 $("hintBtn").onclick=()=>{const b=$("hintBox");if(!b.hidden){b.hidden=true;return}
-  b.innerHTML="";b.append(h("span",{class:"hi"},"💡"),h("span",{},cur.hint),h("button",{class:"say",type:"button","aria-label":"Read the hint to me",onclick:()=>readAloud(cur.hint)},"🔊"));b.hidden=false;
-  const s=S.scores[cur.n];s.hints=(s.hints||0)+1};
-function paintNote(){const s=S.scores[cur.n],n=$("myNote");n.hidden=!s.heard;if(s.heard)$("noteText").textContent=cur.clue}
-$("noteReplay").onclick=()=>{const id=++callId;say(cur.clue,Math.floor(Math.random()*VOICES.length),id)};
+  if(S.scores[cur.n].unlocked)showHintText();else askMath()};
 
 const LIMIT=120;let tStart=0,tInt=null;
 const fmt=sec=>`${Math.floor(sec/60)}:${String(sec%60).padStart(2,"0")}`;
@@ -904,12 +889,12 @@ function paintTimer(){const left=LIMIT-elapsed(),t=$("timer");t.textContent="⏱
 let checking=false;
 async function doCheck(timeUp=false){
   if(checking)return;checking=true;stopTimer();const s=S.scores[cur.n];s.time=elapsed();s.timeUp=timeUp;clearMarks($("pz"));stopAll();
-  $("pCard").classList.add("locked");$("checkRow").hidden=true;$("callBtn").disabled=true;$("hintBtn").disabled=true;$("hintBox").hidden=true;$("backBtn").style.display="none";$("playbar").classList.add("done");
+  $("pCard").classList.add("locked");$("checkRow").hidden=true;$("hintBtn").disabled=true;$("hintBox").hidden=true;$("backBtn").style.display="none";$("playbar").classList.add("done");
   $("scanT").textContent=(timeUp?"⏰ Time's up! ":"")+MSG.scan[tier()]();if(timeUp)buzz();const bar=$("scanBar");bar.innerHTML="<i></i>";$("scan").classList.add("on");aiSay("aiMission",MSG.scan[tier()]());
   await wait(1600);$("scan").classList.remove("on");
   const pct=Math.max(0,Math.min(1,curBuild.check()));const base=Math.round(pct*100);
-  const bonus=(!s.clues&&pct>=.5)?BONUS:0;s.pts=base+bonus;s.base=base;s.bonus=bonus;s.pct=pct;s.done=true;paintTop();
-  showResult();$("doneRow").hidden=false;setTimeout(runAILab,900);aiSay("aiMission",MSG.result[tier()](pct,s.clues),true);pct>=.999?(chime(),confetti()):pct>=.5?chime():buzz();checking=false;
+  const bonus=(!s.hints&&pct>=.5)?BONUS:0;s.pts=base+bonus;s.base=base;s.bonus=bonus;s.pct=pct;s.done=true;paintTop();
+  showResult();$("doneRow").hidden=false;setTimeout(runAILab,900);aiSay("aiMission",MSG.result[tier()](pct,s.hints),true);pct>=.999?(chime(),confetti()):pct>=.5?chime():buzz();checking=false;
 }
 $("checkBtn").onclick=()=>doCheck();
 $("doneBtn").onclick=()=>finish();
@@ -919,7 +904,7 @@ function showResult(){
   box.append(h("h3",{},perfect?"Perfect! Mission solved! 🎉":pct>=.5?"Nice work, detective!":"Good try!"),h("div",{class:"rs"},starStr(starsFor(s.base||0))),
     h("div",{class:"tline"},s.timeUp?`⏰ Time's up! You used the full ${fmt(LIMIT)}`:`⏱ Done in ${fmt(s.time)}`),
     h("div",{},`You got ${Math.round(pct*100)}% right: ${s.base} points`),
-    s.bonus?h("div",{class:"nobonus"},`🧠 No-clue bonus +${s.bonus}`):"",
+    s.bonus?h("div",{class:"nobonus"},`🧠 No-hint bonus +${s.bonus}`):"",
     h("div",{style:"font-family:Fredoka;font-size:1.3rem;margin-top:6px"},`Mission total: ${s.pts} points`));
   if(!perfect)box.append(h("div",{class:"ans"},"Answer: "+cur.answer));
   box.append(h("div",{class:"hint"},"🤖 Scroll down to see how AI solves this."));
@@ -935,28 +920,10 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
 function say(text,i,id){return new Promise(res=>{if(id!==callId||!("speechSynthesis"in window))return res();const u=new SpeechSynthesisUtterance(text);if(picked[i])u.voice=picked[i];u.pitch=VOICES[i].pitch;u.rate=VOICES[i].rate;u.lang="en-US";
   const g=setTimeout(res,2500+text.length*110);u.onend=u.onerror=()=>{clearTimeout(g);res()};speechSynthesis.speak(u)})}
 let ac;function tone(freqs,dur,vol=.12,when=0){try{ac=ac||new AudioContext();const t=ac.currentTime+when;const g=ac.createGain();g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+dur);g.connect(ac.destination);freqs.forEach(f=>{const o=ac.createOscillator();o.frequency.value=f;o.connect(g);o.start(t);o.stop(t+dur)})}catch{}}
-function ring(){for(let i=0;i<2;i++)tone([440,480],.8,.12,i*1.2)}
 function chime(){tone([660],.18,.15,0);tone([880],.18,.15,.16);tone([1320],.35,.15,.32)}
 function buzz(){tone([180],.35,.12)}
-function phoneMode(m,t){$("phone").className="chunky callbox phonecard "+m;$("pStatus").textContent=t}
-async function callClue(){
-  if(!cur||S.scores[cur.n].done||$("callOver").classList.contains("on"))return;
-  const id=++callId;try{speechSynthesis.cancel()}catch{}
-  const s=S.scores[cur.n];pauseTimer();
-  $("callOver").classList.add("on");$("clueText").classList.add("hidden");$("hangBtn").focus();
-  phoneMode("ringing","Ringing…");ring();await wait(2400);if(id!==callId)return;
-  const v=Math.floor(Math.random()*VOICES.length);   // one random voice, played once
-  s.clues=(s.clues||0)+1;s.heard=true;$("clueText").textContent=cur.clue;$("clueText").classList.remove("hidden");
-  phoneMode("talking","Listen carefully…");
-  await say("Hello, detective! Here is your clue. "+cur.clue,v,id);
-  if(id!==callId)return;
-  phoneMode("","Back to your puzzle!");await wait(1200);
-  if(id===callId)closeCall();
-}
-function closeCall(){callId++;try{speechSynthesis.cancel()}catch{}$("callOver").classList.remove("on");resumeTimer();if(cur&&S.scores[cur.n])paintNote();$("callBtn").focus()}
-$("callBtn").onclick=callClue;$("hangBtn").onclick=closeCall;
-document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if($("callOver").classList.contains("on"))closeCall();if($("lbOver").classList.contains("on"))$("lbOver").classList.remove("on")});
-function stopAll(){callId++;try{speechSynthesis.cancel()}catch{}$("callOver").classList.remove("on")}
+function stopAll(){callId++;try{speechSynthesis.cancel()}catch{}}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("lbOver").classList.remove("on")});
 
 /* ================= finish ================= */
 async function finish(){
@@ -965,7 +932,7 @@ async function finish(){
                              :(pct>=.9?"🏆 Master Detective":pct>=.7?"🥇 Super Sleuth":pct>=.4?"🥈 Clever Investigator":"🥉 Rookie Detective");
   $("fName").textContent=(tier()==="expert"?"Mission complete, Agent ":"Great job, ")+S.name+"!";$("fScore").textContent=pts;$("fMax").textContent=`points out of ${max}`;$("fRank").textContent=rank;$("fSkill").textContent="🤖 AI skill unlocked: "+m.ai.concept;
   const fl=$("fList");fl.innerHTML="";
-  fl.append(h("div",{},h("span",{},m.icon+" "+m.title),h("span",{},sc.base+" pts")),h("div",{},h("span",{},"⏱ Time"),h("span",{},sc.timeUp?"Time's up":fmt(sc.time))),h("div",{},h("span",{},"🧠 No-clue bonus"),h("span",{},sc.bonus?"+"+sc.bonus:"—")),h("div",{},h("span",{},"📞 Clue calls"),h("span",{},String(sc.clues||0))));
+  fl.append(h("div",{},h("span",{},m.icon+" "+m.title),h("span",{},sc.base+" pts")),h("div",{},h("span",{},"⏱ Time"),h("span",{},sc.timeUp?"Time's up":fmt(sc.time))),h("div",{},h("span",{},"🧠 No-hint bonus"),h("span",{},sc.bonus?"+"+sc.bonus:"—")),h("div",{},h("span",{},"💡 Hints used"),h("span",{},String(sc.hints||0))));
   lbAdd({name:S.name,level:S.level,pts,max,pct,time:sc.time});confetti();show("sFinal");
 }
 $("nextPlayer").onclick=goHome;
