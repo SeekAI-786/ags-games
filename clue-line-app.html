@@ -34,6 +34,7 @@ button{cursor:pointer}
 .f{font-family:"Fredoka","Trebuchet MS",sans-serif}
 .screen{display:none;max-width:1240px;margin:0 auto;padding:18px 20px 40px}
 .screen.on{display:block}
+#sWelcome.screen.on{min-height:100svh;padding-bottom:74px}
 .chunky{background:var(--card);border:3.5px solid var(--line);border-radius:18px;box-shadow:5px 5px 0 var(--line)}
 .btn{border:3.5px solid var(--line);border-radius:999px;box-shadow:4px 4px 0 var(--line);padding:.6rem 1.4rem;font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.15rem;background:var(--card)}
 .btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--line)}
@@ -203,7 +204,7 @@ button{cursor:pointer}
 .cg .cell{width:52px;height:48px;font-family:"Fredoka";font-size:1.35rem;font-weight:600;border-radius:6px}
 .cg .hd{background:var(--acc);color:#fff}
 .hint{color:var(--muted);font-size:.95rem;margin-top:8px}
-.brand-credit{display:flex;align-items:center;justify-content:center;gap:9px;padding:12px 20px 20px;color:var(--muted);font-size:.82rem;text-align:center}
+.brand-credit{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;align-items:center;justify-content:center;gap:9px;padding:10px 20px calc(10px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:.82rem;text-align:center;pointer-events:none}
 .brand-credit img{width:34px;height:34px;object-fit:contain;border-radius:7px}
 .brand-credit strong{color:var(--text);font-weight:800}
 
@@ -312,6 +313,9 @@ body[data-tier="expert"] .ai-av svg{filter:drop-shadow(0 0 10px rgba(94,230,255,
   .mz .cell{width:62px;height:62px}.mz .cell .me{font-size:26px}
   .scales{grid-template-columns:1fr}
   .alpha{grid-template-columns:repeat(7,1fr)}
+  #sWelcome.screen.on{padding-bottom:70px}
+  .hero{gap:22px}
+  .age{padding:20px 18px}
 }
 </style>
 </head>
@@ -347,6 +351,7 @@ body[data-tier="expert"] .ai-av svg{filter:drop-shadow(0 0 10px rgba(94,230,255,
 <!-- TOP BAR (board + mission) -->
 <div class="screen" id="topWrap" style="padding-bottom:0">
   <div class="chunky topbar">
+    <button class="btn" id="homeBtn">← Home</button>
     <span class="who" id="tbName"></span><span class="pill" id="tbLevel"></span>
     <div class="scorebox">Score <span class="sv" id="tbScore">0</span></div>
   </div>
@@ -741,6 +746,7 @@ function starStr(n){return "⭐".repeat(n)+"☆".repeat(3-n)}
 function list(){return MISSIONS.filter(m=>m.level===S.level)}
 
 function show(id){["sWelcome","sBoard","sMission","sFinal"].forEach(s=>$(s).classList.toggle("on",s===id));$("topWrap").classList.toggle("on",id==="sBoard"||id==="sMission");window.scrollTo(0,0)}
+function goHome(){stopAll();stopTimer();delete document.body.dataset.tier;S={name:"",level:null,scores:{}};$("nameIn").value="";paintLB();document.documentElement.style.removeProperty("--acc");show("sWelcome");$("nameIn").focus()}
 function paintTop(){$("tbName").textContent="🕵️ "+S.name;const p=$("tbLevel");p.className="pill "+(S.level==="junior"?"jr":"ex");p.textContent=S.level==="junior"?"Ages 6 to 9":"Ages 10 to 15";$("tbScore").textContent=total()}
 
 /* ================= leaderboard (this device) ================= */
@@ -762,6 +768,7 @@ function paintBoard(){
   paintTop();const t=$("tiles");t.innerHTML="";
   list().forEach(m=>{const b=h("button",{class:"chunky tile",style:"--acc:"+m.acc},h("span",{class:"tn"},String(m.n)),h("span",{},h("div",{class:"tt"},m.icon+" "+m.title),h("div",{class:"ts"},"🤖 "+m.ai.concept)));b.onclick=()=>openMission(m);t.append(b)})}
 $("changeAge").onclick=()=>{S.level=S.level==="junior"?"expert":"junior";S.scores={};enterBoard()};
+$("homeBtn").onclick=goHome;
 
 /* ================= mission ================= */
 function openMission(m){
@@ -849,7 +856,7 @@ async function finish(){
   fl.append(h("div",{},h("span",{},m.icon+" "+m.title),h("span",{},sc.base+" pts")),h("div",{},h("span",{},"⏱ Time"),h("span",{},sc.timeUp?"Time's up":fmt(sc.time))),h("div",{},h("span",{},"🧠 No-clue bonus"),h("span",{},sc.bonus?"+"+sc.bonus:"—")),h("div",{},h("span",{},"📞 Clue calls"),h("span",{},String(sc.clues||0))));
   lbAdd({name:S.name,level:S.level,pts,max,pct,time:sc.time});confetti();show("sFinal");
 }
-$("nextPlayer").onclick=()=>{stopAll();stopTimer();delete document.body.dataset.tier;S={name:"",level:null,scores:{}};$("nameIn").value="";paintLB();document.documentElement.style.removeProperty("--acc");show("sWelcome");$("nameIn").focus()};
+$("nextPlayer").onclick=goHome;
 
 function confetti(){if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;const c=h("div",{class:"confetti"});const cols=["#FF5A3C","#FFC93C","#3A86FF","#2E8B57","#E63973","#8E5CF7"];
   for(let i=0;i<70;i++)c.append(h("i",{style:`left:${Math.random()*100}%;background:${cols[i%cols.length]};animation-delay:${Math.random()*.6}s;transform:rotate(${Math.random()*360}deg)`}));document.body.append(c);setTimeout(()=>c.remove(),2600)}
