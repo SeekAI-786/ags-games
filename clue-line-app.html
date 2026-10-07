@@ -41,12 +41,14 @@ button{cursor:pointer}
 .btn.primary{background:var(--phone);color:#fff}
 .btn.sun{background:var(--sun);color:#1F1D2B}
 .btn:disabled{opacity:.45;cursor:not-allowed}
+.nav-button{background:var(--card);border:3.5px solid var(--line);border-radius:12px;box-shadow:3px 3px 0 var(--line);padding:.65rem 1.1rem;font-size:1rem}
+.nav-button:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line)}
 
 /* ---------- welcome ---------- */
 .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:center;min-height:calc(100vh - 70px)}
 .brandmark{display:flex;align-items:center;gap:16px}
-.base-link{display:inline-flex;align-items:center;margin-bottom:18px;color:var(--muted);font-family:"Fredoka",sans-serif;font-size:1rem;text-decoration:none}
-.base-link:hover{color:var(--text)}
+.base-link{display:inline-flex;align-items:center;margin-bottom:18px;padding:12px 18px;border:3.5px solid var(--line);border-radius:12px;background:var(--soft);color:var(--text);font-family:"Fredoka",sans-serif;font-size:1rem;text-decoration:none;box-shadow:3px 3px 0 var(--line)}
+.base-link:hover{background:var(--card)}
 .bigphone{width:92px;height:92px;border-radius:26px;background:var(--phone);border:4px solid var(--line);box-shadow:5px 5px 0 var(--line);display:grid;place-items:center;font-size:48px;transform:rotate(-8deg)}
 .title{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(2.6rem,6vw,4.4rem);line-height:.95}
 .lede{font-size:1.3rem;color:var(--muted);margin:16px 0 26px;max-width:36ch}
@@ -354,7 +356,7 @@ body[data-tier="expert"] .ai-av svg{filter:drop-shadow(0 0 10px rgba(94,230,255,
 <!-- TOP BAR (board + mission) -->
 <div class="screen" id="topWrap" style="padding-bottom:0">
   <div class="chunky topbar">
-    <button class="btn" id="homeBtn">← Home</button>
+    <button class="nav-button" id="homeBtn">← Main menu</button>
     <span class="who" id="tbName"></span><span class="pill" id="tbLevel"></span>
     <div class="scorebox">Score <span class="sv" id="tbScore">0</span></div>
   </div>
@@ -371,7 +373,7 @@ body[data-tier="expert"] .ai-av svg{filter:drop-shadow(0 0 10px rgba(94,230,255,
 
 <!-- MISSION -->
 <section class="screen" id="sMission" style="padding-top:0">
-  <div class="mhead"><div class="tn" id="mNum"></div><div><h1 id="mTitle"></h1></div><span class="att" id="mAtt"></span><button class="btn" id="backBtn">Pick a different mission</button></div>
+  <div class="mhead"><div class="tn" id="mNum"></div><div><h1 id="mTitle"></h1></div><span class="att" id="mAtt"></span><button class="nav-button" id="backBtn">Pick a different mission</button></div>
   <div class="mgrid">
     <div class="chunky cluebar"><span style="font-size:2rem">🤔</span><div class="cb-t">Stuck? Call the Clue Line for help.<div class="cb-s" id="clueUsed">Solve it without a clue to earn a +20 bonus!</div></div><span class="timer" id="timer" role="timer" aria-live="off">⏱ 2:00</span><button class="btn sun" id="callBtn">📞 Call for a clue</button></div>
     <div class="chunky aiskill" id="aiSkill"></div>
