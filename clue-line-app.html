@@ -102,11 +102,6 @@ button{cursor:pointer}
 .mhead h1{font-family:"Fredoka";font-size:2rem;line-height:1}
 .mhead .att{margin-left:auto;color:var(--muted)}
 .mgrid{display:block}
-.cluebar{display:flex;align-items:center;gap:14px;padding:12px 16px;margin-bottom:16px;background:var(--acc);color:#fff;position:sticky;top:10px;z-index:6}
-.cluebar .cb-t{font-family:"Fredoka";font-weight:600;font-size:1.25rem;text-shadow:1px 1px 0 var(--line);flex:1}
-.cluebar .cb-s{font-size:.95rem;opacity:.95}
-.cluebar .btn{white-space:nowrap}
-.cluebar.done{position:static;opacity:.55}
 .callover{position:fixed;inset:0;z-index:40;background:rgba(15,14,28,.72);display:none;place-items:center;padding:20px}
 .callover.on{display:grid}
 .callbox{width:min(560px,100%);padding:26px 24px;text-align:center;background:var(--acc);color:#fff}
@@ -321,37 +316,98 @@ body[data-tier="expert"] .ai-av svg{filter:drop-shadow(0 0 10px rgba(94,230,255,
   .hero{gap:22px}
   .age{padding:20px 18px}
 }
+
+/* ===== v3: simple flow for grades 2-6 ===== */
+html{font-size:18px}
+[hidden]{display:none!important}
+.btn,.nav-button{min-height:48px}
+.btn.big{font-size:1.4rem;padding:.7rem 2rem;min-height:60px}
+.screen{padding-bottom:92px}
+.welcome{max-width:780px;margin:0 auto;padding-top:6px}
+.welcome .brandmark{margin:6px 0 14px}
+.namebox label{font-size:1.25rem;font-weight:800}
+.namerow{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.namerow input{flex:1 1 260px;max-width:none;font-size:1.5rem;min-height:60px}
+.steps3{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0 22px}
+.steps3 li{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:16px 10px;background:var(--card);border:3.5px solid var(--line);border-radius:18px;box-shadow:4px 4px 0 var(--line)}
+.steps3 .s3i{font-size:2.6rem;line-height:1}
+.steps3 b{font-family:"Fredoka",sans-serif;font-size:1.25rem}
+.steps3 li span:last-child{color:var(--muted);font-size:.95rem}
+.hiname{font-family:"Fredoka",sans-serif;font-size:2.4rem;margin-top:10px}
+.age{min-height:150px}
+.lbbox{width:min(520px,100%);padding:22px}
+.lbbox .btn{margin-top:14px}
+.tiles{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:20px}
+.tile{flex-direction:column;justify-content:center;text-align:center;gap:8px;min-height:190px;padding:22px 12px 16px}
+.tile .tile-i{font-size:3.6rem;line-height:1}
+.tile .tt{font-size:1.4rem}
+.tile .tn{position:absolute;top:10px;left:10px;width:38px;height:38px;font-size:1.15rem;border-width:3px;text-shadow:none}
+.diff{display:inline-block;padding:.1rem .8rem;border-radius:999px;border:2.5px solid var(--line);font-family:"Fredoka",sans-serif;font-weight:600;font-size:.95rem;color:#1F1D2B}
+.diff.easy{background:#BFEBCB}.diff.medium{background:#FFE08A}.diff.tricky{background:#FFB4A8}
+.brief{max-width:640px;margin:10px auto 0;padding:26px 24px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
+.br-icon{width:120px;height:120px;border-radius:50%;background:var(--acc);border:4px solid var(--line);display:grid;place-items:center;font-size:4.2rem;box-shadow:4px 4px 0 var(--line)}
+.br-meta{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center}
+.brief h1{font-family:"Fredoka",sans-serif;font-size:2.4rem;line-height:1.05}
+.br-goal{font-size:1.4rem;line-height:1.35;max-width:30ch}
+.br-rules{color:var(--muted);line-height:1.7}
+.go{font-size:1.9rem;padding:.7rem 3.4rem;min-height:68px;background:var(--ok);color:#fff}
+.playbar{display:flex;align-items:center;gap:10px;padding:8px 12px;margin-bottom:14px;position:sticky;top:8px;z-index:6;flex-wrap:wrap}
+.playbar .pb-title{flex:1;font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.3rem;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.playbar.done{position:static;opacity:.6}
+.hintpop{display:flex;gap:12px;align-items:center;padding:12px 16px;margin-bottom:14px;background:color-mix(in srgb,var(--sun) 28%,var(--card));font-size:1.2rem;line-height:1.4}
+.hintpop .hi{font-size:1.8rem}
+.hintpop .say{margin-left:auto}
+.mynote{display:flex;align-items:center;gap:12px;padding:12px 16px;margin-bottom:14px;background:var(--card);border:3.5px dashed var(--line);border-radius:16px;font-size:1.1rem;line-height:1.4}
+.mynote .mn-l{font-family:"Fredoka",sans-serif;font-weight:600;white-space:nowrap}
+.mynote .mn-t{flex:1}
+.say{flex:none;min-width:48px;min-height:48px;border:3px solid var(--line);border-radius:999px;background:var(--card);font-size:1.3rem;margin-left:auto}
+.say:active{transform:translate(2px,2px)}
+.task{display:flex;align-items:center;gap:12px;font-size:1.3rem}
+.task .say{margin-left:auto}
+.checkbar{position:sticky;bottom:66px;z-index:5;display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;padding:10px 14px;margin-top:20px;background:color-mix(in srgb,var(--card) 94%,transparent);border:3.5px solid var(--line);border-radius:18px;box-shadow:4px 4px 0 var(--line)}
+@media (max-width:700px){.steps3{grid-template-columns:1fr}.playbar .pb-title{flex-basis:100%;order:-1}}
+#doneRow{position:static;margin-bottom:12px}
+#result{scroll-margin-top:80px}
+#pCard{padding-bottom:6px}
 </style>
 </head>
 <body>
 
 <!-- WELCOME -->
 <section class="screen on" id="sWelcome">
-  <div class="hero">
-    <div>
-      <a class="base-link" href="index.html">← All games</a>
-      <div class="brandmark"><div class="bigphone">☎️</div><div class="title">The Clue Line</div></div>
-      <p class="lede">Solve each mission on screen. If you get stuck, call the Clue Line for a secret clue!</p>
-      <div class="namebox"><label for="nameIn">What's your detective name?</label><input id="nameIn" maxlength="18" placeholder="Type your name" autocomplete="off"></div>
-      <div class="agepick">
-        <button class="chunky age jr" data-level="junior"><span class="ai">⭐</span><span class="an">Ages 6 to 9</span><span class="as">Fun missions to choose from</span></button>
-        <button class="chunky age ex" data-level="expert"><span class="ai">🚀</span><span class="an">Ages 10 to 15</span><span class="as">Expert agent missions</span></button>
+  <div class="welcome">
+    <a class="base-link" href="index.html">← All games</a>
+    <div class="brandmark"><div class="bigphone">☎️</div><div class="title">The Clue Line</div></div>
+    <div id="wStep1">
+      <p class="lede">Solve a puzzle mission. Stuck? Call the Clue Line for help!</p>
+      <div class="namebox">
+        <label for="nameIn">What is your name?</label>
+        <div class="namerow"><input id="nameIn" maxlength="18" placeholder="Type your name" autocomplete="off"><button class="btn primary big" id="nameNext">Next ➜</button></div>
+        <p class="empty" id="nameErr" style="display:none;color:var(--bad)">Please type your name first.</p>
       </div>
-      <p class="empty" id="nameErr" style="display:none;color:var(--bad)">Type your name first, then pick your age.</p>
+      <ol class="steps3" aria-label="How to play">
+        <li><span class="s3i">🧩</span><b>1. Solve</b><span>Do the puzzle.</span></li>
+        <li><span class="s3i">💡</span><b>2. Stuck?</b><span>Tap Hint or call for a clue.</span></li>
+        <li><span class="s3i">✅</span><b>3. Check</b><span>Press Check to get your score.</span></li>
+      </ol>
+      <button class="nav-button" id="lbBtn">🏆 Top scores</button>
     </div>
-    <div>
-      <div class="chunky board-card"><h2>🏆 Top detectives today</h2><ul class="lb" id="lb"></ul></div>
-      <div class="chunky howto whatai"><b>🤖 What is AI?</b> AI means computers that learn patterns from lots of examples, so they can see, talk, sort and decide. Every mission here uses a real AI skill!</div>
-      <div class="chunky howto"><ol>
-        <li><b>Pick ONE mission</b> from your mission board.</li>
-        <li><b>Try to solve it yourself.</b> No clue used = +20 bonus!</li>
-        <li><b>Stuck? Call the Clue Line</b> to hear a clue.</li>
-        <li><b>Press Check once</b> when you're sure. Earn up to 120 points!</li>
-        <li><b>See how AI does it:</b> every mission teaches a real AI skill.</li>
-      </ol></div>
+    <div id="wStep2" hidden>
+      <h2 class="hiname" id="hiName"></h2>
+      <p class="lede">Pick your level.</p>
+      <div class="agepick">
+        <button class="chunky age jr" data-level="junior"><span class="ai">⭐</span><span class="an">Grades 2–3</span><span class="as">Friendly puzzles</span></button>
+        <button class="chunky age ex" data-level="expert"><span class="ai">🚀</span><span class="an">Grades 4–6</span><span class="as">Super agent puzzles</span></button>
+      </div>
+      <button class="nav-button" id="nameBack">← Change my name</button>
     </div>
   </div>
 </section>
+
+<!-- TOP SCORES -->
+<div class="callover" id="lbOver" role="dialog" aria-modal="true" aria-label="Top scores">
+  <div class="chunky board-card lbbox"><h2>🏆 Top scores</h2><ul class="lb" id="lb"></ul><button class="btn primary" id="lbClose">Close</button></div>
+</div>
 
 <!-- TOP BAR (board + mission) -->
 <div class="screen" id="topWrap" style="padding-bottom:0">
@@ -365,26 +421,44 @@ body[data-tier="expert"] .ai-av svg{filter:drop-shadow(0 0 10px rgba(94,230,255,
 <!-- BOARD -->
 <section class="screen" id="sBoard" style="padding-top:0">
   <div class="boardhead">
-    <div><h1>Choose your mission</h1><p id="boardSub">You can play one mission. Each one teaches a real AI skill!</p></div>
-    <div class="row"><button class="btn" id="changeAge">Change age</button></div>
+    <div><h1>Pick your mission</h1><p id="boardSub">Tap one mission to start. You play one mission.</p></div>
+    <div class="row"><button class="nav-button" id="changeAge">Change level</button></div>
   </div>
   <div class="tiles" id="tiles"></div>
 </section>
 
+<!-- BRIEFING -->
+<section class="screen" id="sBrief" style="padding-top:0">
+  <div class="chunky brief">
+    <div class="br-icon" id="brIcon"></div>
+    <div class="br-meta"><span class="diff" id="brDiff"></span><span class="chip" id="brAI"></span></div>
+    <h1 id="brTitle"></h1>
+    <p class="br-goal" id="brGoal"></p>
+    <button class="btn" id="brRead">🔊 Read to me</button>
+    <p class="br-rules">⏱ You have <b>2 minutes</b>.<br>📞 Solve it without a clue call and get <b>+20 bonus points</b>!</p>
+    <button class="btn go" id="goBtn">GO! ▶</button>
+    <button class="nav-button" id="brBack">← Pick another mission</button>
+  </div>
+</section>
+
 <!-- MISSION -->
 <section class="screen" id="sMission" style="padding-top:0">
-  <div class="mhead"><div class="tn" id="mNum"></div><div><h1 id="mTitle"></h1></div><span class="att" id="mAtt"></span><button class="nav-button" id="backBtn">Pick a different mission</button></div>
-  <div class="mgrid">
-    <div class="chunky cluebar"><span style="font-size:2rem">🤔</span><div class="cb-t">Stuck? Call the Clue Line for help.<div class="cb-s" id="clueUsed">Solve it without a clue to earn a +20 bonus!</div></div><span class="timer" id="timer" role="timer" aria-live="off">⏱ 2:00</span><button class="btn sun" id="callBtn">📞 Call for a clue</button></div>
-    <div class="chunky aiskill" id="aiSkill"></div>
-    <div class="chunky puzzlecard" id="pCard">
-      <div class="scan" id="scan"><div><div class="st2" id="scanT"></div><div class="sb" id="scanBar"><i></i></div></div></div>
-      <div class="hintbox" id="hintBox"></div>
-      <div class="pz" id="pz"></div>
-      <div class="actions" id="checkRow"><button class="btn primary" id="checkBtn">✔ Check my answers</button><span class="hint">You get one check, so look over your answers first!</span></div>
-      <div class="result" id="result"></div>
-      <div class="ailab" id="aiLab"></div>
-    </div>
+  <div class="chunky playbar" id="playbar">
+    <button class="nav-button" id="backBtn">← Back</button>
+    <div class="pb-title" id="mTitle"></div>
+    <span class="timer" id="timer" role="timer" aria-live="off">⏱ 2:00</span>
+    <button class="btn" id="hintBtn">💡 Hint</button>
+    <button class="btn sun" id="callBtn">📞 Clue</button>
+  </div>
+  <div class="chunky hintpop" id="hintBox" hidden></div>
+  <div class="mynote" id="myNote" hidden><span class="mn-l">📝 My clue:</span><span class="mn-t" id="noteText"></span><button class="say" id="noteReplay" type="button" aria-label="Hear the clue again">🔊</button></div>
+  <div class="chunky puzzlecard" id="pCard">
+    <div class="scan" id="scan"><div><div class="st2" id="scanT"></div><div class="sb" id="scanBar"><i></i></div></div></div>
+    <div class="pz" id="pz"></div>
+    <div class="result" id="result"></div>
+    <div class="ailab" id="aiLab"></div>
+    <div class="checkbar" id="checkRow"><button class="btn primary big" id="checkBtn">✔ Check my answers</button><span class="hint">You can check only once.</span></div>
+    <div class="checkbar" id="doneRow" hidden><button class="btn primary big" id="doneBtn">🏁 See my final score</button></div>
   </div>
 </section>
 
@@ -396,7 +470,7 @@ body[data-tier="expert"] .ai-av svg{filter:drop-shadow(0 0 10px rgba(94,230,255,
     <div class="pstatus" id="pStatus">Ringing…</div>
     <div class="cluetext hidden" id="clueText"></div>
     <div class="ttsnote">🤖 This voice isn't a person. It's <b>text-to-speech</b>, a kind of AI that turns written words into a speaking voice.</div>
-    <button class="btn" id="hangBtn">Back to my worksheet</button>
+    <button class="btn" id="hangBtn">Back to my puzzle</button>
   </div>
 </div>
 
@@ -517,7 +591,7 @@ const MISSIONS=[
   const key={5:"U",6:"S",7:"I",8:"A",9:"E",10:"O",11:"L",12:"T",13:"M",14:"K"};
   const kt=h("div",{class:"keyt"});for(const[k,v]of Object.entries(key))kt.append(h("div",{},h("b",{},k),h("span",{},v)));
   const w=h("input",{class:"wi",maxlength:"5",placeholder:"?????","aria-label":"Secret word"});
-  return{el:h("div",{},h("div",{class:"task"},"Finish each sum with the magic number, then use the key to find the secret word."),rows,kt,h("div",{class:"row"},h("span",{class:"lab"},"Secret word:"),w)),
+  return{el:h("div",{},h("div",{class:"task"},"Add the magic number to each sum. Use the key to spell the word."),rows,kt,h("div",{class:"row"},h("span",{class:"lab"},"Secret word:"),w)),
    check(){let c=0;ins.forEach((x,i)=>{const ok=+x.value===exp[i];mark(x,ok);c+=ok});const ok=norm(w.value)==="SMILE";mark(w,ok);c+=ok;return c/6}};
  }},
 {n:5,hint:"Not every square should be coloured. What do some of the numbers have in common?",level:"junior",title:"Hidden Picture",icon:"🎨",acc:"#E63973",
@@ -588,7 +662,7 @@ const MISSIONS=[
   for(let i=items.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[items[i],items[j]]=[items[j],items[i]]}
   const box=h("div",{class:"shapes"});items.forEach(([k,d])=>{const b=h("button",{class:"shp","aria-label":"shape"});b.dataset.hit=(k==="tri"&&d)?1:0;b.innerHTML=shapeSVG(k,d,k==="cir"?0:pick(r,[-12,0,8,15]));b.onclick=()=>b.classList.toggle("sel");box.append(b)});
   const x=numIn("How many");
-  return{el:h("div",{},h("div",{class:"task"},"Tap shapes to mark them while you count, then type your answer."),box,h("div",{class:"qrow"},"I counted",x,"shapes")),
+  return{el:h("div",{},h("div",{class:"task"},"Tap the shapes as you count. Then type how many."),box,h("div",{class:"qrow"},"I counted",x,"shapes")),
    demo:async(log)=>{await log("🤖 Object detector running: looking for “triangle with dot”…",400);let n=0;
      for(const b of box.children){b.classList.remove("sel");if(b.dataset.hit==="1"){n++;b.classList.add("aibox");b.dataset.lbl="triangle·dot "+(0.9+Math.random()*.09).toFixed(2);await wait(380)}}
      await log(`✅ Found ${n} objects. Each box has a label and a confidence score, just like real detectors!`,300)},
@@ -629,7 +703,7 @@ const MISSIONS=[
   const mk=(opts)=>h("select",{class:"sel2"},h("option",{value:""},"Choose…"),...opts.map(o=>h("option",{value:o},o)));
   const q1=mk(ppl),q2=mk(["Red","Green","Blue"]),q3=mk(["Cat","Dog","Parrot"]);
   const facts=h("ol",{class:"facts"},...["Chen owns the dog.","Ayaan does not own the cat.","The person who owns the parrot loves blue.","Bina's favourite colour is red."].map(f=>h("li",{},f)));
-  return{el:h("div",{},h("div",{class:"task"},"Use the 4 facts to work it out. Tap the grid to mark ✓ or ✗, then answer the questions."),facts,h("div",{style:"overflow-x:auto"},tb),
+  return{el:h("div",{},h("div",{class:"task"},"Use the 4 facts. Tap the grid to mark ✓ or ✗, then answer."),facts,h("div",{style:"overflow-x:auto"},tb),
      h("div",{class:"qrow"},"Who owns the cat?",q1),h("div",{class:"qrow"},"What is Chen's favourite colour?",q2),h("div",{class:"qrow"},"Which pet does the blue-lover own?",q3)),
    check(){const r=[[q1,"Bina"],[q2,"Green"],[q3,"Parrot"]];let c=0;r.forEach(([s,a])=>{const ok=s.value===a;mark(s,ok);c+=ok});return c/3}};
  }},
@@ -641,7 +715,7 @@ const MISSIONS=[
   const want={tri:3,cir:6,sq:9,star:6},ins={};const wr=h("div",{class:"wrow"});
   for(const k of Object.keys(want)){ins[k]=numIn(k);const d=h("div",{});d.innerHTML=iconSVG(k);d.append("=",ins[k],"kg");wr.append(d)}
   const tot=numIn("total");const tr=h("div",{class:"qrow",style:"font-family:Fredoka;font-size:1.4rem"});tr.innerHTML=`<span style="width:34px;display:inline-block">${iconSVG("cir")}</span> + <span style="width:34px;display:inline-block">${iconSVG("sq")}</span> + <span style="width:34px;display:inline-block">${iconSVG("star")}</span> =`;tr.append(tot,"kg");
-  return{el:h("div",{},h("div",{class:"task"},"Every scale is balanced. Use the clue's starting fact to find each weight."),sc,wr,tr),
+  return{el:h("div",{},h("div",{class:"task"},"Every scale is balanced. Find the weight of each shape."),sc,wr,tr),
    check(){let c=0;for(const k in want){const ok=+ins[k].value===want[k];mark(ins[k],ok);c+=ok}const ok=+tot.value===21;mark(tot,ok);c+=ok;return c/5}};
  }},
 {n:14,hint:"Use the column letter first, then the row number.",level:"expert",title:"Grid Coordinates",icon:"📍",acc:"#1D4ED8",
@@ -714,9 +788,6 @@ const AILAB={
 const USES={"1": ["Chatbots like ChatGPT and Claude", "Google Translate", "Voice assistants"], "2": ["Robot vacuums", "Delivery robots", "Traffic lights"], "3": ["Plant ID apps", "Photo apps sorting pets", "Spam filters"], "4": ["Weather forecasts", "Video recommendations", "Price predictions"], "5": ["Face unlock", "Medical scans", "Self-driving cars"], "6": ["Chatbots", "Phone keyboard suggestions", "Search autocomplete"], "7": ["Spam filters", "Bank fraud checks", "Game AI choices"], "8": ["Google Maps", "Game characters", "Delivery drones"], "9": ["Self-driving cars", "Security cameras", "Counting crowds"], "10": ["WhatsApp messages", "Online banking", "Passwords"], "11": ["Every phone and computer", "Storing AI models", "Digital photos"], "12": ["AI tutors", "Maths solvers", "Planning assistants"], "13": ["Every neural network", "Face recognition", "Voice assistants"], "14": ["Search engines", "Recommendation apps", "Translation"]};
 MISSIONS.forEach(m=>{m.ai=AILAB[m.n];m.ai.uses=USES[m.n]});
 let labId=0;
-function paintSkill(m){const a=m.ai,c=$("aiSkill");c.innerHTML="";
-  c.append(h("div",{class:"as-i"},a.icon),h("div",{class:"as-b"},h("div",{class:"as-k"},"🤖 The AI skill in this mission"),h("div",{class:"as-t"},a.concept),
-    h("p",{},(tier()==="junior"&&a.jr)?a.jr:a.ex),h("div",{class:"as-u"},h("span",{},"Used in real life:"),...a.uses.map(u=>h("span",{class:"chip"},u)))));}
 async function runAILab(){
   const m=cur,a=m.ai,t=tier(),box=$("aiLab"),id=++labId;box.innerHTML="";box.classList.add("on");
   box.append(h("div",{class:"al-h"},h("span",{class:"al-i"},a.icon),h("div",{},h("div",{class:"al-k"},"🤖 How AI uses this skill"),h("h3",{},a.concept))),h("p",{class:"al-p"},(t==="junior"&&a.jr)?a.jr:a.ex));
@@ -730,7 +801,7 @@ async function runAILab(){
     else for(const st of a.steps)await log(st);}
   if(id!==labId)return;
   box.append(h("div",{class:"actions"},h("button",{class:"btn primary",onclick:finish},"🏁 See my final score")));
-  box.scrollIntoView({behavior:"smooth",block:"nearest"});
+  box.scrollIntoView({behavior:"smooth",block:"start"});
 }
 function mapDemo(stage){
   const pts=[["planet",70,40],["orbit",92,58],["moon",60,70],["star",100,28],["pizza",250,60],["pasta",276,40],["rice",262,84],["cat",150,160],["dog",178,176],["lion",140,188]];
@@ -750,62 +821,98 @@ function starsFor(p){return p>=90?3:p>=60?2:p>=30?1:0}
 function starStr(n){return "⭐".repeat(n)+"☆".repeat(3-n)}
 function list(){return MISSIONS.filter(m=>m.level===S.level)}
 
-function show(id){["sWelcome","sBoard","sMission","sFinal"].forEach(s=>$(s).classList.toggle("on",s===id));$("topWrap").classList.toggle("on",id==="sBoard"||id==="sMission");window.scrollTo(0,0)}
-function goHome(){stopAll();stopTimer();delete document.body.dataset.tier;S={name:"",level:null,scores:{}};$("nameIn").value="";paintLB();document.documentElement.style.removeProperty("--acc");show("sWelcome");$("nameIn").focus()}
-function paintTop(){$("tbName").textContent="🕵️ "+S.name;const p=$("tbLevel");p.className="pill "+(S.level==="junior"?"jr":"ex");p.textContent=S.level==="junior"?"Ages 6 to 9":"Ages 10 to 15";$("tbScore").textContent=total()}
+function show(id){["sWelcome","sBoard","sBrief","sMission","sFinal"].forEach(s=>$(s).classList.toggle("on",s===id));$("topWrap").classList.toggle("on",id==="sBoard"||id==="sBrief");window.scrollTo(0,0)}
+function goHome(){stopAll();stopTimer();delete document.body.dataset.tier;S={name:"",level:null,scores:{}};$("nameIn").value="";paintLB();document.documentElement.style.removeProperty("--acc");showStep(1);$("lbOver").classList.remove("on");show("sWelcome");$("nameIn").focus()}
+function paintTop(){$("tbName").textContent="🕵️ "+S.name;const p=$("tbLevel");p.className="pill "+(S.level==="junior"?"jr":"ex");p.textContent=LEVEL_LABEL[S.level]||"";$("tbScore").textContent=total()}
 
 /* ================= leaderboard (this device) ================= */
 const LBK="clueline-leaderboard";
 function lbGet(){try{return JSON.parse(localStorage.getItem(LBK)||"[]")}catch{return[]}}
 function lbAdd(e){try{const l=lbGet();l.push(e);l.sort((a,b)=>b.pct-a.pct||b.pts-a.pts||(a.time??999)-(b.time??999));localStorage.setItem(LBK,JSON.stringify(l.slice(0,50)))}catch{}}
 function paintLB(){const l=lbGet().slice(0,5),ul=$("lb");ul.innerHTML="";if(!l.length){ul.append(h("li",{class:"empty",style:"background:none"},"No scores yet. Be the first detective!"));return}
-  l.forEach((e,i)=>ul.append(h("li",{},h("span",{class:"rk"},String(i+1)),h("span",{class:"nm"},e.name,h("div",{class:"lv"},e.level==="junior"?"Ages 6 to 9":"Ages 10 to 15")),h("span",{class:"pt"},e.pts+" / "+e.max,e.time!=null?h("div",{class:"lv"},"⏱ "+fmt(e.time)):""))))}
+  l.forEach((e,i)=>ul.append(h("li",{},h("span",{class:"rk"},String(i+1)),h("span",{class:"nm"},e.name,h("div",{class:"lv"},LEVEL_LABEL[e.level]||"")),h("span",{class:"pt"},e.pts+" / "+e.max,e.time!=null?h("div",{class:"lv"},"⏱ "+fmt(e.time)):""))))}
 
 /* ================= welcome ================= */
-document.querySelectorAll(".age").forEach(b=>b.onclick=()=>{
-  const n=$("nameIn").value.trim();if(!n){$("nameErr").style.display="block";$("nameIn").focus();return}
-  S={name:n,level:b.dataset.level,scores:{}};enterBoard()});
+const LEVEL_LABEL={junior:"Grades 2–3",expert:"Grades 4–6"};
+function showStep(n){$("wStep1").hidden=n!==1;$("wStep2").hidden=n!==2}
+function nameNext(){const n=$("nameIn").value.trim();if(!n){$("nameErr").style.display="block";$("nameIn").focus();return}
+  $("hiName").textContent="Hi, "+n+"! 👋";showStep(2)}
+$("nameNext").onclick=nameNext;
+$("nameIn").addEventListener("keydown",e=>{if(e.key==="Enter")nameNext()});
 $("nameIn").addEventListener("input",()=>$("nameErr").style.display="none");
+$("nameBack").onclick=()=>{showStep(1);$("nameIn").focus()};
+document.querySelectorAll(".age").forEach(b=>b.onclick=()=>{
+  const n=$("nameIn").value.trim();if(!n){showStep(1);return}
+  S={name:n,level:b.dataset.level,scores:{}};enterBoard()});
+$("lbBtn").onclick=()=>{paintLB();$("lbOver").classList.add("on")};
+$("lbClose").onclick=()=>$("lbOver").classList.remove("on");
 
 /* ================= board ================= */
-function enterBoard(){document.body.dataset.tier=S.level;aiMount("aiBoard");aiMount("aiMission");aiMount("aiFinal");paintBoard();show("sBoard");}
+const DIFF={1:"medium",2:"easy",3:"easy",4:"medium",5:"medium",6:"easy",7:"easy",8:"medium",9:"tricky",10:"medium",11:"tricky",12:"tricky",13:"tricky",14:"easy"};
+const DIFF_LABEL={easy:"Easy",medium:"Medium",tricky:"Tricky"};
+const GOAL={1:"Use the number code to find the secret message.",2:"Follow the clue from the star to find 2 treasures.",3:"Find the mystery sea animal.",4:"Find the magic number and spell the secret word.",
+ 5:"Colour the even numbers to see a hidden picture.",6:"Put Zara's day at the park in order.",7:"Find the cookie thief.",8:"Find the path that only uses animals that can fly.",9:"Count the triangles that have a dot inside.",
+ 10:"Decode a secret message by moving each letter back.",11:"Turn 0s and 1s into the letters of a secret word.",12:"Use the facts to find out who owns which pet.",13:"Use the balance scales to find the weight of each shape.",14:"Find the squares on the grid to spell a secret word."};
+function diffChip(n){return h("span",{class:"diff "+DIFF[n]},DIFF_LABEL[DIFF[n]])}
+function enterBoard(){document.body.dataset.tier=S.level;paintBoard();show("sBoard")}
 function paintBoard(){
   paintTop();const t=$("tiles");t.innerHTML="";
-  list().forEach(m=>{const b=h("button",{class:"chunky tile",style:"--acc:"+m.acc},h("span",{class:"tn"},String(m.n)),h("span",{},h("div",{class:"tt"},m.icon+" "+m.title),h("div",{class:"ts"},"🤖 "+m.ai.concept)));b.onclick=()=>openMission(m);t.append(b)})}
+  list().forEach(m=>{const b=h("button",{class:"chunky tile",style:"--acc:"+m.acc},h("span",{class:"tn"},String(m.n)),h("span",{class:"tile-i"},m.icon),h("span",{class:"tt"},m.title),diffChip(m.n));b.onclick=()=>openBrief(m);t.append(b)})}
 $("changeAge").onclick=()=>{S.level=S.level==="junior"?"expert":"junior";S.scores={};enterBoard()};
 $("homeBtn").onclick=goHome;
 
 /* ================= mission ================= */
-function openMission(m){
-  stopAll();cur=m;const s=S.scores[m.n]||{pts:0,done:false,clues:0};S.scores[m.n]=s;
+function readAloud(t){try{if(!("speechSynthesis"in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(t).replace(/[^\p{L}\p{N}\p{P}\s]/gu,""));if(picked[0])u.voice=picked[0];u.rate=.9;u.lang="en-US";speechSynthesis.speak(u)}catch{}}
+function openBrief(m){
+  stopAll();stopTimer();cur=m;
   document.documentElement.style.setProperty("--acc",m.acc);
-  $("mNum").textContent=m.n;$("mTitle").textContent=m.icon+" "+m.title;
-  $("hintBox").innerHTML="";$("hintBox").append(h("span",{class:"hi"},"💡"),h("span",{},h("b",{},"Hint: "),m.hint));curBuild=m.build();$("pz").innerHTML="";$("pz").append(curBuild.el);
-  document.querySelector(".cluebar").classList.remove("done");paintSkill(m);labId++;$("aiLab").className="ailab";$("aiLab").innerHTML="";$("pCard").classList.remove("locked");$("result").className="result";$("result").innerHTML="";
-  $("clueText").textContent=m.clue;paintClueUsed();paintTop();
-  $("checkRow").style.display="";$("callBtn").disabled=false;$("backBtn").style.display="";
-  show("sMission");aiSay("aiMission",MSG.start[tier()]());startTimer();
+  $("brIcon").textContent=m.icon;$("brTitle").textContent=m.title;$("brGoal").textContent=GOAL[m.n];
+  $("brDiff").className="diff "+DIFF[m.n];$("brDiff").textContent=DIFF_LABEL[DIFF[m.n]];
+  $("brAI").className="chip";$("brAI").textContent="🤖 AI skill: "+m.ai.concept;
+  paintTop();show("sBrief");
 }
-function paintClueUsed(){const s=S.scores[cur.n];$("clueUsed").textContent=s.clues?`Clue used (${s.clues} ${s.clues>1?"calls":"call"}). You can call again anytime.`:"Read the hint and think first. Solve it without a clue for a +20 bonus!";$("mAtt").textContent=s.clues?"📞 Clue used":"🧠 No clue yet"}
+$("brRead").onclick=()=>readAloud(cur.title+". "+GOAL[cur.n]+" You have 2 minutes.");
+$("brBack").onclick=()=>{stopAll();paintBoard();show("sBoard")};
+function addReadButtons(){const t=$("pz").querySelector(".task");if(!t)return;const txt=t.textContent;t.textContent="";t.append(h("span",{},txt),h("button",{class:"say",type:"button","aria-label":"Read the task to me",onclick:()=>readAloud(txt)},"🔊"))}
+function startPlay(){
+  const m=cur;stopAll();S.scores[m.n]={pts:0,done:false,clues:0,heard:false,hints:0};
+  $("mTitle").textContent=m.icon+" "+m.title;
+  curBuild=m.build();$("pz").innerHTML="";$("pz").append(curBuild.el);addReadButtons();
+  labId++;$("aiLab").className="ailab";$("aiLab").innerHTML="";$("result").className="result";$("result").innerHTML="";
+  $("playbar").classList.remove("done");$("pCard").classList.remove("locked");
+  $("hintBox").hidden=true;$("myNote").hidden=true;$("checkRow").hidden=false;$("doneRow").hidden=true;
+  $("callBtn").disabled=false;$("hintBtn").disabled=false;$("backBtn").style.display="";
+  show("sMission");startTimer();
+}
+$("goBtn").onclick=startPlay;
 $("backBtn").onclick=()=>{stopAll();stopTimer();delete S.scores[cur.n];paintBoard();show("sBoard")};
+$("hintBtn").onclick=()=>{const b=$("hintBox");if(!b.hidden){b.hidden=true;return}
+  b.innerHTML="";b.append(h("span",{class:"hi"},"💡"),h("span",{},cur.hint),h("button",{class:"say",type:"button","aria-label":"Read the hint to me",onclick:()=>readAloud(cur.hint)},"🔊"));b.hidden=false;
+  const s=S.scores[cur.n];s.hints=(s.hints||0)+1};
+function paintNote(){const s=S.scores[cur.n],n=$("myNote");n.hidden=!s.heard;if(s.heard)$("noteText").textContent=cur.clue}
+$("noteReplay").onclick=()=>{const id=++callId;say(cur.clue,Math.floor(Math.random()*VOICES.length),id)};
 
 const LIMIT=120;let tStart=0,tInt=null;
 const fmt=sec=>`${Math.floor(sec/60)}:${String(sec%60).padStart(2,"0")}`;
-function elapsed(){return Math.min(LIMIT,Math.round((Date.now()-tStart)/1000))}
+let pausedAt=0;
+function elapsed(){return Math.min(LIMIT,Math.round(((pausedAt||Date.now())-tStart)/1000))}
+function pauseTimer(){if(tInt&&!pausedAt)pausedAt=Date.now()}
+function resumeTimer(){if(pausedAt){tStart+=Date.now()-pausedAt;pausedAt=0}}
 function startTimer(){stopTimer();tStart=Date.now();paintTimer();tInt=setInterval(()=>{paintTimer();if(elapsed()>=LIMIT){stopTimer();doCheck(true)}},250)}
-function stopTimer(){clearInterval(tInt);tInt=null}
+function stopTimer(){clearInterval(tInt);tInt=null;pausedAt=0}
 function paintTimer(){const left=LIMIT-elapsed(),t=$("timer");t.textContent="⏱ "+fmt(left);t.classList.toggle("warn",left<=30);t.classList.toggle("end",left<=10)}
 let checking=false;
 async function doCheck(timeUp=false){
   if(checking)return;checking=true;stopTimer();const s=S.scores[cur.n];s.time=elapsed();s.timeUp=timeUp;clearMarks($("pz"));stopAll();
-  $("pCard").classList.add("locked");$("checkRow").style.display="none";$("callBtn").disabled=true;$("backBtn").style.display="none";document.querySelector(".cluebar").classList.add("done");
+  $("pCard").classList.add("locked");$("checkRow").hidden=true;$("callBtn").disabled=true;$("hintBtn").disabled=true;$("hintBox").hidden=true;$("backBtn").style.display="none";$("playbar").classList.add("done");
   $("scanT").textContent=(timeUp?"⏰ Time's up! ":"")+MSG.scan[tier()]();if(timeUp)buzz();const bar=$("scanBar");bar.innerHTML="<i></i>";$("scan").classList.add("on");aiSay("aiMission",MSG.scan[tier()]());
   await wait(1600);$("scan").classList.remove("on");
   const pct=Math.max(0,Math.min(1,curBuild.check()));const base=Math.round(pct*100);
   const bonus=(!s.clues&&pct>=.5)?BONUS:0;s.pts=base+bonus;s.base=base;s.bonus=bonus;s.pct=pct;s.done=true;paintTop();
-  showResult();setTimeout(runAILab,900);aiSay("aiMission",MSG.result[tier()](pct,s.clues),true);pct>=.999?(chime(),confetti()):pct>=.5?chime():buzz();checking=false;
+  showResult();$("doneRow").hidden=false;setTimeout(runAILab,900);aiSay("aiMission",MSG.result[tier()](pct,s.clues),true);pct>=.999?(chime(),confetti()):pct>=.5?chime():buzz();checking=false;
 }
 $("checkBtn").onclick=()=>doCheck();
+$("doneBtn").onclick=()=>finish();
 function showResult(){
   const s=S.scores[cur.n],box=$("result");box.innerHTML="";const pct=s.pct??0,perfect=pct>=.999;
   box.className="result on "+(pct>=.5?"good":"meh");
@@ -815,8 +922,8 @@ function showResult(){
     s.bonus?h("div",{class:"nobonus"},`🧠 No-clue bonus +${s.bonus}`):"",
     h("div",{style:"font-family:Fredoka;font-size:1.3rem;margin-top:6px"},`Mission total: ${s.pts} points`));
   if(!perfect)box.append(h("div",{class:"ans"},"Answer: "+cur.answer));
-  box.append(h("div",{class:"hint"},"🤖 Now watch how an AI would solve this mission below…"));
-  box.scrollIntoView({behavior:"smooth",block:"nearest"});
+  box.append(h("div",{class:"hint"},"🤖 Scroll down to see how AI solves this."));
+  box.scrollIntoView({behavior:"smooth",block:"start"});
 }
 
 /* ================= voice clue ================= */
@@ -833,22 +940,22 @@ function chime(){tone([660],.18,.15,0);tone([880],.18,.15,.16);tone([1320],.35,.
 function buzz(){tone([180],.35,.12)}
 function phoneMode(m,t){$("phone").className="chunky callbox phonecard "+m;$("pStatus").textContent=t}
 async function callClue(){
-  if(!cur||S.scores[cur.n].done)return;
+  if(!cur||S.scores[cur.n].done||$("callOver").classList.contains("on"))return;
   const id=++callId;try{speechSynthesis.cancel()}catch{}
-  const s=S.scores[cur.n];s.clues=(s.clues||0)+1;paintClueUsed();
-  aiSay("aiMission",MSG.call[tier()]());$("callOver").classList.add("on");$("clueText").classList.add("hidden");$("hangBtn").focus();
+  const s=S.scores[cur.n];pauseTimer();
+  $("callOver").classList.add("on");$("clueText").classList.add("hidden");$("hangBtn").focus();
   phoneMode("ringing","Ringing…");ring();await wait(2400);if(id!==callId)return;
-  const v=Math.floor(Math.random()*VOICES.length);   // random voice each call
-  $("clueText").classList.remove("hidden");
+  const v=Math.floor(Math.random()*VOICES.length);   // one random voice, played once
+  s.clues=(s.clues||0)+1;s.heard=true;$("clueText").textContent=cur.clue;$("clueText").classList.remove("hidden");
   phoneMode("talking","Listen carefully…");
   await say("Hello, detective! Here is your clue. "+cur.clue,v,id);
   if(id!==callId)return;
-  phoneMode("","Back to your worksheet!");await wait(1500);
+  phoneMode("","Back to your puzzle!");await wait(1200);
   if(id===callId)closeCall();
 }
-function closeCall(){callId++;try{speechSynthesis.cancel()}catch{}$("callOver").classList.remove("on");$("callBtn").focus();aiSay("aiMission",MSG.back[tier()]())}
+function closeCall(){callId++;try{speechSynthesis.cancel()}catch{}$("callOver").classList.remove("on");resumeTimer();if(cur&&S.scores[cur.n])paintNote();$("callBtn").focus()}
 $("callBtn").onclick=callClue;$("hangBtn").onclick=closeCall;
-document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("callOver").classList.contains("on"))closeCall()});
+document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if($("callOver").classList.contains("on"))closeCall();if($("lbOver").classList.contains("on"))$("lbOver").classList.remove("on")});
 function stopAll(){callId++;try{speechSynthesis.cancel()}catch{}$("callOver").classList.remove("on")}
 
 /* ================= finish ================= */
