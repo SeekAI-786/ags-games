@@ -203,6 +203,9 @@ button{cursor:pointer}
 .cg .cell{width:52px;height:48px;font-family:"Fredoka";font-size:1.35rem;font-weight:600;border-radius:6px}
 .cg .hd{background:var(--acc);color:#fff}
 .hint{color:var(--muted);font-size:.95rem;margin-top:8px}
+.brand-credit{display:flex;align-items:center;justify-content:center;gap:9px;padding:12px 20px 20px;color:var(--muted);font-size:.82rem;text-align:center}
+.brand-credit img{width:34px;height:34px;object-fit:contain;border-radius:7px}
+.brand-credit strong{color:var(--text);font-weight:800}
 
 /* ---------- AI companion ---------- */
 :root{--aiacc:#1FA59A}
@@ -399,6 +402,11 @@ body[data-tier="expert"] .ai-av svg{filter:drop-shadow(0 0 10px rgba(94,230,255,
     <button class="btn primary" id="nextPlayer">Next player</button>
   </div>
 </section>
+
+<footer class="brand-credit">
+  <img src="AGS%20Logo.png" alt="Align Global Solution logo">
+  <span>Developed by <strong>Align Global Solution</strong></span>
+</footer>
 
 <script>
 /* ================= helpers ================= */
