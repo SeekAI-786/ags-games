@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Clue Line</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EAF1FF; --dot:rgba(31,29,43,.09); --card:#FFFFFF; --soft:#F4F6FB; --text:#1F1D2B; --muted:#5E5B72;
+  --line:#1F1D2B; --sun:#FFC93C; --phone:#FF5A3C; --ok:#1E9E5A; --bad:#E23B4A; --okbg:#DDF6E8; --badbg:#FDE2E5;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#161528; --dot:rgba(255,255,255,.06); --card:#25233B; --soft:#1D1C31; --text:#F3F1FF; --muted:#B5B2CC;
+    --line:#0A0914; --okbg:#153A28; --badbg:#44202A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161528; --dot:rgba(255,255,255,.06); --card:#25233B; --soft:#1D1C31; --text:#F3F1FF; --muted:#B5B2CC;
+  --line:#0A0914; --okbg:#153A28; --badbg:#44202A;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*,*::before,*::after{box-sizing:border-box;margin:0}
+body{min-height:100%;background:var(--bg) radial-gradient(var(--dot) 1.6px,transparent 2px) 0 0/22px 22px;color:var(--text);
+  font-family:"Nunito",system-ui,sans-serif;font-weight:700;-webkit-tap-highlight-color:transparent}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:4px solid var(--sun);outline-offset:3px}
+.f{font-family:"Fredoka","Trebuchet MS",sans-serif}
+.screen{display:none;max-width:1240px;margin:0 auto;padding:18px 20px 40px}
+.screen.on{display:block}
+.chunky{background:var(--card);border:3.5px solid var(--line);border-radius:18px;box-shadow:5px 5px 0 var(--line)}
+.btn{border:3.5px solid var(--line);border-radius:999px;box-shadow:4px 4px 0 var(--line);padding:.6rem 1.4rem;font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.15rem;background:var(--card)}
+.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--line)}
+.btn.primary{background:var(--phone);color:#fff}
+.btn.sun{background:var(--sun);color:#1F1D2B}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+/* ---------- welcome ---------- */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:center;min-height:calc(100vh - 70px)}
+.brandmark{display:flex;align-items:center;gap:16px}
+.bigphone{width:92px;height:92px;border-radius:26px;background:var(--phone);border:4px solid var(--line);box-shadow:5px 5px 0 var(--line);display:grid;place-items:center;font-size:48px;transform:rotate(-8deg)}
+.title{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(2.6rem,6vw,4.4rem);line-height:.95}
+.lede{font-size:1.3rem;color:var(--muted);margin:16px 0 26px;max-width:36ch}
+.namebox label{display:block;font-size:1.05rem;margin-bottom:8px}
+.namebox input{width:100%;max-width:420px;padding:.8rem 1rem;border:3.5px solid var(--line);border-radius:14px;background:var(--card);font-size:1.3rem;font-weight:800}
+.agepick{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+.age{padding:26px 22px;text-align:left;display:flex;flex-direction:column;gap:6px}
+.age .ai{font-size:2.4rem}
+.age .an{font-family:"Fredoka",sans-serif;font-weight:700;font-size:2rem}
+.age .as{color:var(--muted);font-size:1rem}
+.age.jr{background:#DDF3E6}.age.ex{background:#E9E0FF}
+:root[data-theme="dark"] .age.jr{background:#1C3A2B}:root[data-theme="dark"] .age.ex{background:#2E2552}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .age.jr{background:#1C3A2B}:root:not([data-theme="light"]) .age.ex{background:#2E2552}}
+.board-card{padding:18px 20px}
+.board-card h2{font-family:"Fredoka",sans-serif;font-size:1.5rem;margin-bottom:10px}
+.lb{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px}
+.lb li{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:12px;background:var(--soft)}
+.lb .rk{width:30px;height:30px;border-radius:50%;background:var(--sun);color:#1F1D2B;display:grid;place-items:center;font-family:"Fredoka";border:2.5px solid var(--line);flex:none}
+.lb .nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb .lv{font-size:.85rem;color:var(--muted)}
+.lb .pt{font-family:"Fredoka";font-size:1.2rem}
+.empty{color:var(--muted);padding:6px 2px}
+.howto{margin-top:18px;padding:16px 20px}
+.howto ol{padding-left:1.3rem;display:flex;flex-direction:column;gap:6px;color:var(--muted)}
+.howto b{color:var(--text)}
+
+/* ---------- top bar ---------- */
+.topbar{display:flex;align-items:center;gap:14px;padding:10px 14px;margin-bottom:18px}
+.topbar .who{font-family:"Fredoka";font-size:1.3rem;font-weight:600}
+.pill{padding:.25rem .8rem;border-radius:999px;border:2.5px solid var(--line);font-size:.9rem;background:var(--soft)}
+.pill.jr{background:#2E8B57;color:#fff}.pill.ex{background:#5B21B6;color:#fff}
+.scorebox{margin-left:auto;display:flex;align-items:center;gap:8px;font-family:"Fredoka";font-size:1.3rem}
+.scorebox .sv{background:var(--sun);color:#1F1D2B;border:3px solid var(--line);border-radius:12px;padding:.1rem .7rem;min-width:70px;text-align:center}
+
+/* ---------- mission board ---------- */
+.boardhead{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.boardhead h1{font-family:"Fredoka";font-size:2.2rem}
+.boardhead p{color:var(--muted)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.tile{display:flex;align-items:center;gap:14px;padding:14px;text-align:left;position:relative}
+.tile .tn{flex:none;width:64px;height:64px;border-radius:50%;background:var(--acc);border:3.5px solid var(--line);display:grid;place-items:center;color:#fff;font-family:"Fredoka";font-weight:700;font-size:2rem;text-shadow:2px 2px 0 var(--line)}
+.tile .tt{font-family:"Fredoka";font-size:1.3rem;font-weight:600;line-height:1.1}
+.tile .ts{font-size:.95rem;color:var(--muted);margin-top:4px}
+.tile .stars{font-size:1.1rem;letter-spacing:2px;margin-top:4px}
+.tile.done{background:var(--soft)}
+.tile .badge{position:absolute;top:-10px;right:-8px;background:var(--ok);color:#fff;border:3px solid var(--line);border-radius:999px;padding:0 .6rem;font-family:"Fredoka";font-size:.95rem}
+
+/* ---------- mission screen ---------- */
+.mhead{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.mhead .tn{width:58px;height:58px;border-radius:50%;background:var(--acc);border:3.5px solid var(--line);display:grid;place-items:center;color:#fff;font-family:"Fredoka";font-weight:700;font-size:1.8rem;text-shadow:2px 2px 0 var(--line);flex:none}
+.mhead h1{font-family:"Fredoka";font-size:2rem;line-height:1}
+.mhead .att{margin-left:auto;color:var(--muted)}
+.mgrid{display:block}
+.cluebar{display:flex;align-items:center;gap:14px;padding:12px 16px;margin-bottom:16px;background:var(--acc);color:#fff;position:sticky;top:10px;z-index:6}
+.cluebar .cb-t{font-family:"Fredoka";font-weight:600;font-size:1.25rem;text-shadow:1px 1px 0 var(--line);flex:1}
+.cluebar .cb-s{font-size:.95rem;opacity:.95}
+.cluebar .btn{white-space:nowrap}
+.cluebar.done{position:static;opacity:.55}
+.callover{position:fixed;inset:0;z-index:40;background:rgba(15,14,28,.72);display:none;place-items:center;padding:20px}
+.callover.on{display:grid}
+.callbox{width:min(560px,100%);padding:26px 24px;text-align:center;background:var(--acc);color:#fff}
+.callbox .btn{margin-top:14px;color:var(--text)}
+.nobonus{display:inline-block;margin-top:6px;padding:.15rem .7rem;border-radius:999px;background:var(--sun);color:#1F1D2B;border:2.5px solid var(--line);font-family:"Fredoka"}
+.phonecard{padding:18px;text-align:center}
+.phonecard .pc-top{font-family:"Fredoka";font-size:1.3rem;font-weight:600;text-shadow:2px 2px 0 var(--line)}
+.handset{width:120px;height:120px;margin:14px auto;border-radius:50%;background:#fff;border:4px solid var(--line);display:grid;place-items:center;font-size:58px;box-shadow:4px 4px 0 var(--line)}
+.ringing .handset{animation:shake .4s infinite}
+.talking .handset{animation:pulse .7s infinite alternate}
+@keyframes shake{0%,100%{transform:rotate(0)}25%{transform:rotate(-10deg)}75%{transform:rotate(10deg)}}
+@keyframes pulse{from{transform:scale(1)}to{transform:scale(1.07)}}
+@media (prefers-reduced-motion:reduce){.handset{animation:none!important}}
+.pstatus{font-family:"Fredoka";font-size:1.15rem;min-height:1.6em;text-shadow:1px 1px 0 var(--line)}
+.voices{display:flex;gap:6px;justify-content:center;margin:10px 0}
+.voices span{padding:.2rem .6rem;border-radius:999px;border:2.5px solid var(--line);background:rgba(255,255,255,.35);font-size:.85rem;color:#1F1D2B}
+.voices span.on{background:var(--sun)}
+.voices span.done{background:#fff}
+.cluetext{background:var(--card);color:var(--text);border:3px solid var(--line);border-radius:14px;padding:12px 14px;text-align:left;font-size:1.05rem;line-height:1.45;margin:10px 0 12px}
+.cluetext.hidden{display:none}
+.phonecard .btn{width:100%;margin-top:8px}
+.puzzlecard{padding:20px 22px;position:relative;min-height:420px}
+.task{font-size:1.2rem;border-left:6px solid var(--acc);padding-left:12px;margin-bottom:16px}
+.locked .pz{pointer-events:none}
+.actions{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;align-items:center}
+.result{margin-top:18px;padding:16px 18px;border-radius:16px;border:3.5px solid var(--line);display:none}
+.result.on{display:block}
+.result.good{background:var(--okbg)}.result.meh{background:var(--badbg)}
+.result h3{font-family:"Fredoka";font-size:1.6rem}
+.result .rs{font-size:2rem;letter-spacing:4px}
+.result .ans{margin-top:6px;color:var(--muted)}
+.result .actions{margin-top:12px}
+
+/* shared puzzle widgets */
+.li{width:46px;height:52px;text-align:center;border:3px solid var(--line);border-radius:10px;background:var(--card);font-family:"Fredoka";font-size:1.5rem;font-weight:600;text-transform:uppercase}
+.ni{width:78px;height:52px;text-align:center;border:3px solid var(--line);border-radius:10px;background:var(--card);font-family:"Fredoka";font-size:1.5rem;font-weight:600}
+.wi{width:220px;height:52px;padding:0 12px;border:3px solid var(--line);border-radius:10px;background:var(--card);font-family:"Fredoka";font-size:1.5rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em}
+.ok{border-color:var(--ok)!important;background:var(--okbg)!important;box-shadow:0 0 0 3px var(--ok)}
+.bad{border-color:var(--bad)!important;background:var(--badbg)!important;box-shadow:0 0 0 3px var(--bad)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.lab{font-size:1.1rem}
+.code-words{display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+.code-word{display:flex;gap:6px;flex-wrap:wrap}
+.cc{display:flex;flex-direction:column;align-items:center;gap:4px}
+.cn{width:46px;padding:4px 0;text-align:center;background:var(--acc);color:#fff;border:3px solid var(--line);border-radius:10px;font-family:"Fredoka";font-size:1.25rem;font-weight:600}
+.alpha{display:grid;grid-template-columns:repeat(13,1fr);gap:4px;margin-top:20px;max-width:640px}
+.alpha div{text-align:center;border:2px solid var(--line);border-radius:8px;background:var(--soft);font-family:"Fredoka";padding:2px 0}
+.alpha small{display:block;color:var(--muted);font-size:.8rem;min-height:1em}
+.grid{display:grid;gap:6px;background:var(--line);padding:6px;border-radius:14px;width:max-content;max-width:100%}
+.cell{background:var(--card);border:none;border-radius:8px;display:grid;place-items:center;padding:0}
+.cell.sel{background:var(--sun);color:#1F1D2B}
+.cell.start{background:#FFE58F}
+.tg .cell{width:62px;height:62px;font-size:32px}
+.opts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:700px}
+.opt{padding:12px 6px;border:3px solid var(--line);border-radius:16px;background:var(--card);text-align:center}
+.opt .oe{font-size:44px;line-height:1.1}
+.opt .on{font-family:"Fredoka";font-size:1.1rem}
+.opt.sel{background:var(--sun);color:#1F1D2B;box-shadow:0 0 0 4px var(--line)}
+.mrow{display:flex;align-items:center;gap:10px;font-family:"Fredoka";font-size:1.5rem;margin-bottom:10px}
+.mb{width:56px;height:52px;display:grid;place-items:center;background:var(--acc);color:#fff;border:3px solid var(--line);border-radius:10px}
+.keyt{display:grid;grid-template-columns:repeat(10,1fr);border:3px solid var(--line);border-radius:12px;overflow:hidden;max-width:620px;margin:14px 0;background:var(--card)}
+.keyt div{text-align:center;padding:6px 0;border-left:1px solid var(--muted);font-family:"Fredoka"}
+.keyt div:first-child{border-left:none}
+.keyt b{display:block;font-size:1.2rem}.keyt span{color:var(--acc);font-size:1.2rem;font-weight:700}
+.hg .cell{width:44px;height:44px;font-family:"Fredoka";font-size:1.1rem;font-weight:600;border-radius:4px}
+.hg{gap:2px;padding:3px}
+.hg .cell.sel{background:var(--acc);color:#fff}
+.hg .cell.sel.ok,.hg .cell.sel.bad{color:var(--text)}
+.story{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;max-width:820px}
+.scard{position:relative;padding:16px 8px 12px;border:3px solid var(--line);border-radius:16px;background:var(--card);text-align:center}
+.scard .se{font-size:56px}
+.scard .sn{position:absolute;top:-12px;left:-12px;width:42px;height:42px;border-radius:50%;border:3px solid var(--line);background:var(--soft);display:grid;place-items:center;font-family:"Fredoka";font-size:1.4rem}
+.scard.picked .sn{background:var(--sun);color:#1F1D2B}
+.sus{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:640px}
+.sus .opt svg{width:100%;height:150px}
+.mz .cell{width:86px;height:80px;flex-direction:column;display:flex;align-items:center;justify-content:center}
+.mz .cell .me{font-size:34px;line-height:1.1}.mz .cell .mn{font-size:.78rem}
+.mzlab{font-family:"Fredoka";color:var(--acc);font-size:1.1rem;margin:4px 0}
+.shapes{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;max-width:760px;background:var(--card);border:3px solid var(--line);border-radius:14px;padding:10px}
+.shp{border:none;background:transparent;border-radius:12px;padding:4px}
+.shp svg{width:100%;height:auto;display:block}
+.shp.sel{background:var(--sun)}
+.btab{border-collapse:separate;border-spacing:6px}
+.btab th{font-size:.95rem;color:var(--muted)}
+.bit{width:48px;height:46px;text-align:center;background:var(--acc);color:#fff;border:3px solid var(--line);border-radius:10px;font-family:"Fredoka";font-size:1.4rem}
+.lg{border-collapse:collapse;background:var(--card)}
+.lg th,.lg td{border:3px solid var(--line);text-align:center;padding:6px}
+.lg td{width:62px;height:54px;font-size:1.6rem;cursor:pointer;user-select:none}
+.lg td.sep{width:8px;padding:0;background:var(--line);cursor:default}
+.lg th.p{text-align:left;padding:0 12px;font-family:"Fredoka";font-size:1.2rem}
+.sel2{height:50px;border:3px solid var(--line);border-radius:10px;background:var(--card);padding:0 10px;font-weight:800;font-size:1.1rem}
+.qrow{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px;font-size:1.15rem}
+.scales{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:760px}
+.scales>div{background:var(--card);border:3px solid var(--line);border-radius:14px;padding:8px;text-align:center;font-family:"Fredoka"}
+.scales svg{width:100%;height:auto}
+.wrow{display:grid;grid-template-columns:repeat(2,max-content);gap:12px 40px;margin-top:16px}
+.wrow>div{display:flex;align-items:center;gap:10px;font-family:"Fredoka";font-size:1.4rem}
+.wrow svg{width:40px;height:40px}
+.cg .cell{width:52px;height:48px;font-family:"Fredoka";font-size:1.35rem;font-weight:600;border-radius:6px}
+.cg .hd{background:var(--acc);color:#fff}
+.hint{color:var(--muted);font-size:.95rem;margin-top:8px}
+
+/* ---------- AI companion ---------- */
+:root{--aiacc:#1FA59A}
+.ai{display:flex;align-items:flex-end;gap:14px;margin-bottom:16px}
+.ai-av{flex:none;width:88px;height:88px}
+.ai-av svg{width:100%;height:100%;overflow:visible}
+.ai-bub{position:relative;flex:1;background:var(--card);border:3.5px solid var(--line);border-radius:18px 18px 18px 4px;padding:10px 16px 12px;box-shadow:4px 4px 0 var(--line);min-height:66px}
+.ai-nm{font-family:"Fredoka";font-weight:600;font-size:.95rem;color:var(--aiacc)}
+.ai-tx{font-size:1.15rem;line-height:1.4;max-width:70ch}
+.ai-tx.typing::after{content:"▍";color:var(--aiacc);animation:caret .8s steps(1) infinite}
+@keyframes caret{50%{opacity:0}}
+.blink{animation:blink 4.2s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.12)}}
+.bob{animation:bob 2.8s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.spin{animation:spin 7s linear infinite;transform-box:fill-box;transform-origin:center}
+.spin2{animation:spin 11s linear infinite reverse;transform-box:fill-box;transform-origin:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+.final .ai{text-align:left;margin:22px 0 18px}
+.scan{position:absolute;inset:0;z-index:7;display:none;place-items:center;background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:blur(2px);border-radius:15px;text-align:center}
+.scan.on{display:grid}
+.scan .st2{font-family:"Fredoka";font-size:1.5rem;font-weight:600}
+.scan .sb{width:min(360px,80vw);height:16px;border:3px solid var(--line);border-radius:99px;overflow:hidden;background:var(--soft);margin:12px auto 0}
+.scan .sb i{display:block;height:100%;width:0;background:var(--aiacc);animation:fillbar 1.5s ease-out forwards}
+@keyframes fillbar{to{width:100%}}
+@media (prefers-reduced-motion:reduce){.blink,.bob,.spin,.spin2,.ai-tx.typing::after{animation:none}}
+
+/* ---------- expert tier: AI mission control ---------- */
+body[data-tier="expert"]{--bg:#070B1F;--card:#10183A;--soft:#18224D;--text:#E6F4FF;--muted:#9AAFDA;--line:#5EE6FF;--phone:#FF4FD8;--sun:#FFE14D;--okbg:#0F3B33;--badbg:#431530;--aiacc:#5EE6FF;
+  background:var(--bg) linear-gradient(rgba(94,230,255,.07) 1px,transparent 1px) 0 0/30px 30px;background-image:linear-gradient(rgba(94,230,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(94,230,255,.07) 1px,transparent 1px);background-size:30px 30px}
+body[data-tier="expert"] .chunky{box-shadow:4px 4px 0 rgba(94,230,255,.5),0 0 24px rgba(94,230,255,.16)}
+body[data-tier="expert"] .btn{box-shadow:3px 3px 0 rgba(94,230,255,.55)}
+body[data-tier="expert"] .ai-bub{box-shadow:0 0 22px rgba(94,230,255,.25)}
+body[data-tier="expert"] .tile .tn,body[data-tier="expert"] .mhead .tn{text-shadow:none;border-color:#5EE6FF;box-shadow:0 0 14px rgba(94,230,255,.4)}
+body[data-tier="expert"] .as-t,body[data-tier="expert"] .boardhead h1,body[data-tier="expert"] .mhead h1,body[data-tier="expert"] .tile .tt,body[data-tier="expert"] .topbar .who,body[data-tier="expert"] .final .ft,body[data-tier="expert"] .ai-nm,body[data-tier="expert"] .scan .st2{font-family:"Chakra Petch","Fredoka",sans-serif;letter-spacing:.02em}
+body[data-tier="expert"] .scales>div{background:#fff;color:#1F1D2B}
+body[data-tier="expert"] .final .fs{color:#5EE6FF;text-shadow:0 0 18px rgba(94,230,255,.6)}
+body[data-tier="expert"] .ai-av svg{filter:drop-shadow(0 0 10px rgba(94,230,255,.7))}
+
+.hintbox{display:flex;gap:10px;align-items:flex-start;background:color-mix(in srgb,var(--sun) 22%,var(--card));border:3px dashed var(--line);border-radius:14px;padding:10px 14px;margin-bottom:16px;font-size:1.08rem;line-height:1.4}
+.hintbox .hi{font-size:1.5rem;line-height:1}
+.facts{margin:0 0 14px;padding-left:1.6rem;display:flex;flex-direction:column;gap:4px;font-size:1.12rem}
+.ailab{display:none;margin-top:18px;padding:18px 20px;border:3.5px solid var(--line);border-radius:18px;background:color-mix(in srgb,var(--aiacc) 12%,var(--card))}
+.ailab.on{display:block}
+.al-h{display:flex;gap:14px;align-items:center}
+.al-i{font-size:2.6rem;line-height:1}
+.al-k{font-size:.95rem;color:var(--muted)}
+.al-h h3{font-family:"Fredoka";font-size:1.6rem;line-height:1.1}
+.al-p{font-size:1.12rem;line-height:1.5;margin:10px 0 12px;max-width:70ch}
+.al-stage{display:flex;flex-direction:column;gap:8px}
+.al-step{background:var(--card);border:2.5px solid var(--line);border-radius:12px;padding:8px 12px;font-size:1.05rem;animation:pop .25s ease-out}
+@keyframes pop{from{transform:translateY(6px);opacity:0}}
+.bar{display:grid;grid-template-columns:minmax(150px,220px) 1fr 50px;gap:10px;align-items:center}
+.bar .bt{height:18px;border:2.5px solid var(--line);border-radius:99px;background:var(--soft);overflow:hidden}
+.bar .bt i{display:block;height:100%;width:0;background:var(--aiacc);transition:width .9s ease-out}
+.bar .bv{font-family:"Fredoka";text-align:right}
+.embw{color:var(--text);max-width:520px}.emb{width:100%;height:auto}
+.emp{animation:pop .3s ease-out backwards}
+.aipath{box-shadow:inset 0 0 0 4px var(--aiacc)!important;position:relative}
+.aipath::after{content:attr(data-step);position:absolute;top:2px;left:4px;font-size:.75rem;font-weight:900;color:var(--aiacc)}
+.aihit{background:color-mix(in srgb,var(--aiacc) 35%,var(--card))!important}
+.aipix{background:var(--aiacc)!important;color:#1F1D2B!important}
+.aiout{opacity:.25;filter:grayscale(1)}
+.aibox{outline:3px solid #00D39A;outline-offset:1px;position:relative}
+.aibox::after{content:attr(data-lbl);position:absolute;top:-10px;left:-2px;background:#00D39A;color:#062b20;font-size:.62rem;font-weight:900;padding:0 4px;border-radius:4px;white-space:nowrap}
+.skill{display:inline-block;margin-top:12px;padding:.35rem 1rem;border-radius:999px;border:3px solid var(--line);background:color-mix(in srgb,var(--aiacc) 20%,var(--card));font-family:"Fredoka";font-size:1.15rem}
+.ttsnote{margin-top:12px;background:rgba(255,255,255,.18);border-radius:12px;padding:8px 12px;font-size:.95rem;line-height:1.4}
+@media (prefers-reduced-motion:reduce){.al-step,.emp{animation:none}.bar .bt i{transition:none}}
+.aiskill{display:flex;gap:16px;align-items:flex-start;padding:16px 20px;margin-bottom:16px;background:color-mix(in srgb,var(--aiacc) 14%,var(--card))}
+.as-i{font-size:2.8rem;line-height:1}
+.as-k{font-size:.95rem;color:var(--muted)}
+.as-t{font-family:"Fredoka";font-weight:600;font-size:1.5rem;line-height:1.1;margin:2px 0 6px}
+.aiskill p{font-size:1.08rem;line-height:1.45;max-width:75ch}
+.as-u{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px;font-size:.95rem}
+.chip{padding:.2rem .7rem;border-radius:999px;border:2.5px solid var(--line);background:var(--card)}
+.whatai{line-height:1.5;font-size:1.05rem}
+.whatai b{font-family:"Fredoka";font-size:1.15rem}
+.timer{color:var(--text);text-shadow:none;font-family:"Fredoka";font-weight:600;font-size:1.5rem;padding:.2rem .9rem;border:3px solid var(--line);border-radius:14px;background:var(--card);min-width:110px;text-align:center}
+.timer.warn{background:var(--sun);color:#1F1D2B}
+.timer.end{background:var(--bad);color:#fff;animation:pulse .5s infinite alternate}
+.tline{font-family:"Fredoka";font-size:1.25rem;margin:4px 0}
+@media (prefers-reduced-motion:reduce){.timer.end{animation:none}}
+/* ---------- final ---------- */
+.final{max-width:760px;margin:30px auto;padding:30px;text-align:center}
+.final .ft{font-family:"Fredoka";font-size:2.6rem;line-height:1}
+.final .fs{font-family:"Fredoka";font-size:5rem;color:var(--phone);line-height:1;margin:18px 0 4px;text-shadow:3px 3px 0 var(--line)}
+.final .fr{font-size:1.4rem;margin-top:6px}
+.final .fl{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin:20px 0;text-align:left}
+.final .fl div{background:var(--soft);border-radius:10px;padding:8px 12px;display:flex;justify-content:space-between}
+
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
+.confetti i{position:absolute;top:-20px;width:12px;height:16px;border-radius:3px;animation:fall 1.8s ease-in forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+@media (prefers-reduced-motion:reduce){.confetti{display:none}}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .mgrid{grid-template-columns:1fr}
+  .phonecard{position:static}
+  .opts{grid-template-columns:repeat(2,1fr)}
+  .shapes{grid-template-columns:repeat(5,1fr)}
+  .tg .cell{width:48px;height:48px;font-size:26px}
+  .hg .cell{width:30px;height:30px;font-size:.85rem}
+  .mz .cell{width:62px;height:62px}.mz .cell .me{font-size:26px}
+  .scales{grid-template-columns:1fr}
+  .alpha{grid-template-columns:repeat(7,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- WELCOME -->
+<section class="screen on" id="sWelcome">
+  <div class="hero">
+    <div>
+      <div class="brandmark"><div class="bigphone">☎️</div><div class="title">The Clue Line</div></div>
+      <p class="lede">Solve each mission on screen. If you get stuck, call the Clue Line for a secret clue!</p>
+      <div class="namebox"><label for="nameIn">What's your detective name?</label><input id="nameIn" maxlength="18" placeholder="Type your name" autocomplete="off"></div>
+      <div class="agepick">
+        <button class="chunky age jr" data-level="junior"><span class="ai">⭐</span><span class="an">Ages 6 to 9</span><span class="as">Fun missions to choose from</span></button>
+        <button class="chunky age ex" data-level="expert"><span class="ai">🚀</span><span class="an">Ages 10 to 15</span><span class="as">Expert agent missions</span></button>
+      </div>
+      <p class="empty" id="nameErr" style="display:none;color:var(--bad)">Type your name first, then pick your age.</p>
+    </div>
+    <div>
+      <div class="chunky board-card"><h2>🏆 Top detectives today</h2><ul class="lb" id="lb"></ul></div>
+      <div class="chunky howto whatai"><b>🤖 What is AI?</b> AI means computers that learn patterns from lots of examples, so they can see, talk, sort and decide. Every mission here uses a real AI skill!</div>
+      <div class="chunky howto"><ol>
+        <li><b>Pick ONE mission</b> from your mission board.</li>
+        <li><b>Try to solve it yourself.</b> No clue used = +20 bonus!</li>
+        <li><b>Stuck? Call the Clue Line</b> to hear a clue.</li>
+        <li><b>Press Check once</b> when you're sure. Earn up to 120 points!</li>
+        <li><b>See how AI does it:</b> every mission teaches a real AI skill.</li>
+      </ol></div>
+    </div>
+  </div>
+</section>
+
+<!-- TOP BAR (board + mission) -->
+<div class="screen" id="topWrap" style="padding-bottom:0">
+  <div class="chunky topbar">
+    <span class="who" id="tbName"></span><span class="pill" id="tbLevel"></span>
+    <div class="scorebox">Score <span class="sv" id="tbScore">0</span></div>
+  </div>
+</div>
+
+<!-- BOARD -->
+<section class="screen" id="sBoard" style="padding-top:0">
+  <div class="boardhead">
+    <div><h1>Choose your mission</h1><p id="boardSub">You can play one mission. Each one teaches a real AI skill!</p></div>
+    <div class="row"><button class="btn" id="changeAge">Change age</button></div>
+  </div>
+  <div class="tiles" id="tiles"></div>
+</section>
+
+<!-- MISSION -->
+<section class="screen" id="sMission" style="padding-top:0">
+  <div class="mhead"><div class="tn" id="mNum"></div><div><h1 id="mTitle"></h1></div><span class="att" id="mAtt"></span><button class="btn" id="backBtn">Pick a different mission</button></div>
+  <div class="mgrid">
+    <div class="chunky cluebar"><span style="font-size:2rem">🤔</span><div class="cb-t">Stuck? Call the Clue Line for help.<div class="cb-s" id="clueUsed">Solve it without a clue to earn a +20 bonus!</div></div><span class="timer" id="timer" role="timer" aria-live="off">⏱ 2:00</span><button class="btn sun" id="callBtn">📞 Call for a clue</button></div>
+    <div class="chunky aiskill" id="aiSkill"></div>
+    <div class="chunky puzzlecard" id="pCard">
+      <div class="scan" id="scan"><div><div class="st2" id="scanT"></div><div class="sb" id="scanBar"><i></i></div></div></div>
+      <div class="hintbox" id="hintBox"></div>
+      <div class="pz" id="pz"></div>
+      <div class="actions" id="checkRow"><button class="btn primary" id="checkBtn">✔ Check my answers</button><span class="hint">You get one check, so look over your answers first!</span></div>
+      <div class="result" id="result"></div>
+      <div class="ailab" id="aiLab"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CALL OVERLAY -->
+<div class="callover" id="callOver" role="dialog" aria-modal="true" aria-label="Clue call">
+  <div class="chunky callbox phonecard" id="phone">
+    <div class="pc-top">The Clue Line</div>
+    <div class="handset">📞</div>
+    <div class="pstatus" id="pStatus">Ringing…</div>
+    <div class="cluetext hidden" id="clueText"></div>
+    <div class="ttsnote">🤖 This voice isn't a person. It's <b>text-to-speech</b>, a kind of AI that turns written words into a speaking voice.</div>
+    <button class="btn" id="hangBtn">Back to my worksheet</button>
+  </div>
+</div>
+
+<!-- FINAL -->
+<section class="screen" id="sFinal">
+  <div class="chunky final">
+    <div class="ft" id="fName"></div>
+    <div class="fs" id="fScore"></div>
+    <div id="fMax" style="color:var(--muted)"></div>
+    <div class="fr" id="fRank"></div>
+    <div class="skill" id="fSkill"></div>
+    <div class="fl" id="fList"></div>
+    <button class="btn primary" id="nextPlayer">Next player</button>
+  </div>
+</section>
+
+<script>
+/* ================= helpers ================= */
+const $=id=>document.getElementById(id);
+function h(tag,attrs={},...kids){const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs||{})){if(k==="class")e.className=v;else if(k==="style")e.style.cssText=v;else if(k.startsWith("on"))e.addEventListener(k.slice(2),v);else if(k==="html")e.innerHTML=v;else e.setAttribute(k,v)}for(const c of kids.flat()){if(c==null)continue;e.append(c.nodeType?c:document.createTextNode(c))}return e}
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const pick=(r,a)=>a[Math.floor(r()*a.length)];
+const norm=s=>(s||"").toString().trim().toUpperCase().replace(/\s+/g,"");
+function mark(el,ok){el.classList.remove("ok","bad");el.classList.add(ok?"ok":"bad")}
+function clearMarks(root){root.querySelectorAll(".ok,.bad").forEach(e=>e.classList.remove("ok","bad"))}
+function letterRow(n){ // row of single-letter inputs with auto-advance
+  const ins=[];for(let i=0;i<n;i++){const x=h("input",{class:"li",maxlength:"1",autocomplete:"off","aria-label":"Letter "+(i+1)});ins.push(x)}
+  return ins;
+}
+function wireAdvance(inputs){inputs.forEach((x,i)=>{x.addEventListener("input",()=>{x.value=x.value.toUpperCase().replace(/[^A-Z]/g,"");if(x.value&&inputs[i+1])inputs[i+1].focus()});x.addEventListener("keydown",e=>{if(e.key==="Backspace"&&!x.value&&inputs[i-1])inputs[i-1].focus()})})}
+function numIn(label){return h("input",{class:"ni",inputmode:"numeric",maxlength:"3",autocomplete:"off","aria-label":label})}
+
+/* ================= shapes & drawings ================= */
+const INK="#1F1D2B";
+function shapeSVG(kind,dot,rot,size=80){
+  let g,d=[40,40];
+  if(kind==="tri"){g='<polygon points="40,8 74,70 6,70"/>';d=[40,50]}
+  else if(kind==="cir")g='<circle cx="40" cy="40" r="32"/>';
+  else if(kind==="sq")g='<rect x="10" y="10" width="60" height="60" rx="4"/>';
+  else g='<polygon points="40,4 49,29 76,29 54,45 62,72 40,56 18,72 26,45 4,29 31,29"/>';
+  const dd=dot?`<circle cx="${d[0]}" cy="${d[1]}" r="6" fill="${INK}" stroke="none"/>`:"";
+  return `<svg viewBox="0 0 80 80" width="${size}" height="${size}"><g transform="rotate(${rot} 40 40)" fill="#fff" stroke="${INK}" stroke-width="5" stroke-linejoin="round">${g}${dd}</g></svg>`;
+}
+function wShape(kind,x,y,s){
+  if(kind==="tri")return `<polygon points="${x},${y-s*.62} ${x+s*.62},${y+s*.45} ${x-s*.62},${y+s*.45}" fill="#FFC93C"/>`;
+  if(kind==="cir")return `<circle cx="${x}" cy="${y}" r="${s*.5}" fill="#3A86FF"/>`;
+  if(kind==="sq")return `<rect x="${x-s*.48}" y="${y-s*.48}" width="${s*.96}" height="${s*.96}" rx="3" fill="#2E8B57"/>`;
+  let p="";for(let k=0;k<10;k++){const r=k%2?s*.26:s*.6;p+=`${(x+r*Math.sin(k*Math.PI/5)).toFixed(1)},${(y-r*Math.cos(k*Math.PI/5)).toFixed(1)} `}
+  return `<polygon points="${p}" fill="#E63973"/>`;
+}
+function scaleSVG(left,right){
+  let s=`<svg viewBox="0 0 220 170"><g stroke="${INK}" stroke-width="3.5" stroke-linejoin="round"><polygon points="110,34 92,158 128,158" fill="#fff"/><rect x="66" y="156" width="88" height="9" rx="3" fill="${INK}"/><line x1="18" y1="34" x2="202" y2="34"/><circle cx="110" cy="34" r="6" fill="${INK}"/>`;
+  for(const[cx,items]of[[52,left],[168,right]]){
+    s+=`<line x1="${cx-36}" y1="112" x2="${cx}" y2="34" stroke-width="2"/><line x1="${cx+36}" y1="112" x2="${cx}" y2="34" stroke-width="2"/>`;
+    items.forEach((k,i)=>{s+=wShape(k,cx+(i-(items.length-1)/2)*30,97,28)});
+    s+=`<path d="M${cx-44} 112 L${cx+44} 112 Q${cx+36} 130 ${cx} 130 Q${cx-36} 130 ${cx-44} 112 Z" fill="#fff"/>`;
+  }
+  return s+"</g></svg>";
+}
+function iconSVG(k){return `<svg viewBox="0 0 40 40"><g stroke="${INK}" stroke-width="3">${wShape(k,20,21,30)}</g></svg>`}
+function suspectSVG(gl,hat,bag){
+  const bc=bag==="RED"?"#E63946":"#3A86FF";
+  let s=`<svg viewBox="0 0 160 200"><rect x="38" y="118" width="84" height="74" rx="22" fill="#CFE8FF" stroke="${INK}" stroke-width="4"/><circle cx="80" cy="78" r="40" fill="#FFD8B0" stroke="${INK}" stroke-width="4"/>`;
+  s+=hat?`<rect x="30" y="42" width="100" height="12" rx="4" fill="${INK}"/><rect x="50" y="6" width="60" height="42" rx="6" fill="${INK}"/><rect x="50" y="36" width="60" height="7" fill="#FFC93C"/>`
+        :`<path d="M42 70 Q44 34 80 36 Q116 34 118 70 Q100 50 80 52 Q60 50 42 70Z" fill="#5B3A29" stroke="${INK}" stroke-width="3"/>`;
+  s+=`<circle cx="66" cy="80" r="4" fill="${INK}"/><circle cx="94" cy="80" r="4" fill="${INK}"/>`;
+  if(gl)s+=`<circle cx="66" cy="80" r="12" fill="none" stroke="${INK}" stroke-width="4"/><circle cx="94" cy="80" r="12" fill="none" stroke="${INK}" stroke-width="4"/><line x1="78" y1="80" x2="82" y2="80" stroke="${INK}" stroke-width="4"/>`;
+  s+=`<path d="M68 98 Q80 108 92 98" fill="none" stroke="${INK}" stroke-width="4" stroke-linecap="round"/><path d="M112 140 Q126 118 140 140" fill="none" stroke="${INK}" stroke-width="4"/><rect x="104" y="138" width="46" height="44" rx="8" fill="${bc}" stroke="${INK}" stroke-width="4"/><text x="127" y="166" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" font-family="Nunito,sans-serif">${bag}</text></svg>`;
+  return s;
+}
+
+/* ================= missions ================= */
+const MISSIONS=[
+/* ---------- JUNIOR ---------- */
+{n:1,hint:"None of the numbers is bigger than 26. Why could that be?",level:"junior",title:"Secret Code",icon:"🔐",acc:"#FF6B4A",
+ clue:"Here is your secret code! Every number is a letter. 1 is A, 2 is B, 3 is C, and you keep counting all the way to 26, which is Z. Use it to crack the message!",
+ answer:"YOU ARE AMAZING",
+ build(){
+  const msg="YOU ARE AMAZING",ins=[];const wrap=h("div",{class:"code-words"});
+  for(const w of msg.split(" ")){const row=h("div",{class:"code-word"});for(const c of w){const x=letterRow(1)[0];ins.push(x);row.append(h("div",{class:"cc"},h("div",{class:"cn"},String(c.charCodeAt(0)-64)),x))}wrap.append(row)}
+  wireAdvance(ins);const ans=msg.replace(/ /g,"");
+  const alpha=h("div",{class:"alpha"});for(let i=0;i<26;i++)alpha.append(h("div",{},String.fromCharCode(65+i)));
+  return{el:h("div",{},h("div",{class:"task"},"Crack the code! Type the letter for each number."),wrap,alpha),
+   check(){let c=0;ins.forEach((x,i)=>{const ok=norm(x.value)===ans[i];mark(x,ok);c+=ok});return c/ins.length}};
+ }},
+{n:2,hint:"Both treasures are hiding in the same row.",level:"junior",title:"Treasure Grid",icon:"🗺️",acc:"#1FA59A",
+ clue:"Put your finger on the star. Move 4 squares to the right, then 3 squares down. That is treasure number one! Now move 2 squares to the left. That is treasure number two!",
+ answer:"The crown 👑 and the key 🗝️",
+ build(){
+  const r=rng(22),fill=["🍎","⚽","🧸","🎁","🐚","🔔","🌵","🍄","🎈","🪁","🌻","🐞","🍩","🚗","🍌","🎸","🧦","🥕"];
+  const target=new Set(["3,4","3,2"]);const grid=h("div",{class:"grid tg",style:"grid-template-columns:repeat(6,auto)"});const sel=[];
+  for(let y=0;y<6;y++)for(let x=0;x<6;x++){
+    const k=y+","+x;let v=k==="0,0"?"⭐":k==="3,4"?"👑":k==="3,2"?"🗝️":pick(r,fill);
+    const b=h("button",{class:"cell"+(k==="0,0"?" start":""),"aria-label":"Row "+(y+1)+" column "+(x+1)},v);b.dataset.k=k;
+    if(k!=="0,0")b.onclick=()=>{const i=sel.indexOf(b);if(i>=0){sel.splice(i,1);b.classList.remove("sel")}else{if(sel.length>=2)sel.shift().classList.remove("sel");sel.push(b);b.classList.add("sel")}};
+    grid.append(b)}
+  return{el:h("div",{},h("div",{class:"task"},"Follow the clue from the ⭐ and tap the 2 treasures you find."),grid),
+   demo:async(log)=>{clearMarks($("pz"));const cs=[...grid.children],path=[1,2,3,4,10,16,22,21,20];await log("🤖 Start at the ⭐. Run the steps one by one:",500);
+     for(let i=0;i<path.length;i++){cs[path[i]].classList.add("aipath");cs[path[i]].dataset.step=i+1;await wait(260)}
+     cs[22].classList.add("aihit");cs[20].classList.add("aihit");await log("✅ 4 right, 3 down → 👑. Then 2 left → 🗝️. Exact steps, every time!",300)},
+   check(){let c=0;sel.forEach(b=>{const ok=target.has(b.dataset.k);mark(b,ok);c+=ok});return c/2}};
+ }},
+{n:3,hint:"It lives in the sea… but it isn't a fish.",level:"junior",title:"Mystery Animal",icon:"🌊",acc:"#3A86FF",
+ clue:"I live in the sea, but I am not a fish. I have eight long arms, and when I am scared, I squirt ink! Which animal am I?",
+ answer:"The octopus 🐙",
+ build(){return choiceBuild("Which sea creature is the mystery animal? Tap it.",[["🐟","Fish"],["🦀","Crab"],["🐬","Dolphin"],["🐙","Octopus"],["🦈","Shark"],["🐢","Turtle"],["🐳","Whale"],["🦐","Shrimp"]],"Octopus")}},
+{n:4,hint:"Every sum uses the same secret number.",level:"junior",title:"Magic Number",icon:"🔢",acc:"#8E5CF7",
+ clue:"The magic number is 4! Add 4 to every number on your page. Then use the key to turn each answer into a letter.",
+ answer:"6, 13, 7, 11, 9 spells SMILE",
+ build(){
+  const base=[2,9,3,7,5],exp=base.map(b=>b+4),ins=[];const rows=h("div");
+  base.forEach((b,i)=>{const x=numIn("Answer "+(i+1));ins.push(x);rows.append(h("div",{class:"mrow"},h("div",{class:"mb"},String(b)),"+ ? =",x))});
+  const key={5:"U",6:"S",7:"I",8:"A",9:"E",10:"O",11:"L",12:"T",13:"M",14:"K"};
+  const kt=h("div",{class:"keyt"});for(const[k,v]of Object.entries(key))kt.append(h("div",{},h("b",{},k),h("span",{},v)));
+  const w=h("input",{class:"wi",maxlength:"5",placeholder:"?????","aria-label":"Secret word"});
+  return{el:h("div",{},h("div",{class:"task"},"Finish each sum with the magic number, then use the key to find the secret word."),rows,kt,h("div",{class:"row"},h("span",{class:"lab"},"Secret word:"),w)),
+   check(){let c=0;ins.forEach((x,i)=>{const ok=+x.value===exp[i];mark(x,ok);c+=ok});const ok=norm(w.value)==="SMILE";mark(w,ok);c+=ok;return c/6}};
+ }},
+{n:5,hint:"Not every square should be coloured. What do some of the numbers have in common?",level:"junior",title:"Hidden Picture",icon:"🎨",acc:"#E63973",
+ clue:"Colour in every square that has an even number. Even numbers end in 0, 2, 4, 6 or 8. Leave all the odd numbers white, and a secret picture will appear!",
+ answer:"A heart ❤️",
+ build(){
+  const pat=["..........",".XXX..XXX.","XXXXXXXXXX","XXXXXXXXXX","XXXXXXXXXX",".XXXXXXXX.","..XXXXXX..","...XXXX...","....XX....",".........."];
+  const r=rng(5),ev=[2,4,6,8,10,12,14,16,18,20],od=[1,3,5,7,9,11,13,15,17,19];
+  const grid=h("div",{class:"grid hg",style:"grid-template-columns:repeat(10,auto)"});const cells=[];let evens=0;
+  pat.forEach(row=>[...row].forEach(ch=>{const isE=ch==="X";evens+=isE;const b=h("button",{class:"cell"},String(isE?pick(r,ev):pick(r,od)));b.dataset.e=isE?1:0;b.onclick=()=>b.classList.toggle("sel");cells.push(b);grid.append(b)}));
+  const sel=h("select",{class:"sel2","aria-label":"Picture"},h("option",{value:""},"Choose…"),...["Star","Heart","House","Fish","Tree"].map(v=>h("option",{value:v},v)));
+  return{el:h("div",{},h("div",{class:"task"},"Tap squares to colour them using the clue's rule."),grid,h("div",{class:"qrow"},"My secret picture is a",sel)),
+   demo:async(log)=>{await log("🤖 Scanning the grid pixel by pixel. Rule: even number = colour ON.",400);clearMarks($("pz"));
+     for(let r=0;r<10;r++){cells.slice(r*10,r*10+10).forEach(b=>b.classList.toggle("aipix",b.dataset.e==="1"));await wait(160)}
+     await log("✅ Pattern found: ❤️ heart. Real images work the same way, just with millions of pixels!",300)},
+   check(){let hit=0,wrong=0;cells.forEach(b=>{const s=b.classList.contains("sel"),e=b.dataset.e==="1";if(s){e?hit++:wrong++;mark(b,e)}else if(e)mark(b,false)});
+     const ok=sel.value==="Heart";mark(sel,ok);return .8*Math.max(0,(hit-wrong)/evens)+.2*ok}};
+ }},
+{n:6,hint:"Zara's day started near the water.",level:"junior",title:"Story Order",icon:"📖",acc:"#F29E1F",
+ clue:"Listen to Zara's day at the park! First, she fed the ducks. Next, she flew her kite. Then, she played with a puppy. After that, she ate an ice cream. Last of all, she got a big red balloon!",
+ answer:"Ducks, kite, puppy, ice cream, balloon",
+ build(){
+  const items=[["🪁","Flew her kite",2],["🎈","Got a balloon",5],["🦆","Fed the ducks",1],["🍦","Ate an ice cream",4],["🐶","Played with a puppy",3]];
+  let order=[];const cards=items.map(([e,t,pos])=>{const n=h("div",{class:"sn"},"");const c=h("button",{class:"scard"},n,h("div",{class:"se"},e),h("div",{},t));c.dataset.pos=pos;
+    c.onclick=()=>{const i=order.indexOf(c);if(i>=0){order.splice(i,1)}else if(order.length<5){order.push(c)}paint()};return c});
+  function paint(){cards.forEach(c=>{const i=order.indexOf(c);c.querySelector(".sn").textContent=i>=0?i+1:"";c.classList.toggle("picked",i>=0)})}
+  const reset=h("button",{class:"btn",onclick:()=>{order=[];paint()}},"Start over");
+  return{el:h("div",{},h("div",{class:"task"},"Tap the pictures in the order they happened: first to last."),h("div",{class:"story"},cards),h("div",{class:"actions"},reset)),
+   check(){let c=0;cards.forEach(x=>{const ok=order.indexOf(x)+1===+x.dataset.pos;mark(x,ok);c+=ok});return c/5}};
+ }},
+{n:7,hint:"The thief is wearing glasses.",level:"junior",title:"Cookie Detective",icon:"🕵️",acc:"#2E8B57",
+ clue:"Someone took the cookies! Here is what we know. The thief wears glasses. The thief does not wear a hat. And the thief carries a red bag. Who is it?",
+ answer:"Hina",
+ build(){
+  const ppl=[["Ravi",1,1,"RED"],["Sana",1,0,"BLUE"],["Bilal",0,0,"RED"],["Hina",1,0,"RED"],["Omar",0,1,"BLUE"],["Lily",1,1,"BLUE"]];
+  let chosen=null;const wrap=h("div",{class:"sus"});
+  const opts=ppl.map(([n,g,ht,b])=>{const o=h("button",{class:"opt"});o.innerHTML=suspectSVG(g,ht,b);o.append(h("div",{class:"on"},n));o.dataset.v=n;o.dataset.g=g;o.dataset.ht=ht;o.dataset.b=b;o.onclick=()=>{opts.forEach(x=>x.classList.remove("sel"));o.classList.add("sel");chosen=o};wrap.append(o);return o});
+  return{el:h("div",{},h("div",{class:"task"},"Use the clues to find the cookie thief 🍪 and tap them."),wrap),
+   demo:async(log)=>{clearMarks($("pz"));const qs=[["Wears glasses?",o=>o.dataset.g==="1"],["No hat?",o=>o.dataset.ht==="0"],["Red bag?",o=>o.dataset.b==="RED"]];
+     for(const[q,f]of qs){const out=opts.filter(o=>!o.classList.contains("aiout")&&!f(o));out.forEach(o=>o.classList.add("aiout"));await log(`🤖 ${q} → ruled out ${out.map(o=>o.dataset.v).join(", ")||"nobody"}`,900)}
+     opts.find(o=>!o.classList.contains("aiout")).classList.add("aihit");await log("✅ One suspect left: Hina! Three yes/no questions solved it.",300)},
+   check(){if(!chosen)return 0;const ok=chosen.dataset.v==="Hina";mark(chosen,ok);return ok?1:0}};
+ }},
+{n:8,hint:"Think about which animals could fly over a wall.",level:"junior",title:"Flying Maze",icon:"🦋",acc:"#0FA3D1",
+ clue:"To get through the maze, you may only step on animals that can fly! Move up, down, left or right, but never corner to corner. Be careful, some birds cannot fly!",
+ answer:"Bird, butterfly, bee, owl, eagle, bat, duck, parrot, swan",
+ build(){
+  const path=["0,0","0,1","1,1","2,1","2,2","2,3","3,3","4,3","4,4"];
+  const fly=[["🐦","bird"],["🦋","butterfly"],["🐝","bee"],["🦉","owl"],["🦅","eagle"],["🦇","bat"],["🦆","duck"],["🦜","parrot"],["🦢","swan"]];
+  const nofly=[["🐱","cat"],["🐶","dog"],["🐟","fish"],["🐢","turtle"],["🐘","elephant"],["🐰","rabbit"],["🐸","frog"],["🐍","snake"],["🐌","snail"],["🐄","cow"]];
+  const fixed={"1,0":["🐧","penguin"],"1,2":["🐧","penguin"],"3,2":["🐧","penguin"],"0,2":["🐢","turtle"]};
+  const r=rng(8),grid=h("div",{class:"grid mz",style:"grid-template-columns:repeat(5,auto)"}),cells=[];
+  for(let y=0;y<5;y++)for(let x=0;x<5;x++){const k=y+","+x;const[a,n]=path.includes(k)?fly[path.indexOf(k)]:fixed[k]||pick(r,nofly);
+    const b=h("button",{class:"cell"},h("span",{class:"me"},a),h("span",{class:"mn"},n));b.dataset.p=path.includes(k)?1:0;b.onclick=()=>b.classList.toggle("sel");cells.push(b);grid.append(b)}
+  return{el:h("div",{},h("div",{class:"task"},"Tap every square on your path from START to FINISH."),h("div",{class:"mzlab"},"START ↓"),grid,h("div",{class:"mzlab"},"FINISH is the bottom-right square")),
+   demo:async(log)=>{clearMarks($("pz"));await log("🤖 Check each neighbour: can it fly? If not, it's a wall.",400);
+     const order=[0,1,6,11,12,13,18,23,24];cells.forEach(b=>{if(b.textContent.includes("penguin"))b.classList.add("aiout")});
+     for(let i=0;i<order.length;i++){cells[order[i]].classList.add("aipath");cells[order[i]].dataset.step=i+1;await wait(300)}
+     await log("✅ Path found in 9 steps, and all the penguins were skipped!",300)},
+   check(){let hit=0,wrong=0;cells.forEach(b=>{const s=b.classList.contains("sel"),p=b.dataset.p==="1";if(s){p?hit++:wrong++;mark(b,p)}else if(p)mark(b,false)});return Math.max(0,(hit-wrong)/9)}};
+ }},
+{n:9,hint:"You're only counting ONE kind of shape.",level:"junior",title:"Shape Hunt",icon:"🔺",acc:"#D94E2B",
+ clue:"Count only the triangles that have a dot inside them. Do not count any other shapes! How many did you find?",
+ answer:"6 triangles",
+ build(){
+  const r=rng(9);let items=[];const add=(k,d,n)=>{for(let i=0;i<n;i++)items.push([k,d])};
+  add("tri",1,6);add("tri",0,6);add("cir",1,4);add("cir",0,4);add("sq",1,3);add("sq",0,3);add("star",1,2);add("star",0,4);
+  for(let i=items.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[items[i],items[j]]=[items[j],items[i]]}
+  const box=h("div",{class:"shapes"});items.forEach(([k,d])=>{const b=h("button",{class:"shp","aria-label":"shape"});b.dataset.hit=(k==="tri"&&d)?1:0;b.innerHTML=shapeSVG(k,d,k==="cir"?0:pick(r,[-12,0,8,15]));b.onclick=()=>b.classList.toggle("sel");box.append(b)});
+  const x=numIn("How many");
+  return{el:h("div",{},h("div",{class:"task"},"Tap shapes to mark them while you count, then type your answer."),box,h("div",{class:"qrow"},"I counted",x,"shapes")),
+   demo:async(log)=>{await log("🤖 Object detector running: looking for “triangle with dot”…",400);let n=0;
+     for(const b of box.children){b.classList.remove("sel");if(b.dataset.hit==="1"){n++;b.classList.add("aibox");b.dataset.lbl="triangle·dot "+(0.9+Math.random()*.09).toFixed(2);await wait(380)}}
+     await log(`✅ Found ${n} objects. Each box has a label and a confidence score, just like real detectors!`,300)},
+   check(){const v=+x.value;const s=v===6?1:Math.abs(v-6)===1?.5:0;mark(x,s===1);return s}};
+ }},
+/* ---------- EXPERT ---------- */
+{n:10,hint:"Every letter was shifted by the same number of steps.",level:"expert",title:"Caesar Cipher",icon:"🏛️",acc:"#C2410C",
+ clue:"Every letter in this message was moved 3 steps forward in the alphabet. To decode it, move each letter 3 steps back. So D becomes A, E becomes B, and B wraps around to become Y.",
+ answer:"YOU ARE SMART",
+ build(){
+  const plain="YOU ARE SMART",enc=plain.replace(/[A-Z]/g,c=>String.fromCharCode((c.charCodeAt(0)-62)%26+65));
+  const ins=[];const wrap=h("div",{class:"code-words"});let row=h("div",{class:"row",style:"gap:22px;align-items:flex-start"});
+  enc.split(" ").forEach((w,wi)=>{const g=h("div",{class:"code-word"});for(const c of w){const x=letterRow(1)[0];ins.push(x);g.append(h("div",{class:"cc"},h("div",{class:"cn"},c),x))}row.append(g)});wrap.append(row);
+  wireAdvance(ins);const ans=plain.replace(/ /g,"");
+  const alpha=h("div",{class:"alpha"});for(let i=0;i<26;i++){const s=h("small",{contenteditable:"false"});alpha.append(h("div",{},String.fromCharCode(65+i)))}
+  return{el:h("div",{},h("div",{class:"task"},"Decode the message. Type the real letter under each coded letter."),wrap,alpha),
+   check(){let c=0;ins.forEach((x,i)=>{const ok=norm(x.value)===ans[i];mark(x,ok);c+=ok});return c/ins.length}};
+ }},
+{n:11,hint:"Each column is worth double the column on its right.",level:"expert",title:"Binary Code",icon:"💻",acc:"#0E7C66",
+ clue:"From left to right, the four columns are worth 8, 4, 2 and 1. In each row, add up the columns that have a 1. Then turn that number into a letter, where 1 is A, 2 is B, and so on.",
+ answer:"Columns 8, 4, 2, 1 · totals 3, 15, 4, 5 · CODE",
+ build(){
+  const word="CODE",cols=[8,4,2,1],colIn=cols.map((_,i)=>numIn("Column value "+(i+1))),tot=[];
+  const tb=h("table",{class:"btab"},h("tr",{},h("th",{},""),...colIn.map(x=>h("th",{},x)),h("th",{},""),h("th",{},"Total")));
+  [...word].forEach((c,i)=>{const b=(c.charCodeAt(0)-64).toString(2).padStart(4,"0");const t=numIn("Total row "+(i+1));tot.push(t);
+    tb.append(h("tr",{},h("th",{},String(i+1)),...[...b].map(x=>h("td",{},h("div",{class:"bit",style:"display:grid;place-items:center"},x))),h("td",{style:"font-family:Fredoka;font-size:1.4rem"},"="),h("td",{},t)))});
+  const w=h("input",{class:"wi",maxlength:"4",placeholder:"????","aria-label":"Secret word"});
+  return{el:h("div",{},h("div",{class:"task"},"Type the value of each column in the top boxes, then work out each row."),h("div",{style:"overflow-x:auto"},tb),h("div",{class:"qrow"},"Secret word:",w)),
+   check(){let c=0;colIn.forEach((x,i)=>{const ok=+x.value===cols[i];mark(x,ok);c+=ok});tot.forEach((x,i)=>{const ok=+x.value===word.charCodeAt(i)-64;mark(x,ok);c+=ok});const ok=norm(w.value)===word;mark(w,ok);c+=ok;return c/9}};
+ }},
+{n:12,hint:"Each person has exactly one pet and one favourite colour.",level:"expert",title:"Logic Grid",icon:"🧩",acc:"#6D28D9",
+ clue:"Here is a head start: Ayaan owns the parrot! Use that with the facts on your screen, and the rest of the grid will fall into place.",
+ answer:"Bina owns the cat · Chen likes green · the blue-lover owns the parrot",
+ build(){
+  const ppl=["Ayaan","Bina","Chen"];const head=h("tr",{},h("th",{},""),...["🐱 Cat","🐶 Dog","🦜 Parrot"].map(t=>h("th",{},t)),h("td",{class:"sep"}),...["🔴 Red","🟢 Green","🔵 Blue"].map(t=>h("th",{},t)));
+  const tb=h("table",{class:"lg"},head);
+  ppl.forEach(p=>{const tr=h("tr",{},h("th",{class:"p"},p));for(let i=0;i<7;i++){if(i===3){tr.append(h("td",{class:"sep"}));continue}const td=h("td",{"aria-label":"grid cell"},"");td.onclick=()=>{td.textContent=td.textContent===""?"✓":td.textContent==="✓"?"✗":""};tr.append(td)}tb.append(tr)});
+  const mk=(opts)=>h("select",{class:"sel2"},h("option",{value:""},"Choose…"),...opts.map(o=>h("option",{value:o},o)));
+  const q1=mk(ppl),q2=mk(["Red","Green","Blue"]),q3=mk(["Cat","Dog","Parrot"]);
+  const facts=h("ol",{class:"facts"},...["Chen owns the dog.","Ayaan does not own the cat.","The person who owns the parrot loves blue.","Bina's favourite colour is red."].map(f=>h("li",{},f)));
+  return{el:h("div",{},h("div",{class:"task"},"Use the 4 facts to work it out. Tap the grid to mark ✓ or ✗, then answer the questions."),facts,h("div",{style:"overflow-x:auto"},tb),
+     h("div",{class:"qrow"},"Who owns the cat?",q1),h("div",{class:"qrow"},"What is Chen's favourite colour?",q2),h("div",{class:"qrow"},"Which pet does the blue-lover own?",q3)),
+   check(){const r=[[q1,"Bina"],[q2,"Green"],[q3,"Parrot"]];let c=0;r.forEach(([s,a])=>{const ok=s.value===a;mark(s,ok);c+=ok});return c/3}};
+ }},
+{n:13,hint:"Every scale is balanced, so both sides weigh the same.",level:"expert",title:"Balance Scales",icon:"⚖️",acc:"#B45309",
+ clue:"Here is your starting fact: one triangle weighs 3 kilograms. All the scales are perfectly balanced. Use them to find the weight of every shape!",
+ answer:"▲ 3 kg · ● 6 kg · ■ 9 kg · ★ 6 kg · total 21 kg",
+ build(){
+  const sc=h("div",{class:"scales"});[["Scale A",["cir"],["tri","tri"]],["Scale B",["sq"],["cir","tri"]],["Scale C",["star","tri"],["sq"]]].forEach(([l,a,b])=>{const d=h("div",{},l);d.insertAdjacentHTML("beforeend",scaleSVG(a,b));sc.append(d)});
+  const want={tri:3,cir:6,sq:9,star:6},ins={};const wr=h("div",{class:"wrow"});
+  for(const k of Object.keys(want)){ins[k]=numIn(k);const d=h("div",{});d.innerHTML=iconSVG(k);d.append("=",ins[k],"kg");wr.append(d)}
+  const tot=numIn("total");const tr=h("div",{class:"qrow",style:"font-family:Fredoka;font-size:1.4rem"});tr.innerHTML=`<span style="width:34px;display:inline-block">${iconSVG("cir")}</span> + <span style="width:34px;display:inline-block">${iconSVG("sq")}</span> + <span style="width:34px;display:inline-block">${iconSVG("star")}</span> =`;tr.append(tot,"kg");
+  return{el:h("div",{},h("div",{class:"task"},"Every scale is balanced. Use the clue's starting fact to find each weight."),sc,wr,tr),
+   check(){let c=0;for(const k in want){const ok=+ins[k].value===want[k];mark(ins[k],ok);c+=ok}const ok=+tot.value===21;mark(tot,ok);c+=ok;return c/5}};
+ }},
+{n:14,hint:"Use the column letter first, then the row number.",level:"expert",title:"Grid Coordinates",icon:"📍",acc:"#1D4ED8",
+ clue:"Find these five squares on your grid: C 4, F 2, A 7, H 5, and D 1. The letter tells you the column and the number tells you the row. Read the letters in that order to find the secret word.",
+ answer:"ORBIT",
+ build(){
+  const t={"C4":"O","F2":"R","A7":"B","H5":"I","D1":"T"},cols="ABCDEFGH",r=rng(14);
+  const grid=h("div",{class:"grid cg",style:"grid-template-columns:repeat(9,auto)"});grid.append(h("div",{class:"cell hd"},""));
+  for(const c of cols)grid.append(h("div",{class:"cell hd"},c));
+  for(let y=1;y<=8;y++){grid.append(h("div",{class:"cell hd"},String(y)));for(const c of cols){const b=h("button",{class:"cell"},t[c+y]||pick(r,[..."ABCDEFGHKLMNPRSTUW"]));b.onclick=()=>b.classList.toggle("sel");grid.append(b)}}
+  const ins=letterRow(5);wireAdvance(ins);
+  return{el:h("div",{},h("div",{class:"task"},"Tap squares to highlight them, then type the secret word in order."),grid,h("div",{class:"qrow"},"Secret word:",h("div",{class:"row",style:"gap:6px"},ins))),
+   check(){let c=0;ins.forEach((x,i)=>{const ok=norm(x.value)==="ORBIT"[i];mark(x,ok);c+=ok});return c/5}};
+ }},
+];
+function choiceBuild(task,items,answer){
+  let chosen=null;const wrap=h("div",{class:"opts"});
+  const opts=items.map(([e,n])=>{const o=h("button",{class:"opt"},h("div",{class:"oe"},e),h("div",{class:"on"},n));o.dataset.v=n;o.onclick=()=>{opts.forEach(x=>x.classList.remove("sel"));o.classList.add("sel");chosen=o};wrap.append(o);return o});
+  return{el:h("div",{},h("div",{class:"task"},task),wrap),check(){if(!chosen)return 0;const ok=chosen.dataset.v===answer;mark(chosen,ok);return ok?1:0}};
+}
+
+/* ================= AI companion ================= */
+const AI={
+ junior:{name:"Beep · your AI buddy",pitch:1.55,rate:1,
+  svg:`<svg viewBox="0 0 100 100"><g class="bob"><line x1="50" y1="8" x2="50" y2="22" stroke="#1F1D2B" stroke-width="4"/><circle cx="50" cy="8" r="6" fill="#FF5A3C" stroke="#1F1D2B" stroke-width="3"/><rect x="5" y="42" width="11" height="20" rx="4" fill="#FFC93C" stroke="#1F1D2B" stroke-width="3"/><rect x="84" y="42" width="11" height="20" rx="4" fill="#FFC93C" stroke="#1F1D2B" stroke-width="3"/><rect x="13" y="22" width="74" height="60" rx="20" fill="#7FE0D2" stroke="#1F1D2B" stroke-width="4"/><rect x="24" y="33" width="52" height="30" rx="13" fill="#1F1D2B"/><g class="blink"><circle cx="39" cy="48" r="6.5" fill="#5EE6FF"/><circle cx="61" cy="48" r="6.5" fill="#5EE6FF"/></g><path d="M40 70 Q50 77 60 70" stroke="#1F1D2B" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="26" cy="70" r="4" fill="#FF9DB5"/><circle cx="74" cy="70" r="4" fill="#FF9DB5"/></g></svg>`},
+ expert:{name:"NOVA · AI mission control",pitch:.8,rate:.95,
+  svg:`<svg viewBox="0 0 100 100"><defs><radialGradient id="ng" cx="38%" cy="32%" r="70%"><stop offset="0" stop-color="#ffffff"/><stop offset=".3" stop-color="#5EE6FF"/><stop offset="1" stop-color="#7B2CFF"/></radialGradient></defs><ellipse class="spin" cx="50" cy="50" rx="47" ry="17" fill="none" stroke="#5EE6FF" stroke-width="2.5" stroke-dasharray="7 6"/><ellipse class="spin2" cx="50" cy="50" rx="17" ry="47" fill="none" stroke="#FF4FD8" stroke-width="2" stroke-dasharray="3 7"/><circle cx="50" cy="50" r="29" fill="url(#ng)"/><g class="blink"><rect x="34" y="46" width="32" height="8" rx="4" fill="#070B1F"/></g><circle cx="50" cy="50" r="29" fill="none" stroke="#E6F4FF" stroke-opacity=".6" stroke-width="1.5"/></svg>`}
+};
+const MSG={
+ board:{junior:n=>`Hi ${n}! I'm Beep, your AI robot buddy. You get to play ONE mission today, so pick the one that looks the most fun!`,
+        expert:n=>`Welcome, Agent ${n}. I'm NOVA, your AI mission control. You get ONE mission. Choose carefully, then crack it.`},
+ start:{junior:()=>`Try it all by yourself first! If you get stuck, press the yellow phone button and I'll connect you to the Clue Line.`,
+        expert:()=>`Mission loaded. Solve it without the Clue Line for a +20 bonus. Call for intel only if you need it.`},
+ call:{junior:()=>`Connecting you to the Clue Line… listen carefully!`,expert:()=>`Opening a secure line to the Clue Line…`},
+ back:{junior:()=>`Got the clue? Now use it to solve your mission. You can do it!`,expert:()=>`Intel received. Back to the mission, Agent.`},
+ scan:{junior:()=>`Checking your answers…`,expert:()=>`Analysing your answers…`},
+ result:{junior:(p,c)=>p>=.999?`WOW! My circuits are sparkling! Every single answer is right!${c?"":" And you didn't even need a clue!"}`:p>=.5?`Great thinking! You got most of it right. The green answers are correct!`:`Good try! Every mistake helps your brain grow. Look at the answer to see how it works.`,
+         expert:(p,c)=>p>=.999?`Analysis complete: 100% accuracy.${c?"":" Zero intel used. That's elite."} Impressive, Agent.`:p>=.5?`Analysis complete: ${Math.round(p*100)}% accuracy. Strong work. Check the red items to see what slipped.`:`Analysis complete. This one was tough. Study the answer below and you'll crack the next one.`},
+};
+const aiTok={};
+function tier(){return S.level||"junior"}
+function aiMount(){}
+function aiSay(){}
+
+/* ================= AI Lab ================= */
+const AILAB={
+ 1:{icon:"🔤",concept:"Turning words into numbers",jr:"AI can't read letters the way you do. It turns every word into numbers first, just like your secret code!",ex:"Chatbots split text into “tokens” and turn each token into a number. Everything an AI reads becomes numbers before it can think about it.",
+    steps:["🤖 “YOU” → [25, 15, 21]","🤖 “ARE” → [1, 18, 5]","🤖 “AMAZING” → [1, 13, 1, 26, 9, 14, 7]","✅ Now the computer can do maths with words!"]},
+ 2:{icon:"🧭",concept:"Algorithms: step-by-step instructions",jr:"Robot vacuums and delivery robots follow exact directions, one step at a time, just like you did from the star!",ex:"An algorithm is a list of exact steps. Robots and self-driving cars run algorithms to move across a map square by square."},
+ 3:{icon:"🏷️",concept:"Classification",jr:"AI can look at clues like “eight arms” and “squirts ink” and guess what something is. That's called classifying!",ex:"A classifier looks at features and gives every possible answer a confidence score. The highest score wins.",
+    barsTitle:"🤖 Features: lives in sea ✔ · not a fish ✔ · 8 arms ✔ · squirts ink ✔",bars:[["🐙 Octopus",96],["🦐 Shrimp",2],["🦀 Crab",1],["🐟 Fish",1]]},
+ 4:{icon:"📈",concept:"Learning a rule from examples",jr:"AI learns by looking at lots of examples and finding the rule, just like finding the magic number!",ex:"Machine learning means finding a rule from examples. Show a model 2→6, 9→13 and 3→7, and it learns “add 4”. Then it can answer new questions.",
+    steps:["🤖 Example: 2 → 6","🤖 Example: 9 → 13","🤖 Example: 3 → 7","🤖 Rule learned: add 4","✅ New test: 10 → 14. The rule works on numbers it has never seen!"]},
+ 5:{icon:"🖼️",concept:"Pixels and computer vision",jr:"Every picture on a screen is made of tiny squares called pixels. AI looks at pixels as numbers to understand pictures!",ex:"To a computer, an image is a grid of numbers. Computer vision models scan those numbers to find patterns, like the heart hidden in the even numbers."},
+ 6:{icon:"💬",concept:"Predicting what comes next",jr:"Chatbots write by guessing the next word, one at a time, just like you worked out what Zara did next!",ex:"Large language models predict the most likely next word again and again. Putting a story in order uses the same skill: what usually comes next?",
+    barsTitle:"🤖 “Zara fed the ducks. Next she…”",bars:[["🪁 flew her kite",64],["🍦 ate ice cream",18],["🎈 got a balloon",10],["🐶 played with a puppy",8]]},
+ 7:{icon:"🌳",concept:"Decision trees",jr:"AI can ask yes-or-no questions to narrow things down. Glasses? No hat? Red bag? Found the thief!",ex:"A decision tree asks yes/no questions about features until only one answer is left. Spam filters and many other AIs use them."},
+ 8:{icon:"🗺️",concept:"Pathfinding",jr:"Map apps and game characters use AI to find a safe path, just like you found the flying path!",ex:"Pathfinding algorithms like A* explore a grid, skip blocked squares, and find a route to the goal."},
+ 9:{icon:"🎯",concept:"Object detection",jr:"Some AIs can spot and count things in a picture, like cars or people. They draw a box around everything they find!",ex:"Object detectors like YOLO draw a box around each object, label it, and give a confidence score. Counting is just detecting, then adding up the boxes."},
+ 10:{icon:"🔒",concept:"Encryption: keeping data safe",jr:"",ex:"Your messages online are scrambled with encryption, like a super-powered Caesar cipher. AI systems need their data protected too, so nobody can peek.",
+    steps:["🤖 Encrypt: Y +3 → B","🤖 Encrypt: O +3 → R","🤖 Encrypt: U +3 → X","✅ “YOU” becomes “BRX”. Only someone with the key (3) can read it!"]},
+ 11:{icon:"💾",concept:"Everything is 0s and 1s",jr:"",ex:"Every photo, song and AI model is stored as 0s and 1s. A big AI model is billions of numbers, and each one is made from bits like these.",
+    steps:["🤖 C = 3 = 0011","🤖 O = 15 = 1111","🤖 D = 4 = 0100","🤖 E = 5 = 0101","✅ 16 bits spell CODE. A photo on your phone uses millions of bits!"]},
+ 12:{icon:"🧠",concept:"Reasoning step by step",jr:"",ex:"Reasoning AIs solve problems by writing out their steps: use a fact, rule things out, repeat. That's exactly what you did with the grid.",
+    steps:["🤖 Fact 1: Chen → dog","🤖 Fact 2: Ayaan ≠ cat, and the dog is taken → Ayaan → parrot","🤖 So Bina → cat","🤖 Fact 3: parrot owner loves blue → Ayaan → blue","🤖 Fact 4: Bina → red, so Chen → green","✅ Solved in 5 small steps!"]},
+ 13:{icon:"⚖️",concept:"Weights in a neural network",jr:"",ex:"Neural networks learn “weights”: numbers that decide how much each input matters. Training nudges the weights until the answers come out right, like balancing your scales.",
+    steps:["🤖 Start: ▲ = 3","🤖 Scale A: ● = ▲ + ▲ = 6","🤖 Scale B: ■ = ● + ▲ = 9","🤖 Scale C: ★ = ■ − ▲ = 6","✅ Every weight found by balancing. Neural networks adjust millions of weights like this!"]},
+ 14:{icon:"📍",concept:"Embeddings: words on a map",jr:"",ex:"AI places words on a giant map using coordinates. Words with similar meanings sit close together, so “orbit” lands near “planet” and “moon”.",map:true},
+};
+const USES={"1": ["Chatbots like ChatGPT and Claude", "Google Translate", "Voice assistants"], "2": ["Robot vacuums", "Delivery robots", "Traffic lights"], "3": ["Plant ID apps", "Photo apps sorting pets", "Spam filters"], "4": ["Weather forecasts", "Video recommendations", "Price predictions"], "5": ["Face unlock", "Medical scans", "Self-driving cars"], "6": ["Chatbots", "Phone keyboard suggestions", "Search autocomplete"], "7": ["Spam filters", "Bank fraud checks", "Game AI choices"], "8": ["Google Maps", "Game characters", "Delivery drones"], "9": ["Self-driving cars", "Security cameras", "Counting crowds"], "10": ["WhatsApp messages", "Online banking", "Passwords"], "11": ["Every phone and computer", "Storing AI models", "Digital photos"], "12": ["AI tutors", "Maths solvers", "Planning assistants"], "13": ["Every neural network", "Face recognition", "Voice assistants"], "14": ["Search engines", "Recommendation apps", "Translation"]};
+MISSIONS.forEach(m=>{m.ai=AILAB[m.n];m.ai.uses=USES[m.n]});
+let labId=0;
+function paintSkill(m){const a=m.ai,c=$("aiSkill");c.innerHTML="";
+  c.append(h("div",{class:"as-i"},a.icon),h("div",{class:"as-b"},h("div",{class:"as-k"},"🤖 The AI skill in this mission"),h("div",{class:"as-t"},a.concept),
+    h("p",{},(tier()==="junior"&&a.jr)?a.jr:a.ex),h("div",{class:"as-u"},h("span",{},"Used in real life:"),...a.uses.map(u=>h("span",{class:"chip"},u)))));}
+async function runAILab(){
+  const m=cur,a=m.ai,t=tier(),box=$("aiLab"),id=++labId;box.innerHTML="";box.classList.add("on");
+  box.append(h("div",{class:"al-h"},h("span",{class:"al-i"},a.icon),h("div",{},h("div",{class:"al-k"},"🤖 How AI uses this skill"),h("h3",{},a.concept))),h("p",{class:"al-p"},(t==="junior"&&a.jr)?a.jr:a.ex));
+  const stage=h("div",{class:"al-stage"});box.append(stage);
+  const log=async(txt,d=700)=>{if(id!==labId)return;stage.append(h("div",{class:"al-step"},txt));await wait(d)};
+  if(curBuild.demo){$("pz").scrollIntoView({behavior:"smooth",block:"start"});await wait(400);await curBuild.demo(log)}
+  else{box.scrollIntoView({behavior:"smooth",block:"start"});
+    if(a.bars){stage.append(h("div",{class:"al-step"},a.barsTitle));const rows=a.bars.map(([l,v])=>{const f=h("i",{});stage.append(h("div",{class:"bar"},h("span",{class:"bl"},l),h("span",{class:"bt"},f),h("span",{class:"bv"},v+"%")));return[f,v]});
+      await wait(80);rows.forEach(([f,v])=>f.style.width=v+"%");await wait(900);await log("✅ Highest score wins: "+a.bars[0][0],200)}
+    else if(a.map){mapDemo(stage);await wait(1200);await log("✅ Close together = similar meaning. That's how AI knows “orbit” is about space!",200)}
+    else for(const st of a.steps)await log(st);}
+  if(id!==labId)return;
+  box.append(h("div",{class:"actions"},h("button",{class:"btn primary",onclick:finish},"🏁 See my final score")));
+  box.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+function mapDemo(stage){
+  const pts=[["planet",70,40],["orbit",92,58],["moon",60,70],["star",100,28],["pizza",250,60],["pasta",276,40],["rice",262,84],["cat",150,160],["dog",178,176],["lion",140,188]];
+  let g=`<svg viewBox="0 0 340 220" class="emb"><rect x="1" y="1" width="338" height="218" rx="12" fill="none" stroke="currentColor" stroke-opacity=".3"/>`;
+  g+=`<ellipse cx="82" cy="52" rx="50" ry="38" fill="#5EE6FF" fill-opacity=".15"/><ellipse cx="262" cy="62" rx="40" ry="36" fill="#FFC93C" fill-opacity=".18"/><ellipse cx="158" cy="176" rx="42" ry="30" fill="#2E8B57" fill-opacity=".15"/>`;
+  pts.forEach(([w,x,y],i)=>{const hl=w==="orbit";g+=`<g class="emp" style="animation-delay:${i*.12}s"><circle cx="${x}" cy="${y}" r="${hl?7:5}" fill="${hl?"#FF4FD8":"currentColor"}"/><text x="${x+9}" y="${y+4}" font-size="12" font-weight="800" fill="currentColor">${w}</text></g>`});
+  stage.append(h("div",{class:"al-step"},"🤖 Every word gets coordinates, like a point on your grid:"),h("div",{class:"embw",html:g+"</svg>"}));
+}
+
+/* ================= state ================= */
+const BONUS=20;
+let S={name:"",level:null,scores:{}};   // scores[n]={pts,tries,done}
+let cur=null,curBuild=null,callId=0;
+
+function total(){return Object.values(S.scores).reduce((a,s)=>a+(s.pts||0),0)}
+function starsFor(p){return p>=90?3:p>=60?2:p>=30?1:0}
+function starStr(n){return "⭐".repeat(n)+"☆".repeat(3-n)}
+function list(){return MISSIONS.filter(m=>m.level===S.level)}
+
+function show(id){["sWelcome","sBoard","sMission","sFinal"].forEach(s=>$(s).classList.toggle("on",s===id));$("topWrap").classList.toggle("on",id==="sBoard"||id==="sMission");window.scrollTo(0,0)}
+function paintTop(){$("tbName").textContent="🕵️ "+S.name;const p=$("tbLevel");p.className="pill "+(S.level==="junior"?"jr":"ex");p.textContent=S.level==="junior"?"Ages 6 to 9":"Ages 10 to 15";$("tbScore").textContent=total()}
+
+/* ================= leaderboard (this device) ================= */
+const LBK="clueline-leaderboard";
+function lbGet(){try{return JSON.parse(localStorage.getItem(LBK)||"[]")}catch{return[]}}
+function lbAdd(e){try{const l=lbGet();l.push(e);l.sort((a,b)=>b.pct-a.pct||b.pts-a.pts||(a.time??999)-(b.time??999));localStorage.setItem(LBK,JSON.stringify(l.slice(0,50)))}catch{}}
+function paintLB(){const l=lbGet().slice(0,5),ul=$("lb");ul.innerHTML="";if(!l.length){ul.append(h("li",{class:"empty",style:"background:none"},"No scores yet. Be the first detective!"));return}
+  l.forEach((e,i)=>ul.append(h("li",{},h("span",{class:"rk"},String(i+1)),h("span",{class:"nm"},e.name,h("div",{class:"lv"},e.level==="junior"?"Ages 6 to 9":"Ages 10 to 15")),h("span",{class:"pt"},e.pts+" / "+e.max,e.time!=null?h("div",{class:"lv"},"⏱ "+fmt(e.time)):""))))}
+
+/* ================= welcome ================= */
+document.querySelectorAll(".age").forEach(b=>b.onclick=()=>{
+  const n=$("nameIn").value.trim();if(!n){$("nameErr").style.display="block";$("nameIn").focus();return}
+  S={name:n,level:b.dataset.level,scores:{}};enterBoard()});
+$("nameIn").addEventListener("input",()=>$("nameErr").style.display="none");
+
+/* ================= board ================= */
+function enterBoard(){document.body.dataset.tier=S.level;aiMount("aiBoard");aiMount("aiMission");aiMount("aiFinal");paintBoard();show("sBoard");}
+function paintBoard(){
+  paintTop();const t=$("tiles");t.innerHTML="";
+  list().forEach(m=>{const b=h("button",{class:"chunky tile",style:"--acc:"+m.acc},h("span",{class:"tn"},String(m.n)),h("span",{},h("div",{class:"tt"},m.icon+" "+m.title),h("div",{class:"ts"},"🤖 "+m.ai.concept)));b.onclick=()=>openMission(m);t.append(b)})}
+$("changeAge").onclick=()=>{S.level=S.level==="junior"?"expert":"junior";S.scores={};enterBoard()};
+
+/* ================= mission ================= */
+function openMission(m){
+  stopAll();cur=m;const s=S.scores[m.n]||{pts:0,done:false,clues:0};S.scores[m.n]=s;
+  document.documentElement.style.setProperty("--acc",m.acc);
+  $("mNum").textContent=m.n;$("mTitle").textContent=m.icon+" "+m.title;
+  $("hintBox").innerHTML="";$("hintBox").append(h("span",{class:"hi"},"💡"),h("span",{},h("b",{},"Hint: "),m.hint));curBuild=m.build();$("pz").innerHTML="";$("pz").append(curBuild.el);
+  document.querySelector(".cluebar").classList.remove("done");paintSkill(m);labId++;$("aiLab").className="ailab";$("aiLab").innerHTML="";$("pCard").classList.remove("locked");$("result").className="result";$("result").innerHTML="";
+  $("clueText").textContent=m.clue;paintClueUsed();paintTop();
+  $("checkRow").style.display="";$("callBtn").disabled=false;$("backBtn").style.display="";
+  show("sMission");aiSay("aiMission",MSG.start[tier()]());startTimer();
+}
+function paintClueUsed(){const s=S.scores[cur.n];$("clueUsed").textContent=s.clues?`Clue used (${s.clues} ${s.clues>1?"calls":"call"}). You can call again anytime.`:"Read the hint and think first. Solve it without a clue for a +20 bonus!";$("mAtt").textContent=s.clues?"📞 Clue used":"🧠 No clue yet"}
+$("backBtn").onclick=()=>{stopAll();stopTimer();delete S.scores[cur.n];paintBoard();show("sBoard")};
+
+const LIMIT=120;let tStart=0,tInt=null;
+const fmt=sec=>`${Math.floor(sec/60)}:${String(sec%60).padStart(2,"0")}`;
+function elapsed(){return Math.min(LIMIT,Math.round((Date.now()-tStart)/1000))}
+function startTimer(){stopTimer();tStart=Date.now();paintTimer();tInt=setInterval(()=>{paintTimer();if(elapsed()>=LIMIT){stopTimer();doCheck(true)}},250)}
+function stopTimer(){clearInterval(tInt);tInt=null}
+function paintTimer(){const left=LIMIT-elapsed(),t=$("timer");t.textContent="⏱ "+fmt(left);t.classList.toggle("warn",left<=30);t.classList.toggle("end",left<=10)}
+let checking=false;
+async function doCheck(timeUp=false){
+  if(checking)return;checking=true;stopTimer();const s=S.scores[cur.n];s.time=elapsed();s.timeUp=timeUp;clearMarks($("pz"));stopAll();
+  $("pCard").classList.add("locked");$("checkRow").style.display="none";$("callBtn").disabled=true;$("backBtn").style.display="none";document.querySelector(".cluebar").classList.add("done");
+  $("scanT").textContent=(timeUp?"⏰ Time's up! ":"")+MSG.scan[tier()]();if(timeUp)buzz();const bar=$("scanBar");bar.innerHTML="<i></i>";$("scan").classList.add("on");aiSay("aiMission",MSG.scan[tier()]());
+  await wait(1600);$("scan").classList.remove("on");
+  const pct=Math.max(0,Math.min(1,curBuild.check()));const base=Math.round(pct*100);
+  const bonus=(!s.clues&&pct>=.5)?BONUS:0;s.pts=base+bonus;s.base=base;s.bonus=bonus;s.pct=pct;s.done=true;paintTop();
+  showResult();setTimeout(runAILab,900);aiSay("aiMission",MSG.result[tier()](pct,s.clues),true);pct>=.999?(chime(),confetti()):pct>=.5?chime():buzz();checking=false;
+}
+$("checkBtn").onclick=()=>doCheck();
+function showResult(){
+  const s=S.scores[cur.n],box=$("result");box.innerHTML="";const pct=s.pct??0,perfect=pct>=.999;
+  box.className="result on "+(pct>=.5?"good":"meh");
+  box.append(h("h3",{},perfect?"Perfect! Mission solved! 🎉":pct>=.5?"Nice work, detective!":"Good try!"),h("div",{class:"rs"},starStr(starsFor(s.base||0))),
+    h("div",{class:"tline"},s.timeUp?`⏰ Time's up! You used the full ${fmt(LIMIT)}`:`⏱ Done in ${fmt(s.time)}`),
+    h("div",{},`You got ${Math.round(pct*100)}% right: ${s.base} points`),
+    s.bonus?h("div",{class:"nobonus"},`🧠 No-clue bonus +${s.bonus}`):"",
+    h("div",{style:"font-family:Fredoka;font-size:1.3rem;margin-top:6px"},`Mission total: ${s.pts} points`));
+  if(!perfect)box.append(h("div",{class:"ans"},"Answer: "+cur.answer));
+  box.append(h("div",{class:"hint"},"🤖 Now watch how an AI would solve this mission below…"));
+  box.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+/* ================= voice clue ================= */
+const VOICES=[{pitch:1,rate:.9},{pitch:1.6,rate:.95},{pitch:.55,rate:.85}];
+let picked=[];
+function pickVoices(){const all=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));const loc=all.filter(v=>v.localService),pool=loc.length?loc:all;picked=[0,1,2].map(i=>pool.length?pool[i%pool.length]:null)}
+if("speechSynthesis"in window){speechSynthesis.onvoiceschanged=pickVoices;pickVoices()}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+function say(text,i,id){return new Promise(res=>{if(id!==callId||!("speechSynthesis"in window))return res();const u=new SpeechSynthesisUtterance(text);if(picked[i])u.voice=picked[i];u.pitch=VOICES[i].pitch;u.rate=VOICES[i].rate;u.lang="en-US";
+  const g=setTimeout(res,2500+text.length*110);u.onend=u.onerror=()=>{clearTimeout(g);res()};speechSynthesis.speak(u)})}
+let ac;function tone(freqs,dur,vol=.12,when=0){try{ac=ac||new AudioContext();const t=ac.currentTime+when;const g=ac.createGain();g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+dur);g.connect(ac.destination);freqs.forEach(f=>{const o=ac.createOscillator();o.frequency.value=f;o.connect(g);o.start(t);o.stop(t+dur)})}catch{}}
+function ring(){for(let i=0;i<2;i++)tone([440,480],.8,.12,i*1.2)}
+function chime(){tone([660],.18,.15,0);tone([880],.18,.15,.16);tone([1320],.35,.15,.32)}
+function buzz(){tone([180],.35,.12)}
+function phoneMode(m,t){$("phone").className="chunky callbox phonecard "+m;$("pStatus").textContent=t}
+async function callClue(){
+  if(!cur||S.scores[cur.n].done)return;
+  const id=++callId;try{speechSynthesis.cancel()}catch{}
+  const s=S.scores[cur.n];s.clues=(s.clues||0)+1;paintClueUsed();
+  aiSay("aiMission",MSG.call[tier()]());$("callOver").classList.add("on");$("clueText").classList.add("hidden");$("hangBtn").focus();
+  phoneMode("ringing","Ringing…");ring();await wait(2400);if(id!==callId)return;
+  const v=Math.floor(Math.random()*VOICES.length);   // random voice each call
+  $("clueText").classList.remove("hidden");
+  phoneMode("talking","Listen carefully…");
+  await say("Hello, detective! Here is your clue. "+cur.clue,v,id);
+  if(id!==callId)return;
+  phoneMode("","Back to your worksheet!");await wait(1500);
+  if(id===callId)closeCall();
+}
+function closeCall(){callId++;try{speechSynthesis.cancel()}catch{}$("callOver").classList.remove("on");$("callBtn").focus();aiSay("aiMission",MSG.back[tier()]())}
+$("callBtn").onclick=callClue;$("hangBtn").onclick=closeCall;
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("callOver").classList.contains("on"))closeCall()});
+function stopAll(){callId++;try{speechSynthesis.cancel()}catch{}$("callOver").classList.remove("on")}
+
+/* ================= finish ================= */
+async function finish(){
+  stopAll();const m=cur,sc=S.scores[m.n],max=100+BONUS,pts=sc.pts||0,pct=pts/max;
+  const rank=tier()==="expert"?(pct>=.9?"🏆 Elite Agent":pct>=.7?"🥇 Senior Agent":pct>=.4?"🥈 Field Agent":"🥉 Agent in Training")
+                             :(pct>=.9?"🏆 Master Detective":pct>=.7?"🥇 Super Sleuth":pct>=.4?"🥈 Clever Investigator":"🥉 Rookie Detective");
+  $("fName").textContent=(tier()==="expert"?"Mission complete, Agent ":"Great job, ")+S.name+"!";$("fScore").textContent=pts;$("fMax").textContent=`points out of ${max}`;$("fRank").textContent=rank;$("fSkill").textContent="🤖 AI skill unlocked: "+m.ai.concept;
+  const fl=$("fList");fl.innerHTML="";
+  fl.append(h("div",{},h("span",{},m.icon+" "+m.title),h("span",{},sc.base+" pts")),h("div",{},h("span",{},"⏱ Time"),h("span",{},sc.timeUp?"Time's up":fmt(sc.time))),h("div",{},h("span",{},"🧠 No-clue bonus"),h("span",{},sc.bonus?"+"+sc.bonus:"—")),h("div",{},h("span",{},"📞 Clue calls"),h("span",{},String(sc.clues||0))));
+  lbAdd({name:S.name,level:S.level,pts,max,pct,time:sc.time});confetti();show("sFinal");
+}
+$("nextPlayer").onclick=()=>{stopAll();stopTimer();delete document.body.dataset.tier;S={name:"",level:null,scores:{}};$("nameIn").value="";paintLB();document.documentElement.style.removeProperty("--acc");show("sWelcome");$("nameIn").focus()};
+
+function confetti(){if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;const c=h("div",{class:"confetti"});const cols=["#FF5A3C","#FFC93C","#3A86FF","#2E8B57","#E63973","#8E5CF7"];
+  for(let i=0;i<70;i++)c.append(h("i",{style:`left:${Math.random()*100}%;background:${cols[i%cols.length]};animation-delay:${Math.random()*.6}s;transform:rotate(${Math.random()*360}deg)`}));document.body.append(c);setTimeout(()=>c.remove(),2600)}
+
+paintLB();
+</script>
+</body>
+</html>
