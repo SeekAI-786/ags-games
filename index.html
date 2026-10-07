@@ -19,6 +19,9 @@
     .game h2 { margin: 0 0 10px; font: 700 1.65rem/1.1 Georgia, serif; }
     .game p { margin: 0; color: var(--muted); }
     .launch { display: inline-block; margin-top: 22px; color: var(--accent); font-weight: 700; }
+    .brand-credit { position: fixed; left: 0; right: 0; bottom: 0; z-index: 2; display: flex; align-items: center; justify-content: center; gap: 9px; padding: 10px 20px calc(10px + env(safe-area-inset-bottom, 0px)); color: var(--muted); font-size: .82rem; text-align: center; pointer-events: none; }
+    .brand-credit img { width: 34px; height: 34px; object-fit: contain; border-radius: 7px; }
+    .brand-credit strong { color: var(--ink); font-weight: 800; }
     @media (max-width: 680px) { main { padding-top: 9vh; } .games { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -39,5 +42,9 @@
       </a>
     </section>
   </main>
+  <footer class="brand-credit">
+    <img src="AGS%20Logo.png" alt="Align Global Solution logo">
+    <span>Developed by <strong>Align Global Solution</strong></span>
+  </footer>
 </body>
 </html>
